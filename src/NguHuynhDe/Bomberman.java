@@ -1,7 +1,7 @@
 package NguHuynhDe;
 
 import NguHuynhDe.exceptions.BombermanException;
-import NguHuynhDe.gui.Frame;
+import NguHuynhDe.Performance.Frame;
 
 public class Bomberman {
 	

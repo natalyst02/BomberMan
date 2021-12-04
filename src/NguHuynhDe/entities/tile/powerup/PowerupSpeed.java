@@ -3,7 +3,7 @@ package NguHuynhDe.entities.tile.powerup;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class PowerupSpeed extends Powerup {
 

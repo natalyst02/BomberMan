@@ -6,16 +6,15 @@ import NguHuynhDe.entities.AnimatedEntitiy;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Mob;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.level.Coordinates;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
-import NguHuynhDe.audio.Audio;
+import NguHuynhDe.MapLv.Coordinates;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
+import NguHuynhDe.music.Audio;
 
 public class Bomb extends AnimatedEntitiy {
 
-	//options
-	protected double _timeToExplode = 120; //2 seconds
-	public int _timeAfter = 20; //time to explosions disapear
+	protected double _timeToExplode = 120; //2 giay
+	public int _timeAfter = 20; //bien mat
 	
 	protected Board _board;
 	protected boolean _allowedToPassThru = true;
@@ -120,7 +119,7 @@ public class Bomb extends AnimatedEntitiy {
 			double diffX = e.getX() - Coordinates.tileToPixel(getX());
 			double diffY = e.getY() - Coordinates.tileToPixel(getY());
 			
-			if(!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) { // differences to see if the player has moved out of the bomb, tested values
+			if(!(diffX >= -10 && diffX < 16 && diffY >= 1 && diffY <= 28)) {
 				_allowedToPassThru = false;
 			}
 			

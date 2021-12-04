@@ -3,7 +3,7 @@ package NguHuynhDe.entities.tile;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class PortalTile extends Tile {
 

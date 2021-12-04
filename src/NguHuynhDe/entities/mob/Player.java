@@ -9,15 +9,15 @@ import NguHuynhDe.Game;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.Message;
-import NguHuynhDe.audio.Audio;
+import NguHuynhDe.music.Audio;
 import NguHuynhDe.entities.bomb.Bomb;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.Enemy;
 import NguHuynhDe.entities.tile.powerup.Powerup;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 import NguHuynhDe.input.Keyboard;
-import NguHuynhDe.level.Coordinates;
+import NguHuynhDe.MapLv.Coordinates;
 
 public class Player extends Mob {
 
@@ -25,14 +25,10 @@ public class Player extends Mob {
 	protected Keyboard _input;
 	protected Audio _audio = new Audio();
 	protected int _timeBetweenPutBombs = 0;
-
+	public static boolean undead=false;
 	public static List<Powerup> _powerups = new ArrayList<Powerup>();
 
-	/** Shield 1.0
-	 *
- 	 * @time 11.11
-	 * @date 11/6/2020
-	 * @arthur Manh Cuong
+	/** make Shied
 	 */
 	protected Shield _shield = new Shield(0,0,0,0,_board,this);
 	public void set_shield(Shield _shield){
@@ -46,7 +42,7 @@ public class Player extends Mob {
 	protected void DetectSetShield(){
 		if (_input.R){
 			int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2f);
-			int yt = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2f) - _sprite.getSize() ); //subtract half player height and minus 1 y position
+			int yt = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2f) - _sprite.getSize() );
 			placeShield(xt,yt);
 		}
 	}
@@ -101,13 +97,17 @@ public class Player extends Mob {
 	public void render(Screen screen) {
 		calculateXOffset();
 
-		if(_alive)
+		if(_alive) {
 			chooseSprite();
+
+		}
+
 		else
 			_sprite = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, _animate, 20);
 					//Sprite.player_dead1;
 
 		screen.renderEntity((int)_x, (int)_y - _sprite.SIZE, this);
+
 		_shield.render(screen);
 	}
 
@@ -162,7 +162,7 @@ public class Player extends Mob {
 	 */
 	@Override
 	public void kill() {
-		if (!_shield.getActive()){
+		if (!_shield.getActive() && !undead){
 			if(!_alive) return;
 
 			_alive = false;
@@ -256,7 +256,7 @@ public class Player extends Mob {
 
 		// Nếu có khiên thì húc được kẻ địch chết
 		if(e instanceof Enemy) {
-			if (_shield.getActive()){
+			if (_shield.getActive() && undead){
 				((Enemy) e).kill();
 			}
 			else {
@@ -301,37 +301,74 @@ public class Player extends Mob {
 	| Mob Sprite
 	|--------------------------------------------------------------------------
 	 */
+
 	private void chooseSprite() {
+
 		switch(_direction) {
-		case 0:
-			_sprite = Sprite.player_up;
-			if(_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
-			}
+			case 0:
+				if(undead){
+					_sprite = Sprite.player_up1;
+
+					if(_moving) {
+						_sprite = Sprite.movingSprite(Sprite.player_up_11, Sprite.player_up_21, _animate, 20);
+					}
+				}
+			else {
+					_sprite = Sprite.player_up;
+
+					if (_moving) {
+						_sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+					}
+				}
 			break;
 		case 1:
+			if(undead){
+				_sprite = Sprite.player_right1;
+				if(_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_right_11, Sprite.player_right_21, _animate, 20);
+			}}
+			else{
 			_sprite = Sprite.player_right;
 			if(_moving) {
 				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
-			}
+			}}
+
 			break;
 		case 2:
-			_sprite = Sprite.player_down;
-			if(_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+			if(undead){
+				_sprite = Sprite.player_down1;
+				if(_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_down_11, Sprite.player_down_21, _animate, 20);
+				}
+			}
+			else {
+				_sprite = Sprite.player_down;
+				if (_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+				}
 			}
 			break;
 		case 3:
+			if(undead)
+			{
+				_sprite = Sprite.player_left1;
+				if(_moving) {
+					_sprite = Sprite.movingSprite(Sprite.player_left_11, Sprite.player_left_21, _animate, 20);
+				}
+			}
+			else{
 			_sprite = Sprite.player_left;
 			if(_moving) {
 				_sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
-			}
+			}}
+
 			break;
 		default:
 			_sprite = Sprite.player_right;
 			if(_moving) {
 				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
 			}
+
 			break;
 		}
 	}

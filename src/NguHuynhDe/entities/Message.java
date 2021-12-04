@@ -2,7 +2,7 @@ package NguHuynhDe.entities;
 
 import java.awt.Color;
 
-import NguHuynhDe.graphics.Screen;
+import NguHuynhDe.display.Screen;
 
 public class Message extends Entity {
 

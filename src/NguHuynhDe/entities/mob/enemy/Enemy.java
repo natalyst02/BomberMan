@@ -8,11 +8,11 @@ import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.Message;
 import NguHuynhDe.entities.mob.Mob;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.level.Coordinates;
+import NguHuynhDe.MapLv.Coordinates;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.ai.AI;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 
 public abstract class Enemy extends Mob {
 

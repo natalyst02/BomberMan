@@ -14,12 +14,12 @@ import NguHuynhDe.entities.bomb.Bomb;
 import NguHuynhDe.entities.bomb.Explosion;
 import NguHuynhDe.entities.tile.powerup.Powerup;
 import NguHuynhDe.exceptions.LoadLevelException;
-import NguHuynhDe.graphics.IRender;
-import NguHuynhDe.graphics.Screen;
+import NguHuynhDe.display.IRender;
+import NguHuynhDe.display.Screen;
 import NguHuynhDe.input.Keyboard;
-import NguHuynhDe.level.FileLevel;
-import NguHuynhDe.level.Level;
-import NguHuynhDe.audio.Audio;
+import NguHuynhDe.MapLv.FileLevel;
+import NguHuynhDe.MapLv.Level;
+import NguHuynhDe.music.Audio;
 
 public class Board implements IRender {
 
@@ -51,6 +51,9 @@ public class Board implements IRender {
 	 */
 	protected List<Bomb> _bombs = new ArrayList<>();
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
+	public int getScreen(){
+		return _screenToShow;
+	}
 	/**
 	 * Thời gian
 	 */

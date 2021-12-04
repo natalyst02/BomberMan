@@ -3,7 +3,7 @@ package NguHuynhDe.entities.tile.destroyable;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.tile.Tile;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class DestroyableTile extends Tile {
 

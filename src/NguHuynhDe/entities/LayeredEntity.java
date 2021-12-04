@@ -3,7 +3,7 @@ package NguHuynhDe.entities;
 import java.util.LinkedList;
 
 import NguHuynhDe.entities.tile.destroyable.DestroyableTile;
-import NguHuynhDe.graphics.Screen;
+import NguHuynhDe.display.Screen;
 
 public class LayeredEntity extends Entity {
 	
@@ -16,7 +16,7 @@ public class LayeredEntity extends Entity {
 		for (int i = 0; i < entities.length; i++) {
 			_entities.add(entities[i]); 
 			
-			if(i > 1) { //Add to destroyable tiles the bellow sprite for rendering in explosion
+			if(i > 1) { //load hoat anh no duoi hoat anh die
 				if(entities[i] instanceof DestroyableTile)
 					((DestroyableTile)entities[i]).addBelowSprite(entities[i-1].getSprite());
 			}

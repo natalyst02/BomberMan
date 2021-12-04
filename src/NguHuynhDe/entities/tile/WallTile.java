@@ -1,7 +1,7 @@
 package NguHuynhDe.entities.tile;
 
 
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class WallTile extends Tile {
 

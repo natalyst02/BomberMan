@@ -4,9 +4,9 @@ package NguHuynhDe.entities.tile.destroyable;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.Kondoria;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.level.Coordinates;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.MapLv.Coordinates;
+import NguHuynhDe.display.Sprite;
 
 public class BrickTile extends DestroyableTile {
 	

@@ -2,8 +2,8 @@ package NguHuynhDe.entities.mob;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 
 public class Shield extends Mob{
     private boolean isActive = false;
@@ -75,7 +75,6 @@ public class Shield extends Mob{
 //        screen.renderEntity((int)_x, (int)_y, this);
 //    }
 
-    // Cuong
     @Override
     public void render(Screen screen) {
 //        calculateXOffset();

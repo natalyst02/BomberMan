@@ -1,9 +1,9 @@
 package NguHuynhDe.entities;
 
-import NguHuynhDe.level.Coordinates;
-import NguHuynhDe.graphics.IRender;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.MapLv.Coordinates;
+import NguHuynhDe.display.IRender;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 
 public abstract class Entity implements IRender {
 
@@ -40,10 +40,10 @@ public abstract class Entity implements IRender {
 	}
 	
 	public int getXTile() {
-		return Coordinates.pixelToTile(_x + _sprite.SIZE / 2); //plus half block for precision
+		return Coordinates.pixelToTile(_x + _sprite.SIZE / 2); // tinh toan va cham
 	}
 	
 	public int getYTile() {
-		return Coordinates.pixelToTile(_y - _sprite.SIZE / 2); //plus half block
+		return Coordinates.pixelToTile(_y - _sprite.SIZE / 2); //tinh toan va cham
 	}
 }

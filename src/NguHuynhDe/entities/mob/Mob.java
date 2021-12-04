@@ -3,7 +3,7 @@ package NguHuynhDe.entities.mob;
 import NguHuynhDe.Game;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.AnimatedEntitiy;
-import NguHuynhDe.graphics.Screen;
+import NguHuynhDe.display.Screen;
 
 public abstract class Mob extends AnimatedEntitiy {
 	

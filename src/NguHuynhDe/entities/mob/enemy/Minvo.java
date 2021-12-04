@@ -4,7 +4,7 @@ package NguHuynhDe.entities.mob.enemy;
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.mob.enemy.ai.AIMedium;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class Minvo extends Enemy {
 	

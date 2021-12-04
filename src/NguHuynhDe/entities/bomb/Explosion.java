@@ -3,8 +3,8 @@ package NguHuynhDe.entities.bomb;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Mob;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 
 
 public class Explosion extends Entity {

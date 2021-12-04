@@ -1,7 +1,7 @@
 package NguHuynhDe.entities.tile.powerup;
 
 import NguHuynhDe.entities.tile.Tile;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public abstract class Powerup extends Tile {
 

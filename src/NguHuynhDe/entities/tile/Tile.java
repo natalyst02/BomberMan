@@ -1,9 +1,9 @@
 package NguHuynhDe.entities.tile;
 
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.level.Coordinates;
-import NguHuynhDe.graphics.Screen;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.MapLv.Coordinates;
+import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.Sprite;
 
 public abstract class Tile extends Entity {
 	

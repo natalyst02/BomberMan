@@ -2,7 +2,7 @@ package NguHuynhDe.entities.tile;
 
 
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.graphics.Sprite;
+import NguHuynhDe.display.Sprite;
 
 public class GrassTile extends Tile {
 

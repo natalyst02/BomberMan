@@ -3,7 +3,7 @@ package NguHuynhDe.entities.bomb;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Mob;
-import NguHuynhDe.graphics.Screen;
+import NguHuynhDe.display.Screen;
 
 public class DirectionalExplosion extends Entity {
 
@@ -56,9 +56,9 @@ public class DirectionalExplosion extends Entity {
 			
 			Entity a = _board.getEntity(x, y, null);
 			
-			if(a instanceof Mob) ++radius; //explosion has to be below the mob
+			if(a instanceof Mob) ++radius; // vu no tac dong xung quanh
 			
-			if(a.collide(this) == false) //cannot pass thru
+			if(a.collide(this) == false)
 				break;
 			
 			++radius;
