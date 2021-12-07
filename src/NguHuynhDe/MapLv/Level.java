@@ -5,11 +5,11 @@ import NguHuynhDe.exceptions.LoadLevelException;
 
 public abstract class Level implements ILevel {
 
-	protected int _width, _height, _level;
-	protected String[] _lineTiles;
-	protected Board _board;
+	protected int ScreenWidth, ScreenHeight, modeG;
+	protected String[] FileGameTiles;
+	protected Board GameBoard;
 
-	protected static String[] Mode = { //TODO: change this code system to actualy load the code from each level.txt
+	protected static String[] Mode = { 
 		"L1",
 		"L2",
 		"L3",
@@ -19,7 +19,7 @@ public abstract class Level implements ILevel {
 
 	public Level(String path, Board board) throws LoadLevelException {
 		loadLevel(path);
-		_board = board;
+		GameBoard = board;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public abstract class Level implements ILevel {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Mode
+	| Mode Game
 	|--------------------------------------------------------------------------
 	 */
 	public int validCode(String str) {
@@ -41,20 +41,20 @@ public abstract class Level implements ILevel {
 		return -1;
 	}
 	
-	public String getActualCode() {
-		return Mode[_level -1];
+	public String getMode() {
+		return Mode[modeG -1];
 	}
 
 	public int getWidth() {
-		return _width;
+		return ScreenWidth;
 	}
 
 	public int getHeight() {
-		return _height;
+		return ScreenHeight;
 	}
 
 	public int getLevel() {
-		return _level;
+		return modeG;
 	}
 
 }

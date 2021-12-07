@@ -16,12 +16,12 @@ import NguHuynhDe.Performance.Frame;
 
 public class Options extends JMenu implements ChangeListener {
 
-	Frame _frame;
+	Frame GameFrame;
 	
 	public Options(Frame frame) {
 		super("Options");
 		
-		_frame = frame;
+		GameFrame = frame;
 		
 		JMenuItem pause = new JMenuItem("Pause");
 		pause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
@@ -46,27 +46,27 @@ public class Options extends JMenu implements ChangeListener {
 	        NguHuynhDe.Game.SCALE = fps;
 	        System.out.println( Game.SCALE);
 	        
-	        _frame._gamepane.changeSize();
-			  _frame.revalidate();
-			  _frame.pack();
+	        GameFrame.GamePlaypane.changeSize();
+			  GameFrame.revalidate();
+			  GameFrame.pack();
 	    }
 	}
 	
 	class MenuActionListener implements ActionListener {
-		public Frame _frame;
+		public Frame GameFrame;
 		public MenuActionListener(Frame frame) {
-			_frame = frame;
+			GameFrame = frame;
 		}
 		
 		  @Override
 		public void actionPerformed(ActionEvent e) {
 			  
 			  if(e.getActionCommand().equals("Pause")) {
-				  _frame.pauseGame();
+				  GameFrame.pauseGame();
 			  }
 				  
 			  if(e.getActionCommand().equals("Resume")) {
-				  _frame.resumeGame();
+				  GameFrame.resumeGame();
 			  }
 		  }
 	}

@@ -19,7 +19,7 @@ public class Game extends Canvas {
 	| title game
 	|--------------------------------------------------------------------------
 	 */
-	public static final double VERSION = 1.9;
+	public static final double VERSION = 5.0;
 	
 	public static final int TILES_SIZE = 16,
 							WIDTH = TILES_SIZE * (int)(31 / 2),
@@ -27,7 +27,7 @@ public class Game extends Canvas {
 
 	public static int SCALE = 3;
 	
-	public static final String TITLE = "Bomberman " + VERSION;
+	public static final String TITLE = "Bomberman NGU HUYNH DE " + VERSION;
 
 	private static final int BOMBRATE = 1;
 	private static final int BOMBRADIUS = 1;
@@ -47,102 +47,102 @@ public class Game extends Canvas {
 	
 	
 	//FPS
-	protected int _screenDelay = SCREENDELAY;
+	protected int ScreenGameDelay = SCREENDELAY;
 	
-	private Keyboard _input;
-	private boolean _running = false;
-	private boolean _paused = true;
+	private Keyboard InputFromKeyboard;
+	private boolean PlayerInRun = false;
+	private boolean GPaused = true;
 	
-	private Board _board;
+	private Board GameBoard;
 	private Screen screen;
-	private Frame _frame;
+	private Frame GameFrame;
 	
-	//render game
+	//render 
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	public Game(Frame frame) throws BombermanException {
-		_frame = frame;
-		_frame.setTitle(TITLE);
+		GameFrame = frame;
+		GameFrame.setTitle(TITLE);
 		
 		screen = new Screen(WIDTH, HEIGHT);
-		_input = new Keyboard();
+		InputFromKeyboard = new Keyboard();
 		
-		_board = new Board(this, _input, screen);
-		addKeyListener(_input);
+		GameBoard = new Board(this, InputFromKeyboard, screen);
+		addKeyListener(InputFromKeyboard);
 	}
 	
 	
 	private void renderGame() {
-		BufferStrategy bs = getBufferStrategy();
-		if(bs == null) {
+		BufferStrategy str = getBufferStrategy();
+		if(str == null) {
 			createBufferStrategy(3);
 			return;
 		}
 		
 		screen.clear();
 		
-		_board.render(screen);
+		GameBoard.render(screen);
 		
 		for (int i = 0; i < pixels.length; i++) { //load anh
-			pixels[i] = screen._pixels[i];
+			pixels[i] = screen.pixelInGame[i];
 		}
 		
-		Graphics g = bs.getDrawGraphics();
+		Graphics g = str.getDrawGraphics();
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		_board.renderMessages(g);
+		GameBoard.renderMessages(g);
 		
-		g.dispose(); //free
-		bs.show();
+		g.dispose(); 
+		str.show();
 	}
 	
 	private void renderScreen() {
-		BufferStrategy bs = getBufferStrategy();
-		if(bs == null) {
+		BufferStrategy str = getBufferStrategy();
+		if(str == null) {
 			createBufferStrategy(3);
 			return;
 		}
 		
 		screen.clear();
 		
-		Graphics g = bs.getDrawGraphics();
+		Graphics g = str.getDrawGraphics();
 		
-		_board.drawScreen(g);
+		GameBoard.drawScreen(g);
 
 		g.dispose();
-		bs.show();
+		str.show();
 	}
 
 	private void update() {
-		_input.update();
-		_board.update();
+		InputFromKeyboard.update();
+		GameBoard.update();
 	}
 	
 	public void start() {
-		_running = true;
+		PlayerInRun = true;
 		
 		long  lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0; //
-		double delta = 0;
+		double TimeDiff = 0;
 		int frames = 0;
 		int updates = 0;
 		requestFocus();
-		while(_running) {
+		while(PlayerInRun) {
 			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
+			TimeDiff += (now - lastTime) / ns;
 			lastTime = now;
-			while(delta >= 1) {
+			while(TimeDiff >= 1) {
 				update();
 				updates++;
-				delta--;
+				TimeDiff--;
 			}
 			
-			if(_paused) {
-				if(_screenDelay <= 0) {
-					_board.setShow(-1);
-					_paused = false;
+			if(GPaused) {
+				if(ScreenGameDelay <= 0) {
+					GameBoard.setShow(-1);
+					GPaused = false;
 				}
 					
 				renderScreen();
@@ -153,16 +153,16 @@ public class Game extends Canvas {
 			
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
-				_frame.setTime(_board.subtractTime());
-				_frame.setPoints(_board.getPoints());
-				_frame.setLives(_board.getLives());
+				GameFrame.setTime(GameBoard.TimeUp());
+				GameFrame.setPoints(GameBoard.getPoints());
+				GameFrame.setLives(GameBoard.getLives());
 				timer += 1000;
-				_frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
+				GameFrame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
 				updates = 0;
 				frames = 0;
 				
-				if(_board.getShow() == 2)
-					--_screenDelay;
+				if(GameBoard.getShow() == 2)
+					--ScreenGameDelay;
 			}
 		}
 	}
@@ -199,44 +199,44 @@ public class Game extends Canvas {
 	
 	//delay
 	public int getScreenDelay() {
-		return _screenDelay;
+		return ScreenGameDelay;
 	}
 	
 	public void decreaseScreenDelay() {
-		_screenDelay--;
+		ScreenGameDelay--;
 	}
 	
 	public void resetScreenDelay() {
-		_screenDelay = SCREENDELAY;
+		ScreenGameDelay = SCREENDELAY;
 	}
 
 	public Keyboard getInput() {
-		return _input;
+		return InputFromKeyboard;
 	}
 	
 	public Board getBoard() {
-		return _board;
+		return GameBoard;
 	}
 	
 	public void run() {
-		_running = true;
-		_paused = false;
+		PlayerInRun = true;
+		GPaused = false;
 	}
 	
 	public void stop() {
-		_running = false;
+		PlayerInRun = false;
 	}
 	
 	public boolean isRunning() {
-		return _running;
+		return PlayerInRun;
 	}
 	
 	public boolean isPaused() {
-		return _paused;
+		return GPaused;
 	}
 	
 	public void pause() {
-		_paused = true;
+		GPaused = true;
 	}
 	
 }

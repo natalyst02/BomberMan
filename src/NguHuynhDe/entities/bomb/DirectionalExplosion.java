@@ -7,69 +7,69 @@ import NguHuynhDe.display.Screen;
 
 public class DirectionalExplosion extends Entity {
 
-	protected Board _board;
-	protected int _direction;
-	private int _radius;
-	protected int xOrigin, yOrigin;
-	protected Explosion[] _explosions;
+	protected Board GameBoard;
+	protected int DirectionBomb;
+	private int RadiusBomb;
+	protected int xBegin, yBegin;
+	protected Explosion[] ExplosionDirections;
 	
 	public DirectionalExplosion(int x, int y, int direction, int radius, Board board) {
-		xOrigin = x;
-		yOrigin = y;
+		xBegin = x;
+		yBegin = y;
 		_x = x;
 		_y = y;
-		_direction = direction;
-		_radius = radius;
-		_board = board;
+		DirectionBomb = direction;
+		RadiusBomb = radius;
+		GameBoard = board;
 		
-		_explosions = new Explosion[ calculatePermitedDistance() ];
-		createExplosions();
+		ExplosionDirections = new Explosion[ calcDisPermited() ];
+		setExploGame();
 		}
 	
-	private void createExplosions() {
-		boolean last = false;
+	private void setExploGame() {
+		boolean checkLast = false;
 		
-		int x = (int)_x;
-		int y = (int)_y;
-		for (int i = 0; i < _explosions.length; i++) {
-			last = i == _explosions.length -1 ? true : false;
+		int xP = (int)_x;
+		int yP = (int)_y;
+		for (int i = 0; i < ExplosionDirections.length; i++) {
+			checkLast = i == ExplosionDirections.length -1 ? true : false;
 			
-			switch (_direction) {
-				case 0: y--; break;
-				case 1: x++; break;
-				case 2: y++; break;
-				case 3: x--; break;
+			switch (DirectionBomb) {
+				case 0: yP--; break;
+				case 1: xP++; break;
+				case 2: yP++; break;
+				case 3: xP--; break;
 			}
-			_explosions[i] = new Explosion(x, y, _direction, last, _board);
+			ExplosionDirections[i] = new Explosion(xP, yP, DirectionBomb, checkLast, GameBoard);
 		}
 	}
 	
-	private int calculatePermitedDistance() {
-		int radius = 0;
+	private int calcDisPermited() {
+		int radiusBo = 0;
 		int x = (int)_x;
 		int y = (int)_y;
-		while(radius < _radius) {
-			if(_direction == 0) y--;
-			if(_direction == 1) x++;
-			if(_direction == 2) y++;
-			if(_direction == 3) x--;
+		while(radiusBo < RadiusBomb) {
+			if(DirectionBomb == 0) y--;
+			if(DirectionBomb == 1) x++;
+			if(DirectionBomb == 2) y++;
+			if(DirectionBomb == 3) x--;
 			
-			Entity a = _board.getEntity(x, y, null);
+			Entity a = GameBoard.getEntity(x, y, null);
 			
-			if(a instanceof Mob) ++radius; // vu no tac dong xung quanh
+			if(a instanceof Mob) ++radiusBo; // vu no tac dong xung quanh
 			
-			if(a.collide(this) == false)
+			if(a.checkCollide(this) == false)
 				break;
 			
-			++radius;
+			++radiusBo;
 		}
-		return radius;
+		return radiusBo;
 	}
 	
-	public Explosion explosionAt(int x, int y) {
-		for (int i = 0; i < _explosions.length; i++) {
-			if(_explosions[i].getX() == x && _explosions[i].getY() == y) 
-				return _explosions[i];
+	public Explosion ExplosionPoint(int x, int y) {
+		for (int i = 0; i < ExplosionDirections.length; i++) {
+			if(ExplosionDirections[i].getX() == x && ExplosionDirections[i].getY() == y) 
+				return ExplosionDirections[i];
 		}
 		return null;
 	}
@@ -80,13 +80,13 @@ public class DirectionalExplosion extends Entity {
 	@Override
 	public void render(Screen screen) {
 		
-		for (int i = 0; i < _explosions.length; i++) {
-			_explosions[i].render(screen);
+		for (int i = 0; i < ExplosionDirections.length; i++) {
+			ExplosionDirections[i].render(screen);
 		}
 	}
 
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		return true;
 	}
 }

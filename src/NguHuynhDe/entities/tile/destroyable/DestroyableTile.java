@@ -7,11 +7,11 @@ import NguHuynhDe.display.Sprite;
 
 public class DestroyableTile extends Tile {
 
-	private final int MAX_ANIMATE = 7500; //save the animation status and dont let this get too big
-	private int _animate = 0;
-	protected boolean _destroyed = false;
-	protected int _timeToDisapear = 20;
-	protected Sprite _belowSprite = Sprite.grass; //default
+	private final int AnimationMax = 7500; 
+	private int AnimationOfEnti = 0;
+	protected boolean beDemolished = false;
+	protected int DisppearTime = 20;
+	protected Sprite SpriteBelowP = Sprite.grass; 
 	
 	public DestroyableTile(int x, int y, Sprite sprite) {
 		super(x, y, sprite);
@@ -19,25 +19,25 @@ public class DestroyableTile extends Tile {
 	
 	@Override
 	public void update() {
-		if(_destroyed) {
-			if(_animate < MAX_ANIMATE) _animate++; else _animate = 0; //reset animation
-			if(_timeToDisapear > 0) 
-				_timeToDisapear--;
+		if(beDemolished) {
+			if(AnimationOfEnti < AnimationMax) AnimationOfEnti++; else AnimationOfEnti = 0; //reset animation
+			if(DisppearTime > 0) 
+				DisppearTime--;
 			else
 				remove();
 		}
 	}
 
-	public boolean isDestroyed() {
-		return _destroyed;
+	public boolean beDestroyed() {
+		return beDemolished;
 	}
 	
 	public void destroy() {
-		_destroyed = true;
+		beDemolished = true;
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		
 		if(e instanceof DirectionalExplosion)
 			destroy();
@@ -46,17 +46,17 @@ public class DestroyableTile extends Tile {
 	}
 	
 	public void addBelowSprite(Sprite sprite) {
-		_belowSprite = sprite;
+		SpriteBelowP = sprite;
 	}
 	
 	protected Sprite movingSprite(Sprite normal, Sprite x1, Sprite x2) {
-		int calc = _animate % 30;
+		int CalcDestroy = AnimationOfEnti % 30;
 		
-		if(calc < 10) {
+		if(CalcDestroy < 10) {
 			return normal;
 		}
 			
-		if(calc < 20) {
+		if(CalcDestroy < 20) {
 			return x1;
 		}
 			

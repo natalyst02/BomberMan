@@ -9,43 +9,43 @@ import NguHuynhDe.display.Sprite;
 
 public class Explosion extends Entity {
 
-	protected boolean _last = false;
-	protected Board _board;
-	protected Sprite _sprite1, _sprite2;
+	protected boolean lastCheck = false;
+	protected Board GameBoard;
+	protected Sprite GameSprite1, GameSprite2;
 	
-	public Explosion(int x, int y, int direction, boolean last, Board board) {
+	public Explosion(int x, int y, int direction, boolean lastStatus, Board board) {
 		_x = x;
 		_y = y;
-		_last = last;
-		_board = board;
+		lastCheck = lastStatus;
+		GameBoard = board;
 		
 		switch (direction) {
 			case 0:
-				if(last == false) {
-					_sprite = Sprite.explosion_vertical2;
+				if(lastStatus == false) {
+					GameSprite = Sprite.explosion_vertical2;
 				} else {
-					_sprite = Sprite.explosion_vertical_top_last2;
+					GameSprite = Sprite.explosion_vertical_toplastCheck2;
 				}
 			break;
 			case 1:
-				if(last == false) {
-					_sprite = Sprite.explosion_horizontal2;
+				if(lastStatus == false) {
+					GameSprite = Sprite.explosion_horizontal2;
 				} else {
-					_sprite = Sprite.explosion_horizontal_right_last2;
+					GameSprite = Sprite.explosion_horizontal_rightlastCheck2;
 				}
 				break;
 			case 2:
-				if(last == false) {
-					_sprite = Sprite.explosion_vertical2;
+				if(lastStatus == false) {
+					GameSprite = Sprite.explosion_vertical2;
 				} else {
-					_sprite = Sprite.explosion_vertical_down_last2;
+					GameSprite = Sprite.explosion_vertical_downlastCheck2;
 				}
 				break;
 			case 3: 
-				if(last == false) {
-					_sprite = Sprite.explosion_horizontal2;
+				if(lastStatus == false) {
+					GameSprite = Sprite.explosion_horizontal2;
 				} else {
-					_sprite = Sprite.explosion_horizontal_left_last2;
+					GameSprite = Sprite.explosion_horizontal_leftlastCheck2;
 				}
 				break;
 		}
@@ -53,17 +53,17 @@ public class Explosion extends Entity {
 	
 	@Override
 	public void render(Screen screen) {
-		int xt = (int)_x << 4;
-		int yt = (int)_y << 4;
+		int xP = (int)_x << 4;
+		int yP = (int)_y << 4;
 		
-		screen.renderEntity(xt, yt , this);
+		screen.renderEntity(xP, yP , this);
 	}
 	
 	@Override
 	public void update() {}
 
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		
 		if(e instanceof Mob) {
 			((Mob)e).kill();

@@ -9,36 +9,36 @@ import NguHuynhDe.display.Sprite;
 public class Doll extends Enemy {
 	
 	
-	public Doll(int x, int y, Board board) {
-		super(x, y, board, Sprite.doll_dead, Game.getPlayerSpeed(), 400);
+	public Doll(int x, int y, Board GameBoard) {
+		super(x, y, GameBoard, Sprite.doll_dead, Game.getPlayerSpeed(), 400);
 		
-		_sprite = Sprite.doll_right1;
+		GameSprite = Sprite.dollMoveRight1;
 		
 		_ai = new AILow();
-		_direction = _ai.calculateDirection();
+		DirectionBomb = _ai.calculateDirection();
 	}
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Sprite
+	| Dam dong sprite
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	protected void chooseSprite() {
-		switch(_direction) {
+		switch(DirectionBomb) {
 			case 0:
 			case 1:
-				if(_moving)
-					_sprite = Sprite.movingSprite(Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3, _animate, 60);
+				if(CheckMove)
+					GameSprite = Sprite.movingSprite(Sprite.dollMoveRight1, Sprite.dollMoveRight2, Sprite.dollMoveRight3, AnimationOfEnti, 60);
 				else
-					_sprite = Sprite.doll_left1;
+					GameSprite = Sprite.dollMoveLeft1;
 				break;
 			case 2:
 			case 3:
-				if(_moving)
-					_sprite = Sprite.movingSprite(Sprite.doll_left1, Sprite.doll_left2, Sprite.doll_left3, _animate, 60);
+				if(CheckMove)
+					GameSprite = Sprite.movingSprite(Sprite.dollMoveLeft1, Sprite.dollMoveLeft2, Sprite.dollMoveLeft3, AnimationOfEnti, 60);
 				else
-					_sprite = Sprite.doll_left1;
+					GameSprite = Sprite.dollMoveLeft1;
 				break;
 		}
 	}

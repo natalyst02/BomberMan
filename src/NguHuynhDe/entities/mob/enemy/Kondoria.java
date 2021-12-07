@@ -9,35 +9,35 @@ import NguHuynhDe.display.Sprite;
 public class Kondoria extends Enemy {
 	
 	
-	public Kondoria(int x, int y, Board board) {
-		super(x, y, board, Sprite.kondoria_dead, Game.getPlayerSpeed() / 4, 1000);
+	public Kondoria(int x, int y, Board boardgame) {
+		super(x, y, boardgame, Sprite.kondoria_dead, Game.getPlayerSpeed() / 4, 1000);
 		
-		_sprite = Sprite.kondoria_right1;
+		GameSprite = Sprite.kondoriaMoveRight1;
 		
-		_ai = new AIMedium(_board.getPlayer(), this); //TODO: implement AIHigh 
-		_direction  = _ai.calculateDirection();
+		_ai = new AIMedium(GameBoard.getPlayer(), this);
+		DirectionBomb  = _ai.calculateDirection();
 	}
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Sprite
+	| Sprite dam dong
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	protected void chooseSprite() {
-		switch(_direction) {
+		switch(DirectionBomb) {
 			case 0:
 			case 1:
-				if(_moving)
-					_sprite = Sprite.movingSprite(Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3, _animate, 60);
+				if(CheckMove)
+					GameSprite = Sprite.movingSprite(Sprite.kondoriaMoveRight1, Sprite.kondoriaMoveRight2, Sprite.kondoriaMoveRight3, AnimationOfEnti, 60);
 				else
-					_sprite = Sprite.kondoria_left1;
+					GameSprite = Sprite.kondoriaMoveLeft1;
 				break;
 			case 2:
 			case 3:
-				if(_moving)
-					_sprite = Sprite.movingSprite(Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3, _animate, 60);
+				if(CheckMove)
+					GameSprite = Sprite.movingSprite(Sprite.kondoriaMoveLeft1, Sprite.kondoriaMoveLeft2, Sprite.kondoriaMoveLeft3, AnimationOfEnti, 60);
 				else
-					_sprite = Sprite.kondoria_left1;
+					GameSprite = Sprite.kondoriaMoveLeft1;
 				break;
 		}
 	}

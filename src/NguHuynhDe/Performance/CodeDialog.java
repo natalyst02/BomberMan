@@ -15,13 +15,13 @@ import javax.swing.JTextField;
 
 public class CodeDialog implements WindowListener, ActionListener {
 
-	private Frame _frame;
+	private Frame GameFrame;
 	private JFrame _dialog;
 	private JTextField _code;
 	private boolean _valid = false;
 
 	public CodeDialog(Frame f) {
-		_frame = f;
+		GameFrame = f;
 
 		_dialog = new JFrame("Enter a Valid Code");
 		final JButton button = new JButton("Load!");
@@ -44,7 +44,7 @@ public class CodeDialog implements WindowListener, ActionListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		_frame.pauseGame();
+		GameFrame.pauseGame();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class CodeDialog implements WindowListener, ActionListener {
 	@Override
 	public void windowClosed(WindowEvent e) {
 		if(_valid == false)
-			_frame.resumeGame();
+			GameFrame.resumeGame();
 	}
 
 	@Override
@@ -77,12 +77,12 @@ public class CodeDialog implements WindowListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String code = _code.getText();
 
-		if(_frame.validCode(code)) {
-			_frame.changeLevelByCode(code);
+		if(GameFrame.validCode(code)) {
+			GameFrame.changeLevelByCode(code);
 			_valid = true;
 			_dialog.dispose();
 		} else {
-			JOptionPane.showMessageDialog(_frame,
+			JOptionPane.showMessageDialog(GameFrame,
 				    "Wrong!!!",
 				    "Error",
 				    JOptionPane.ERROR_MESSAGE);

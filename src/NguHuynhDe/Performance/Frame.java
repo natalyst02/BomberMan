@@ -13,21 +13,21 @@ import NguHuynhDe.music.Audio;
 
 public class Frame extends JFrame {
 	
-	public GamePanel _gamepane;
+	public GamePanel GamePlaypane;
 	private JPanel _containerpane;
 	private InfoPanel _infopanel;
 	private MainPanel _MainPane;
 	private final Audio _audio = new Audio();
 	
-	private Game _game;
+	private Game GamePlay;
 
 	public Frame() {
 		setJMenuBar(new Menu(this));
 		
 		_containerpane = new JPanel(new BorderLayout());
-		_gamepane = new GamePanel(this);
-		_infopanel = new InfoPanel(_gamepane.getGame());
-		_MainPane = new MainPanel(_gamepane.getGame());
+		GamePlaypane = new GamePanel(this);
+		_infopanel = new InfoPanel(GamePlaypane.getGame());
+		_MainPane = new MainPanel(GamePlaypane.getGame());
 		ImageIcon icon=  new ImageIcon("res/textures/background11.png");
 		ImagePanel buttonPanel = new ImagePanel(icon.getImage());
 
@@ -48,9 +48,9 @@ public class Frame extends JFrame {
 
 		buttonPanel.add(resetButton);
 		//_containerpane.add(_infopanel, BorderLayout.PAGE_START);
-		//_containerpane.add(_gamepane, BorderLayout.PAGE_END);
+		//_containerpane.add(GamePlaypane, BorderLayout.PAGE_END);
 
-		_game = _gamepane.getGame();
+		GamePlay = GamePlaypane.getGame();
 
 			resetButton.addActionListener(new ActionListener(){
 				@Override
@@ -58,11 +58,11 @@ public class Frame extends JFrame {
 					_containerpane.remove(buttonPanel);
 					_containerpane.add(_infopanel, BorderLayout.PAGE_START);
 
-					_containerpane.add(_gamepane, BorderLayout.LINE_START);
+					_containerpane.add(GamePlaypane, BorderLayout.LINE_START);
 
 					new Thread(){
 						public void run(){
-							_game.start(); //the main recursive function
+							GamePlay.start(); //the main recursive function
 						}
 					}.start();
 				}
@@ -79,7 +79,7 @@ public class Frame extends JFrame {
 		setLocationRelativeTo(null);
 		setVisible(true);
 		_audio.playSound("res/sounds/audiopb.wav",100);
-		_game.start();
+		GamePlay.start();
 
 	}
 	
@@ -89,23 +89,23 @@ public class Frame extends JFrame {
 	|--------------------------------------------------------------------------
 	 */
 	public void newGame() {
-		_game.getBoard().newGame();
+		GamePlay.getBoard().newGame();
 	}
 	
 	public void changeLevel(int i) {
-		_game.getBoard().changeLevel(i);
+		GamePlay.getBoard().changeLevel(i);
 	}
 
 	public void pauseGame() {
-		_game.getBoard().gamePause();
+		GamePlay.getBoard().gamePause();
 	}
 
 	public void resumeGame() {
-		_game.getBoard().gameResume();
+		GamePlay.getBoard().gameResume();
 	}
 	
 	public boolean isRunning() {
-		return _game.isRunning();
+		return GamePlay.isRunning();
 	}
 	
 	public void setTime(int time) {
@@ -121,11 +121,11 @@ public class Frame extends JFrame {
 	}
 	
 	public boolean validCode(String str) {
-		return _game.getBoard().getLevel().validCode(str) != -1;
+		return GamePlay.getBoard().getLevel().validCode(str) != -1;
 	}
 	
 	public void changeLevelByCode(String str) {
-		_game.getBoard().changeLevelByCode(str);
+		GamePlay.getBoard().changeLevelByCode(str);
 	}
 
 }

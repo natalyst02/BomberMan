@@ -11,7 +11,7 @@ public class GrassTile extends Tile {
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		return true;
 	}
 }

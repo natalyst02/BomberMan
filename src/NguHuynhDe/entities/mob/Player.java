@@ -21,37 +21,37 @@ import NguHuynhDe.MapLv.Coordinates;
 
 public class Player extends Mob {
 
-	private List<Bomb> _bombs;
-	protected Keyboard _input;
+	private List<Bomb> bombsList;
+	protected Keyboard InputFromKeyboard;
 	protected Audio _audio = new Audio();
-	protected int _timeBetweenPutBombs = 0;
+	protected int DelaySetBomb = 0;
 	public static boolean undead=false;
-	public static List<Powerup> _powerups = new ArrayList<Powerup>();
+	public static List<Powerup> PowerUpList = new ArrayList<Powerup>();
 
-	/** make Shied
+	/** tao khien
 	 */
-	protected Shield _shield = new Shield(0,0,0,0,_board,this);
-	public void set_shield(Shield _shield){
-		this._shield = _shield;
+	protected Shield PlayerShield = new Shield(0,0,0,0,GameBoard,this);
+	public void setPlayerShield(Shield PlayerShield){
+		this.PlayerShield = PlayerShield;
 	}
 
-	public Shield get_shield() {
-		return _shield;
+	public Shield getPlayerShield() {
+		return PlayerShield;
 	}
 
-	protected void DetectSetShield(){
-		if (_input.R){
-			int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2f);
-			int yt = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2f) - _sprite.getSize() );
-			placeShield(xt,yt);
+	protected void SetShield(){
+		if (InputFromKeyboard.R){
+			int xS = Coordinates.pixelToTile(_x + GameSprite.getSize() / 2f);
+			int yS = Coordinates.pixelToTile( (_y + GameSprite.getSize() / 2f) - GameSprite.getSize() );
+			PosShield(xS,yS);
 		}
 	}
 
-	protected void placeShield(int x, int y){
-		if (_shield.getCdSkill() <= 0){
-			_shield = new Shield(x,y,300,1800,_board,this);
-			_shield.setActive(true);
-			//_board.addEntitie(0,_shield);
+	protected void PosShield(int x, int y){
+		if (PlayerShield.getcoolDown() <= 0){
+			PlayerShield = new Shield(x,y,300,1800,GameBoard,this);
+			PlayerShield.setActive(true);
+			//GameBoard.addEntitie(0,PlayerShield);
 		}
 	}
 
@@ -61,94 +61,94 @@ public class Player extends Mob {
 
 	public Player(int x, int y, Board board) {
 		super(x, y, board);
-		_bombs = _board.getBombs();
-		_input = _board.getInput();
-		_sprite = Sprite.player_right;
+		bombsList = GameBoard.getBoList();
+		InputFromKeyboard = GameBoard.getInput();
+		GameSprite = Sprite.playerMoveRight;
 	}
 
 
 	/*
 	|--------------------------------------------------------------------------
-	| Update & Render
+	| Render
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	public void update() {
 		clearBombs();
-		if(_alive == false) {
+		if(CheckAlive == false) {
 			afterKill();
 			return;
 		}
 
-		if(_timeBetweenPutBombs < -7500) _timeBetweenPutBombs = 0; else _timeBetweenPutBombs--; //dont let this get tooo big
+		if(DelaySetBomb < -7500) DelaySetBomb = 0; else DelaySetBomb--;
 
 		animate();
 
-		DetectSetShield();
+		SetShield();
 
 
 		calculateMove();
 
 		detectPlaceBomb();
-		_shield.update();
+		PlayerShield.update();
 	}
 
 	@Override
 	public void render(Screen screen) {
-		calculateXOffset();
+		CalcOffsetPoint();
 
-		if(_alive) {
+		if(CheckAlive) {
 			chooseSprite();
 
 		}
 
 		else
-			_sprite = Sprite.movingSprite(Sprite.player_dead1, Sprite.player_dead2, _animate, 20);
-					//Sprite.player_dead1;
+			GameSprite = Sprite.movingSprite(Sprite.DeadPlayer1, Sprite.DeadPlayer2, AnimationOfEnti, 20);
+					//Sprite.DeadPlayer1;
 
-		screen.renderEntity((int)_x, (int)_y - _sprite.SIZE, this);
+		screen.renderEntity((int)_x, (int)_y - GameSprite.SIZE, this);
 
-		_shield.render(screen);
+		PlayerShield.render(screen);
 	}
 
-	public void calculateXOffset() {
-		int xScroll = Screen.calculateXOffset(_board, this);
-		Screen.setOffset(xScroll, 0);
+	public void CalcOffsetPoint() {
+		int ScrollGame = Screen.CalcOffsetPoint(GameBoard, this);
+		Screen.setPointOffset(ScrollGame, 0);
 	}
 
 
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Unique
+	| dat bom
 	|--------------------------------------------------------------------------
 	 */
 	private void detectPlaceBomb() {
-		if(_input.space && Game.getBombRate() > 0 && _timeBetweenPutBombs < 0) {
+		if(InputFromKeyboard.space && Game.getBombRate() > 0 && DelaySetBomb < 0) {
 
-			int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
-			int yt = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2) - _sprite.getSize() ); //subtract half player height and minus 1 y position
+			int xB = Coordinates.pixelToTile(_x + GameSprite.getSize() / 2);
+			int yB = Coordinates.pixelToTile( (_y + GameSprite.getSize() / 2) - GameSprite.getSize() ); 
 
-			placeBomb(xt,yt);
+			placeBomb(xB,yB);
 			Game.addBombRate(-1);
 
-			_timeBetweenPutBombs = 30;
+			DelaySetBomb = 30;
 		}
 	}
 
 	protected void placeBomb(int x, int y) {
 		_audio.playSound("res/sounds/place_bomb.wav",0);
-		Bomb b = new Bomb(x, y, _board);
-		_board.addBomb(b);
+		Bomb bo = new Bomb(x, y, GameBoard);
+		GameBoard.addBomb(bo);
 	}
 
 	private void clearBombs() {
-		Iterator<Bomb> bs = _bombs.iterator();
+		Iterator<Bomb> bombInList = bombsList.iterator();
 
-		Bomb b;
-		while(bs.hasNext()) {
-			b = bs.next();
-			if(b.isRemoved())  {
-				bs.remove();
+		Bomb bo;
+		while(bombInList.hasNext()) {
+			bo = bombInList.next();
+			if(bo.checkBeRemoved())  {
+				bombInList.remove();
 				Game.addBombRate(1);
 			}
 		}
@@ -157,68 +157,68 @@ public class Player extends Mob {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Colide & Kill
+	| Checck va cham
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	public void kill() {
-		if (!_shield.getActive() && !undead){
-			if(!_alive) return;
+		if (!PlayerShield.getActive() && !undead){
+			if(!CheckAlive) return;
 
-			_alive = false;
+			CheckAlive = false;
 
-			_board.addLives(-1);
+			GameBoard.addLives(-1);
 			_audio.playSound("res/sounds/dead.wav",0);
-			Message msg = new Message("-1 LIVE", getXMessage(), getYMessage(), 2, Color.white, 14);
-			_board.addMessage(msg);
+			Message noti = new Message("-1 LIVE", getMessX(), getMessY(), 2, Color.white, 14);
+			GameBoard.addMessage(noti);
 		}
 	}
 
 	@Override
 	protected void afterKill() {
-		if(_timeAfter > 0) --_timeAfter;
+		if(DelayEntiTiming > 0) --DelayEntiTiming;
 		else {
-			if(_bombs.size() == 0) {
+			if(bombsList.size() == 0) {
 
-				if(_board.getLives() == 0)
-					_board.endGame();
+				if(GameBoard.getLives() == 0)
+					GameBoard.endGame();
 				else
-					_board.restartLevel();
+					GameBoard.restartLevel();
 			}
 		}
 	}
 
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Movement
+	| Move dam dong
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	protected void calculateMove() {
-		int xa = 0, ya = 0;
-		if(_input.up) ya--;
-		if(_input.down) ya++;
-		if(_input.left) xa--;
-		if(_input.right) xa++;
+		int xP = 0, yP = 0;
+		if(InputFromKeyboard.up) yP--;
+		if(InputFromKeyboard.down) yP++;
+		if(InputFromKeyboard.left) xP--;
+		if(InputFromKeyboard.right) xP++;
 
-		if(xa != 0 || ya != 0)  {
-			move(xa * Game.getPlayerSpeed(), ya * Game.getPlayerSpeed());
-			_moving = true;
+		if(xP != 0 || yP != 0)  {
+			move(xP * Game.getPlayerSpeed(), yP * Game.getPlayerSpeed());
+			CheckMove = true;
 		} else {
-			_moving = false;
+			CheckMove = false;
 		}
 
 	}
 
 	@Override
 	public boolean canMove(double x, double y) {
-		for (int c = 0; c < 4; c++) { //colision detection for each corner of the player
-			double xt = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE; //divide with tiles size to pass to tile coordinate
-			double yt = ((_y + y) + c / 2 * 12 - 13) / Game.TILES_SIZE; //these values are the best from multiple tests
+		for (int c = 0; c < 4; c++) { //check 4 goc
+			double xP = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE; 
+			double yP = ((_y + y) + c / 2 * 12 - 13) / Game.TILES_SIZE; 
 
-			Entity a = _board.getEntity(xt, yt, this);
+			Entity a = GameBoard.getEntity(xP, yP, this);
 
-			if(!a.collide(this))
+			if(!a.checkCollide(this))
 				return false;
 		}
 
@@ -226,18 +226,18 @@ public class Player extends Mob {
 	}
 
 	@Override
-	public void move(double xa, double ya) {
-		if(xa > 0) _direction = 1;
-		if(xa < 0) _direction = 3;
-		if(ya > 0) _direction = 2;
-		if(ya < 0) _direction = 0;
+	public void move(double xP, double yP) {
+		if(xP > 0) DirectionBomb = 1;
+		if(xP < 0) DirectionBomb = 3;
+		if(yP > 0) DirectionBomb = 2;
+		if(yP < 0) DirectionBomb = 0;
 
-		if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding
-			_y += ya;
+		if(canMove(0, yP)) { //check va cham
+			_y += yP;
 		}
 
-		if(canMove(xa, 0)) {
-			_x += xa;
+		if(canMove(xP, 0)) {
+			_x += xP;
 		}
 	}
 
@@ -248,15 +248,15 @@ public class Player extends Mob {
 	 * @return
 	 */
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		if(e instanceof DirectionalExplosion) {
 			kill();
 			return false;
 		}
 
-		// Nếu có khiên thì húc được kẻ địch chết
+		//  có khiên thì kẻ địch chết
 		if(e instanceof Enemy) {
-			if (_shield.getActive() && undead){
+			if (PlayerShield.getActive() && undead){
 				((Enemy) e).kill();
 			}
 			else {
@@ -270,103 +270,103 @@ public class Player extends Mob {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Powerups
+	| Nang Cap
 	|--------------------------------------------------------------------------
 	 */
 	public void addPowerup(Powerup p) {
-		if(p.isRemoved()) return;
+		if(p.checkBeRemoved()) return;
 		_audio.playSound("res/sounds/power_up.wav",0);
-		_powerups.add(p);
+		PowerUpList.add(p);
 
 		p.setValues();
 	}
 
-	public void clearUsedPowerups() {
+	public void DeletePU() {
 		Powerup p;
-		for (int i = 0; i < _powerups.size(); i++) {
-			p = _powerups.get(i);
-			if(p.isActive() == false)
-				_powerups.remove(i);
+		for (int i = 0; i < PowerUpList.size(); i++) {
+			p = PowerUpList.get(i);
+			if(p.beActive() == false)
+				PowerUpList.remove(i);
 		}
 	}
 
-	public void removePowerups() {
-		for (int i = 0; i < _powerups.size(); i++) {
-				_powerups.remove(i);
+	public void ClearPU() {
+		for (int i = 0; i < PowerUpList.size(); i++) {
+				PowerUpList.remove(i);
 		}
 	}
 
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Sprite
+	| Xu ly Sprite
 	|--------------------------------------------------------------------------
 	 */
 
 	private void chooseSprite() {
 
-		switch(_direction) {
+		switch(DirectionBomb) {
 			case 0:
 				if(undead){
-					_sprite = Sprite.player_up1;
+					GameSprite = Sprite.playerMoveUp1;
 
-					if(_moving) {
-						_sprite = Sprite.movingSprite(Sprite.player_up_11, Sprite.player_up_21, _animate, 20);
+					if(CheckMove) {
+						GameSprite = Sprite.movingSprite(Sprite.playerMoveUp_11, Sprite.playerMoveUp_21, AnimationOfEnti, 20);
 					}
 				}
 			else {
-					_sprite = Sprite.player_up;
+					GameSprite = Sprite.playerMoveUp;
 
-					if (_moving) {
-						_sprite = Sprite.movingSprite(Sprite.player_up_1, Sprite.player_up_2, _animate, 20);
+					if (CheckMove) {
+						GameSprite = Sprite.movingSprite(Sprite.playerMoveUp_1, Sprite.playerMoveUp_2, AnimationOfEnti, 20);
 					}
 				}
 			break;
 		case 1:
 			if(undead){
-				_sprite = Sprite.player_right1;
-				if(_moving) {
-					_sprite = Sprite.movingSprite(Sprite.player_right_11, Sprite.player_right_21, _animate, 20);
+				GameSprite = Sprite.playerMoveRight1;
+				if(CheckMove) {
+					GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_11, Sprite.playerMoveRight_21, AnimationOfEnti, 20);
 			}}
 			else{
-			_sprite = Sprite.player_right;
-			if(_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+			GameSprite = Sprite.playerMoveRight;
+			if(CheckMove) {
+				GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_1, Sprite.playerMoveRight_2, AnimationOfEnti, 20);
 			}}
 
 			break;
 		case 2:
 			if(undead){
-				_sprite = Sprite.player_down1;
-				if(_moving) {
-					_sprite = Sprite.movingSprite(Sprite.player_down_11, Sprite.player_down_21, _animate, 20);
+				GameSprite = Sprite.playerMoveDown1;
+				if(CheckMove) {
+					GameSprite = Sprite.movingSprite(Sprite.playerMoveDown_11, Sprite.playerMoveDown_21, AnimationOfEnti, 20);
 				}
 			}
 			else {
-				_sprite = Sprite.player_down;
-				if (_moving) {
-					_sprite = Sprite.movingSprite(Sprite.player_down_1, Sprite.player_down_2, _animate, 20);
+				GameSprite = Sprite.playerMoveDown;
+				if (CheckMove) {
+					GameSprite = Sprite.movingSprite(Sprite.playerMoveDown_1, Sprite.playerMoveDown_2, AnimationOfEnti, 20);
 				}
 			}
 			break;
 		case 3:
 			if(undead)
 			{
-				_sprite = Sprite.player_left1;
-				if(_moving) {
-					_sprite = Sprite.movingSprite(Sprite.player_left_11, Sprite.player_left_21, _animate, 20);
+				GameSprite = Sprite.playerMoveLeft1;
+				if(CheckMove) {
+					GameSprite = Sprite.movingSprite(Sprite.playerMoveLeft_11, Sprite.playerMoveLeft_21, AnimationOfEnti, 20);
 				}
 			}
 			else{
-			_sprite = Sprite.player_left;
-			if(_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_left_1, Sprite.player_left_2, _animate, 20);
+			GameSprite = Sprite.playerMoveLeft;
+			if(CheckMove) {
+				GameSprite = Sprite.movingSprite(Sprite.playerMoveLeft_1, Sprite.playerMoveLeft_2, AnimationOfEnti, 20);
 			}}
 
 			break;
 		default:
-			_sprite = Sprite.player_right;
-			if(_moving) {
-				_sprite = Sprite.movingSprite(Sprite.player_right_1, Sprite.player_right_2, _animate, 20);
+			GameSprite = Sprite.playerMoveRight;
+			if(CheckMove) {
+				GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_1, Sprite.playerMoveRight_2, AnimationOfEnti, 20);
 			}
 
 			break;

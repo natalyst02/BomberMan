@@ -5,42 +5,42 @@ import NguHuynhDe.display.Sprite;
 
 public abstract class Powerup extends Tile {
 
-	protected int _duration = -1; // -1 is infinite, duration in lifes
-	protected boolean _active = false;
-	protected int _level;
+	protected int PUduration = -1; // -1 la vo han
+	protected boolean beActive = false;
+	protected int modeG;
 	
 	public Powerup(int x, int y, int level, Sprite sprite) {
 		super(x, y, sprite);
-		_level = level;
+		modeG = level;
 	}
 	
 	public abstract void setValues();
 	
 	public void removeLive() {
-		if(_duration > 0)
-			_duration--;
+		if(PUduration > 0)
+			PUduration--;
 		
-		if(_duration == 0)
-			_active = false;
+		if(PUduration == 0)
+			beActive = false;
 	}
 	
 	public int getDuration() {
-		return _duration;
+		return PUduration;
 	}
 	
 	public int getLevel() {
-		return _level;
+		return modeG;
 	}
 
 	public void setDuration(int duration) {
-		this._duration = duration;
+		this.PUduration = duration;
 	}
 
-	public boolean isActive() {
-		return _active;
+	public boolean beActive() {
+		return beActive;
 	}
 
 	public void setActive(boolean active) {
-		this._active = active;
+		this.beActive = active;
 	}
 }

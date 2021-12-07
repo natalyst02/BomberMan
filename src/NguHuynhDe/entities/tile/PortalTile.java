@@ -7,24 +7,24 @@ import NguHuynhDe.display.Sprite;
 
 public class PortalTile extends Tile {
 
-	protected Board _board;
+	protected Board GameBoard;
 	
-	public PortalTile(int x, int y, Board board, Sprite sprite) {
+	public PortalTile(int x, int y, Board boardgame, Sprite sprite) {
 		super(x, y, sprite);
-		_board = board;
+		GameBoard = boardgame;
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		
 		if(e instanceof Player) {
 			
-			if(_board.detectNoEnemies() == false)
+			if(GameBoard.detectNoEnemies() == false)
 				return false;
 			
-			if(e.getXTile() == getX() && e.getYTile() == getY()) {
-				if(_board.detectNoEnemies())
-					_board.nextLevel();
+			if(e.getTileX() == getX() && e.getTileY() == getY()) {
+				if(GameBoard.detectNoEnemies())
+					GameBoard.nextLevel();
 			}
 			
 			return true;

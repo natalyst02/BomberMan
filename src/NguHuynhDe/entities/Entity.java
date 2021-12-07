@@ -9,7 +9,7 @@ public abstract class Entity implements IRender {
 
 	protected double _x, _y;
 	protected boolean _removed = false;
-	protected Sprite _sprite;
+	protected Sprite GameSprite;
 	
 	@Override
 	public abstract void update();
@@ -21,15 +21,15 @@ public abstract class Entity implements IRender {
 		_removed = true;
 	}
 	
-	public boolean isRemoved() {
+	public boolean checkBeRemoved() {
 		return _removed;
 	}
 	
 	public Sprite getSprite() {
-		return _sprite;
+		return GameSprite;
 	}
 	
-	public abstract boolean collide(Entity e);
+	public abstract boolean checkCollide(Entity e);
 	
 	public double getX() {
 		return _x;
@@ -39,11 +39,11 @@ public abstract class Entity implements IRender {
 		return _y;
 	}
 	
-	public int getXTile() {
-		return Coordinates.pixelToTile(_x + _sprite.SIZE / 2); // tinh toan va cham
+	public int getTileX() {
+		return Coordinates.pixelToTile(_x + GameSprite.SIZE / 2); // tinh toan va cham
 	}
 	
-	public int getYTile() {
-		return Coordinates.pixelToTile(_y - _sprite.SIZE / 2); //tinh toan va cham
+	public int getTileY() {
+		return Coordinates.pixelToTile(_y - GameSprite.SIZE / 2); //tinh toan va cham
 	}
 }

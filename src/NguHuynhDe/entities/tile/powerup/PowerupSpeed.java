@@ -12,7 +12,7 @@ public class PowerupSpeed extends Powerup {
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		
 		if(e instanceof Player) {
 			((Player) e).addPowerup(this);
@@ -25,7 +25,7 @@ public class PowerupSpeed extends Powerup {
 	
 	@Override
 	public void setValues() {
-		_active = true;
+		beActive = true;
 		Game.addPlayerSpeed(0.1);
 	}
 	

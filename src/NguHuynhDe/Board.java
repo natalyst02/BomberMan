@@ -23,60 +23,59 @@ import NguHuynhDe.music.Audio;
 
 public class Board implements IRender {
 
-	private final List<Message> _messages = new ArrayList<>();
-	public int _width, _height;
+	private final List<Message> NotiList = new ArrayList<>();
+	public int ScreenWidth, ScreenHeight;
 	/**
 	 * Thực thể không di chuyển
 	 */
-	public Entity[] _entities;
-//    public List<Shield> _shield = new ArrayList<>();
+	public Entity[] EntiGameList;
 	/**
 	 * Thực thể di chuyển
 	 */
-	public List<Mob> _mobs = new ArrayList<>();/**
+	public List<Mob> MobList = new ArrayList<>();/**
 	 /**
 	 * Màn chơi
 	 */
-	protected Level _level;
+	protected Level modeG;
 	/**
 	 */
-	protected Game _game;
+	protected Game GamePlay;
 	/**
 	 * Input từ keyboard
 	 */
-	protected Keyboard _input;
-	protected Screen _screen;
+	protected Keyboard InputFromKeyboard;
+	protected Screen ScreenGame;
 	/**
 	 * Bomb
 	 */
-	protected List<Bomb> _bombs = new ArrayList<>();
-	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
+	protected List<Bomb> bombsList = new ArrayList<>();
+	private int ScreenGameToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	public int getScreen(){
-		return _screenToShow;
+		return ScreenGameToShow;
 	}
 	/**
 	 * Thời gian
 	 */
-	private int _time = Game.TIME;
+	private int GameTime = Game.TIME;
 	/**
 	 * Điểm
 	 */
-	private int _points = Game.POINTS;
+	private int ScoresGame = Game.POINTS;
 	/**
 	 * Mạng
 	 */
-	private int _lives = Game.LIVES;
+	private int GameLives = Game.LIVES;
 	/**
 	 * Audio
 	 */
 	protected Audio _audio = new Audio();
-	protected boolean checkAceCall = false;
-	protected boolean checkFbCall = false;
+	protected boolean checkLose = false;
+	protected boolean checkFirstBlood = false;
 
 	public Board(Game game, Keyboard input, Screen screen) {
-		_game = game;
-		_input = input;
-		_screen = screen;
+		GamePlay = game;
+		InputFromKeyboard = input;
+		ScreenGame = screen;
 
 		changeLevel(1); //start in level 1
 	}
@@ -84,7 +83,7 @@ public class Board implements IRender {
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Render & Update
+	 | Render
 	 |--------------------------------------------------------------------------
 
 	 */
@@ -94,7 +93,7 @@ public class Board implements IRender {
 	 */
 	@Override
 	public void update() {
-		if( _game.isPaused() ) return;
+		if( GamePlay.isPaused() ) return;
 
 		updateEntities();
 		updateMobs();
@@ -102,12 +101,12 @@ public class Board implements IRender {
 		updateMessages();
 		detectEndGame();
 
-		if (!checkAceCall) AceNotify();
-		if (!checkFbCall) FirstBloodNotify();
+		if (!checkLose) AceNotify();
+		if (!checkFirstBlood) FirstBloodNotify();
 
-		for (int i = 0; i < _mobs.size(); i++) {
-			Mob a = _mobs.get(i);
-			if (a.isRemoved()) _mobs.remove(i);
+		for (int i = 0; i < MobList.size(); i++) {
+			Mob a = MobList.get(i);
+			if (a.checkBeRemoved()) MobList.remove(i);
 		}
 	}
 
@@ -117,17 +116,16 @@ public class Board implements IRender {
 	 */
 	@Override
 	public void render(Screen screen) {
-		if( _game.isPaused() ) return;
+		if( GamePlay.isPaused() ) return;
 
-		//only render the visible part of screen
-		int x0 = Screen.xOffset >> 4; //tile precision, -> left X
-		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE; // -> right X
+		int x0 = Screen.xOffset >> 4;
+		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE;
 		int y0 = Screen.yOffset >> 4;
-		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //render one tile plus to fix black margins
+		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
-				_entities[x + y * _level.getWidth()].render(screen);
+				EntiGameList[x + y * modeG.getWidth()].render(screen);
 			}
 		}
 
@@ -138,7 +136,7 @@ public class Board implements IRender {
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | ChangeLevel
+	 | Change Level
 	 |--------------------------------------------------------------------------
 	 */
 
@@ -149,38 +147,38 @@ public class Board implements IRender {
 
 	@SuppressWarnings("static-access")
 	private void resetProperties() {
-		_points = Game.POINTS;
-		_lives = Game.LIVES;
-		Player._powerups.clear();
-		checkFbCall = false;
-		checkAceCall = false;
-		_game.playerSpeed = 1.0;
-		_game.bombRadius = 1;
-		_game.bombRate = 1;
+		ScoresGame = Game.POINTS;
+		GameLives = Game.LIVES;
+		Player.PowerUpList.clear();
+		checkFirstBlood = false;
+		checkLose = false;
+		GamePlay.playerSpeed = 1.0;
+		GamePlay.bombRadius = 1;
+		GamePlay.bombRate = 1;
 
 	}
 
 	@SuppressWarnings("static-access")
 	private void resetPoint() {
-		_points = Game.POINTS;
-		Player._powerups.clear();
-		checkFbCall = false;
-		checkAceCall = false;
-		_game.playerSpeed = 1.0;
-		_game.bombRadius = 1;
-		_game.bombRate = 1;
+		ScoresGame = Game.POINTS;
+		Player.PowerUpList.clear();
+		checkFirstBlood = false;
+		checkLose = false;
+		GamePlay.playerSpeed = 1.0;
+		GamePlay.bombRadius = 1;
+		GamePlay.bombRate = 1;
 	}
 
 
 	public void restartLevel() {
-		changeLevel(_level.getLevel());
+		changeLevel(modeG.getLevel());
 		resetPoint();
 	}
 	/**
 	 * Hack nextLevel
 	 */
 	public void nextLevel() {
-		if (_level.getLevel() <= 5){changeLevel(_level.getLevel() + 1);}
+		if (modeG.getLevel() <= 5){changeLevel(modeG.getLevel() + 1);}
 		else{
 			endGame();
 		}
@@ -190,14 +188,14 @@ public class Board implements IRender {
 	 */
 
 	public void setNeverDie(){
-		_lives = 1000000;
+		GameLives = 1000000;
 	}
 	/**
 	 * Hack prevLevel
 	 */
 	public void prevLevel() {
-		if (_level.getLevel() > 1){
-			changeLevel(_level.getLevel() - 1);
+		if (modeG.getLevel() > 1){
+			changeLevel(modeG.getLevel() - 1);
 		}
 		else{
 			restartLevel();
@@ -206,42 +204,42 @@ public class Board implements IRender {
 
 
 	/**
-	 * Audio
+	 * Music
 	 */
 
 
 	public void changeLevel(int level) {
-		_time = Game.TIME;
-		_screenToShow = 2;
-		_game.resetScreenDelay();
-		_game.pause();
-		_mobs.clear();
-		_bombs.clear();
-		_messages.clear();
-		checkFbCall = false;
-		checkAceCall = false;
+		GameTime = Game.TIME;
+		ScreenGameToShow = 2;
+		GamePlay.resetScreenDelay();
+		GamePlay.pause();
+		MobList.clear();
+		bombsList.clear();
+		NotiList.clear();
+		checkFirstBlood = false;
+		checkLose = false;
 
 		try {
-			_level = new FileLevel("levels/Level" + level + ".txt", this);
-			_entities = new Entity[_level.getHeight() * _level.getWidth()];
+			modeG = new FileLevel("levels/Level" + level + ".txt", this);
+			EntiGameList = new Entity[modeG.getHeight() * modeG.getWidth()];
 
-			_level.createEntities();
+			modeG.createEntities();
 		} catch (LoadLevelException e) {
-			endGame(); //failed to load.. so.. no more levels?
+			endGame(); 
 		}
 	}
 
 	// Thay đổi level bằng code cheat
 	public void changeLevelByCode(String str) {
-		int i = _level.validCode(str);
+		int i = modeG.validCode(str);
 
 		if (i != -1) changeLevel(i + 1);
 	}
 
 	public boolean isPowerupUsed(int x, int y, int level) {
 		Powerup p;
-		for (int i = 0; i < Player._powerups.size(); i++) {
-			p = Player._powerups.get(i);
+		for (int i = 0; i < Player.PowerUpList.size(); i++) {
+			p = Player.PowerUpList.get(i);
 			if(p.getX() == x && p.getY() == y && level == p.getLevel())
 				return true;
 		}
@@ -259,7 +257,7 @@ public class Board implements IRender {
 	 * Kiểm tra thời gian
 	 */
 	protected void detectEndGame() {
-		if(_time <= 0)
+		if(GameTime <= 0)
 			restartLevel();
 	}
 
@@ -267,21 +265,21 @@ public class Board implements IRender {
 	 * GameOver
 	 */
 	public void endGame() {
-		_screenToShow = 1;
-		_game.resetScreenDelay();
-		_game.pause();
+		ScreenGameToShow = 1;
+		GamePlay.resetScreenDelay();
+		GamePlay.pause();
 	}
 
 	/**
 	 * Kiểm tra kẻ địch trên sàn
 	 */
 	public boolean detectNoEnemies() {
-		int total = 0;
-		for (Mob mob : _mobs) {
+		int AllEnTi = 0;
+		for (Mob mob : MobList) {
 			if (!(mob instanceof Player))
-				++total;
+				++AllEnTi;
 		}
-		return total == 0;
+		return AllEnTi == 0;
 	}
 
 	public void AceNotify(){
@@ -289,9 +287,9 @@ public class Board implements IRender {
 		}
 		else {
 			_audio.playSound("res/sounds/mk.wav",0);
-			checkAceCall = true;
+			checkLose = true;
 		}
-//		return checkAceCall;
+
 	}
 
 	public void FirstBloodNotify(){
@@ -299,94 +297,94 @@ public class Board implements IRender {
 		}
 		else {
 			_audio.playSound("res/sounds/firstblood.wav",0);
-			checkFbCall = true;
+			checkFirstBlood = true;
 		}
-//		return checkFbCall;
+
 	}
 
 	public boolean  detectFirstBlood(){
-		int total = 0;
-		for (Mob mob : _mobs) {
+		int AllEnTi = 0;
+		for (Mob mob : MobList) {
 			if (!(mob instanceof Player))
-				if (mob.isAlive())
-					++total;
+				if (mob.beAliveP())
+					++AllEnTi;
 		}
-		return total == _mobs.size() - 2;
+		return AllEnTi == MobList.size() - 2;
 	}
 
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Pause & Resume
+	 | Pause va Resume
 	 |--------------------------------------------------------------------------
 	 */
 	public void gamePause() {
 
-		_game.resetScreenDelay();
-		if(_screenToShow <= 0)
-			_screenToShow = 3;
-		_game.pause();
+		GamePlay.resetScreenDelay();
+		if(ScreenGameToShow <= 0)
+			ScreenGameToShow = 3;
+		GamePlay.pause();
 	}
 
 	public void gameResume() {
-		_game.resetScreenDelay();
-		_screenToShow = -1;
-		_game.run();
+		GamePlay.resetScreenDelay();
+		ScreenGameToShow = -1;
+		GamePlay.run();
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Screens
+	 | kiem tra man hinh
 	 |--------------------------------------------------------------------------
 	 */
 
 	public void drawScreen(Graphics g) {
-		switch (_screenToShow) {
+		switch (ScreenGameToShow) {
 			case 1:
-				_screen.drawEndGame(g, _points, _level.getActualCode());
+				ScreenGame.setEndScene(g, ScoresGame, modeG.getMode());
 				break;
 			case 2:
-				_screen.drawChangeLevel(g, _level.getLevel());
+				ScreenGame.setLevelScene(g, modeG.getLevel());
 				break;
 			case 3:
-				_screen.drawPaused(g);
+				ScreenGame.setPausedScene(g);
 				break;
 		}
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Getters And Setters
+	 | check Enti
 	 |--------------------------------------------------------------------------
 	 */
 
 	public Entity getEntity(double x, double y, Mob m) {
 
-		Entity res;
+		Entity tmp;
 
-		res = getExplosionAt((int) x, (int) y);
-		if (res != null) return res;
+		tmp = getExplosionPoint((int) x, (int) y);
+		if (tmp != null) return tmp;
 
-		res = getBombAt(x, y);
-		if (res != null) return res;
+		tmp = getBombPos(x, y);
+		if (tmp != null) return tmp;
 
-		res = getMobAtExcluding((int) x, (int) y, m);
-		if (res != null) return res;
+		tmp = getMobAtExcluding((int) x, (int) y, m);
+		if (tmp != null) return tmp;
 
-		res = getEntityAt((int)x, (int)y);
+		tmp = getEntityAt((int)x, (int)y);
 
-		return res;
+		return tmp;
 	}
 
-	public List<Bomb> getBombs() {
-		return _bombs;
+	public List<Bomb> getBoList() {
+		return bombsList;
 	}
 
-	public Bomb getBombAt(double x, double y) {
-		Iterator<Bomb> bs = _bombs.iterator();
+	public Bomb getBombPos(double x, double y) {
+		Iterator<Bomb> bombInList = bombsList.iterator();
 		Bomb b;
-		while(bs.hasNext()) {
-			b = bs.next();
+		while(bombInList.hasNext()) {
+			b = bombInList.next();
 			if(b.getX() == (int)x && b.getY() == (int)y)
 				return b;
 		}
@@ -395,45 +393,45 @@ public class Board implements IRender {
 	}
 
 	public Mob getMobAt(double x, double y) {
-		Iterator<Mob> itr = _mobs.iterator();
+		Iterator<Mob> MobInList = MobList.iterator();
 
-		Mob cur;
-		while(itr.hasNext()) {
-			cur = itr.next();
+		Mob currentP;
+		while(MobInList.hasNext()) {
+			currentP = MobInList.next();
 
-			if(cur.getXTile() == x && cur.getYTile() == y)
-				return cur;
+			if(currentP.getTileX() == x && currentP.getTileY() == y)
+				return currentP;
 		}
 
 		return null;
 	}
 
 	public Player getPlayer() {
-		Iterator<Mob> itr = _mobs.iterator();
+		Iterator<Mob> itr = MobList.iterator();
 
-		Mob cur;
+		Mob currentP;
 		while(itr.hasNext()) {
-			cur = itr.next();
+			currentP = itr.next();
 
-			if(cur instanceof Player)
-				return (Player) cur;
+			if(currentP instanceof Player)
+				return (Player) currentP;
 		}
 
 		return null;
 	}
 
 	public Mob getMobAtExcluding(int x, int y, Mob a) {
-		Iterator<Mob> itr = _mobs.iterator();
+		Iterator<Mob> MobInList = MobList.iterator();
 
-		Mob cur;
-		while(itr.hasNext()) {
-			cur = itr.next();
-			if(cur == a) {
+		Mob currentP;
+		while(MobInList.hasNext()) {
+			currentP = MobInList.next();
+			if(currentP == a) {
 				continue;
 			}
 
-			if(cur.getXTile() == x && cur.getYTile() == y) {
-				return cur;
+			if(currentP.getTileX() == x && currentP.getTileY() == y) {
+				return currentP;
 			}
 
 		}
@@ -441,13 +439,13 @@ public class Board implements IRender {
 		return null;
 	}
 
-	public Explosion getExplosionAt(int x, int y) {
-		Iterator<Bomb> bs = _bombs.iterator();
-		Bomb b;
-		while(bs.hasNext()) {
-			b = bs.next();
+	public Explosion getExplosionPoint(int x, int y) {
+		Iterator<Bomb> bombInList = bombsList.iterator();
+		Bomb bo;
+		while(bombInList.hasNext()) {
+			bo = bombInList.next();
 
-			Explosion e = b.explosionAt(x, y);
+			Explosion e = bo.ExplosionPoint(x, y);
 			if(e != null) {
 				return e;
 			}
@@ -458,172 +456,167 @@ public class Board implements IRender {
 	}
 
 	public Entity getEntityAt(double x, double y) {
-		return _entities[(int)x + (int)y * _level.getWidth()];
+		return EntiGameList[(int)x + (int)y * modeG.getWidth()];
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Adds and Removes
+	 | Them Bot
 	 |--------------------------------------------------------------------------
 	 */
 	public void addEntitie(int pos, Entity e) {
-		_entities[pos] = e;
+		EntiGameList[pos] = e;
 	}
-
-//	public void addShield(Shield s){
-//		_shield.add(s);
-//	}
+	
 
 	public void addMob(Mob e) {
-		_mobs.add(e);
+		MobList.add(e);
 	}
 
 	public void addBomb(Bomb e) {
-		_bombs.add(e);
+		bombsList.add(e);
 	}
 
 	public void addMessage(Message e) {
-		_messages.add(e);
+		NotiList.add(e);
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Renders
+	 | Render
 	 |--------------------------------------------------------------------------
 	 */
 	protected void renderEntities(Screen screen) {
-		for (Entity entity : _entities) {
+		for (Entity entity : EntiGameList) {
 			entity.render(screen);
 		}
 	}
 
 	protected void renderMobs(Screen screen) {
 
-		for (Mob mob : _mobs) mob.render(screen);
+		for (Mob mob : MobList) mob.render(screen);
 	}
 
 	protected void renderBombs(Screen screen) {
 
-		for (Bomb bomb : _bombs) bomb.render(screen);
+		for (Bomb bomb : bombsList) bomb.render(screen);
 	}
 
 	public void renderMessages(Graphics g) {
-		Message m;
-		for (Message message : _messages) {
-			m = message;
+		Message noti;
+		for (Message message : NotiList) {
+			noti = message;
 
-			g.setFont(new Font("Arial", Font.PLAIN, m.getSize()));
-			g.setColor(m.getColor());
-			g.drawString(m.getMessage(), (int) m.getX() - Screen.xOffset * Game.SCALE, (int) m.getY());
+			g.setFont(new Font("Arial", Font.PLAIN, noti.getSize()));
+			g.setColor(noti.getColor());
+			g.drawString(noti.getMessage(), (int) noti.getX() - Screen.xOffset * Game.SCALE, (int) noti.getY());
 		}
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Updates
+	 | Update
 	 |--------------------------------------------------------------------------
 	 */
 	protected void updateEntities() {
-		if (_game.isPaused()) return;
-		for (Entity entity : _entities) {
+		if (GamePlay.isPaused()) return;
+		for (Entity entity : EntiGameList) {
 			entity.update();
 		}
 	}
 
 	protected void updateMobs() {
-		if(_game.isPaused()) return;
-		Iterator<Mob> itr = _mobs.iterator();
+		if(GamePlay.isPaused()) return;
+		Iterator<Mob> itr = MobList.iterator();
 
-		while(itr.hasNext() && !_game.isPaused())
+		while(itr.hasNext() && !GamePlay.isPaused())
 			itr.next().update();
 	}
 
 	//	protected void updateShield() {
-//		if (_game.isPaused()) return;
-//		Iterator<Shield> itr = _shield.iterator();
+//		if (GamePlay.isPaused()) return;
+//		Iterator<Shield> itr = PlayerShield.iterator();
 //
-//		while(itr.hasNext() && !_game.isPaused())
-//			itr.next().update();
 //	}
 	protected void updateBombs() {
-		if (_game.isPaused()) return;
+		if (GamePlay.isPaused()) return;
 
-		for (Bomb bomb : _bombs) bomb.update();
+		for (Bomb bomb : bombsList) bomb.update();
 	}
 
 	protected void updateMessages() {
-		if (_game.isPaused()) return;
-		Message m;
+		if (GamePlay.isPaused()) return;
+		Message noti;
 		int left;
-		for (int i = 0; i < _messages.size(); i++) {
-			m = _messages.get(i);
-			left = m.getDuration();
+		for (int i = 0; i < NotiList.size(); i++) {
+			noti = NotiList.get(i);
+			left = noti.getDuration();
 
 			if (left > 0)
-				m.setDuration(--left);
+				noti.setDuration(--left);
 			else
-				_messages.remove(i);
+				NotiList.remove(i);
 		}
 	}
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Getters & Setters
+	 | Contructors
 	 |--------------------------------------------------------------------------
 	 */
 	public Keyboard getInput() {
-		return _input;
+		return InputFromKeyboard;
 	}
 
 	public Level getLevel() {
-		return _level;
+		return modeG;
 	}
 
 	public Game getGame() {
-		return _game;
+		return GamePlay;
 	}
 
 	public int getShow() {
-		return _screenToShow;
+		return ScreenGameToShow;
 	}
 
 	public void setShow(int i) {
-		_screenToShow = i;
+		ScreenGameToShow = i;
 	}
 
 	public int getTime() {
-		return _time;
+		return GameTime;
 	}
 
 	public int getLives() {
-		return _lives;
+		return GameLives;
 	}
 
-	public int subtractTime() {
-		if(_game.isPaused())
-			return this._time;
+	public int TimeUp() {
+		if(GamePlay.isPaused())
+			return this.GameTime;
 		else
-			return this._time--;
+			return this.GameTime--;
 	}
 
 	public int getPoints() {
-		return _points;
+		return ScoresGame;
 	}
 
 	public void addPoints(int points) {
-		this._points += points;
+		this.ScoresGame += points;
 	}
 
 	public void addLives(int lives) {
-		this._lives += lives;
+		this.GameLives += lives;
 	}
 
 	public int getWidth() {
-		return _level.getWidth();
+		return modeG.getWidth();
 	}
 
 	public int getHeight() {
-		return _level.getHeight();
+		return modeG.getHeight();
 	}
 
 }

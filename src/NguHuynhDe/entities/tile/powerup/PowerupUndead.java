@@ -13,7 +13,7 @@ public class PowerupUndead extends Powerup {
     }
 
     @Override
-    public boolean collide(Entity e) {
+    public boolean checkCollide(Entity e) {
 
         if(e instanceof Player) {
             ((Player) e).addPowerup(this);
@@ -26,7 +26,7 @@ public class PowerupUndead extends Powerup {
 
     @Override
     public void setValues() {
-        _active = true;
+        beActive = true;
         Timer timer = new Timer();
 
         timer.scheduleAtFixedRate(new TimerTask() {

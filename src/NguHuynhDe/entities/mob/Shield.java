@@ -6,20 +6,20 @@ import NguHuynhDe.display.Screen;
 import NguHuynhDe.display.Sprite;
 
 public class Shield extends Mob{
-    private boolean isActive = false;
-    private double timeRemaining = 0;
-    private double cdSkill = 0;
-    protected Board _board;
+    private boolean beActive = false;
+    private double theRestTime = 0;
+    private double coolDown = 0;
+    protected Board GameBoard;
     private Player player;
 
-    public Shield(int x, int y, double timeRemaining, double cdSkill, Board board, Player player) {
+    public Shield(int x, int y, double theRestTime, double coolDown, Board board, Player player) {
         super(x,y,board);
         this._x = x;
         this._y = y;
-        _sprite = Sprite.shield;
-        _board = board;
-        this.timeRemaining = timeRemaining; //Tồn tại 5s
-        this.cdSkill = cdSkill; //30s để hồi skill
+        GameSprite = Sprite.shield;
+        GameBoard = board;
+        this.theRestTime = theRestTime; // 5s
+        this.coolDown = coolDown; //30s cd
         this.player = player;
     }
 
@@ -31,35 +31,35 @@ public class Shield extends Mob{
 
 
     public boolean  getActive(){
-        return isActive;
+        return beActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean beActive) {
+        this.beActive = beActive;
     }
 
-    public double getCdSkill() {
-        return cdSkill;
+    public double getcoolDown() {
+        return coolDown;
     }
 
-    public void setTimeRemaining(double timeRemaining) {
-        this.timeRemaining = timeRemaining;
+    public void settheRestTime(double theRestTime) {
+        this.theRestTime = theRestTime;
     }
 
     @Override
     public void update() {
-        if (cdSkill > 0) {
-            cdSkill--;
+        if (coolDown > 0) {
+            coolDown--;
         }
-//        System.out.println(cdSkill);
 
-        if (timeRemaining > 0){
-            timeRemaining--;
+
+        if (theRestTime > 0){
+            theRestTime--;
             this._x = player.getX();
             this._y = player.getY();
-            //System.out.println(_x + "+" + _y);
+          
         }
-        else if (isActive)
+        else if (beActive)
             {
             this.setActive(false);
             remove();
@@ -68,28 +68,14 @@ public class Shield extends Mob{
 
     }
 
-//    @Override
-//    public void render(Screen screen) {
-//        this._x = player.getX();
-//        this._y = player.getY();
-//        screen.renderEntity((int)_x, (int)_y, this);
-//    }
+
 
     @Override
     public void render(Screen screen) {
-//        calculateXOffset();
 
-//        if(_alive)
-//            chooseSprite();
-//        else
-//            _sprite = Sprite.player_dead1;
 
-//            this._x = player.getX();
-//            this._y = player.getY();
-//            //System.out.println(_x + "+" + _y);
-
-        if (timeRemaining > 0)
-        screen.renderEntity((int)_x, (int)_y - _sprite.SIZE, this);
+        if (theRestTime > 0)
+        screen.renderEntity((int)_x, (int)_y - GameSprite.SIZE, this);
     }
 
     @Override
@@ -118,7 +104,7 @@ public class Shield extends Mob{
     }
 
     @Override
-    public boolean collide(Entity e) {
+    public boolean checkCollide(Entity e) {
         return false;
     }
 }

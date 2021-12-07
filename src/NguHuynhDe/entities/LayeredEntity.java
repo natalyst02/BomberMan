@@ -7,16 +7,16 @@ import NguHuynhDe.display.Screen;
 
 public class LayeredEntity extends Entity {
 	
-	protected LinkedList<Entity> _entities = new LinkedList<Entity>();
+	protected LinkedList<Entity> EntiGameList = new LinkedList<Entity>();
 	
 	public LayeredEntity(int x, int y, Entity ... entities) {
 		_x = x;
 		_y = y;
 		
 		for (int i = 0; i < entities.length; i++) {
-			_entities.add(entities[i]); 
+			EntiGameList.add(entities[i]); 
 			
-			if(i > 1) { //load hoat anh no duoi hoat anh die
+			if(i > 1) { //load hoat anh chong len
 				if(entities[i] instanceof DestroyableTile)
 					((DestroyableTile)entities[i]).addBelowSprite(entities[i-1].getSprite());
 			}
@@ -36,24 +36,24 @@ public class LayeredEntity extends Entity {
 	
 	public Entity getTopEntity() {
 		
-		return _entities.getLast();
+		return EntiGameList.getLast();
 	}
 	
 	private void clearRemoved() {
 		Entity top  = getTopEntity();
 		
-		if(top.isRemoved())  {
-			_entities.removeLast();
+		if(top.checkBeRemoved())  {
+			EntiGameList.removeLast();
 		}
 	}
 	
 	public void addBeforeTop(Entity e) {
-		_entities.add(_entities.size() - 1, e);
+		EntiGameList.add(EntiGameList.size() - 1, e);
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
-		return getTopEntity().collide(e);
+	public boolean checkCollide(Entity e) {
+		return getTopEntity().checkCollide(e);
 	}
 
 }

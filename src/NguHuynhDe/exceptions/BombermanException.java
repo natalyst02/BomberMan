@@ -4,18 +4,18 @@ public class BombermanException extends Exception {
 	public BombermanException() {
 	}
 	
-	public BombermanException(String str) {
-		super(str);
+	public BombermanException(String tex) {
+		super(tex);
 		
 	}
 	
-	public BombermanException(String str, Throwable cause) {
-		super(str, cause);
+	public BombermanException(String tex, Throwable thr) {
+		super(tex, thr);
 		
 	}
 	
-	public BombermanException(Throwable cause) {
-		super(cause);
+	public BombermanException(Throwable thr) {
+		super(thr);
 		
 	}
 

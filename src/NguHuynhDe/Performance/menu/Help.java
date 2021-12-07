@@ -29,16 +29,16 @@ public class Help extends JMenu {
 	}
 	
 	class MenuActionListener implements ActionListener {
-		public Frame _frame;
+		public Frame GameFrame;
 		public MenuActionListener(Frame frame) {
-			_frame = frame;
+			GameFrame = frame;
 		}
 		
 		  @Override
 		public void actionPerformed(ActionEvent e) {
 			  
 			  if(e.getActionCommand().equals("How to play")) {
-				  new InfoDialog(_frame, "How to Play", "Movement: W,A,S,D or UP,DOWN, RIGHT, LEFT\nPut Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
+				  new InfoDialog(GameFrame, "How to Play", "Movement: W,A,S,D or UP,DOWN, RIGHT, LEFT\nPut Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
 			  }
 
 			  

@@ -16,132 +16,131 @@ import NguHuynhDe.display.Sprite;
 
 public abstract class Enemy extends Mob {
 
-	protected int _points;
+	protected int ScoresGame;
 	
-	protected double _speed; //Speed should change on level transition
+	protected double EnemySpeed;
 	protected AI _ai;
+
+	protected final double StepsMax;
+	protected final double TheRest;
+	protected double GameSteps;
 	
-	//necessary to correct move
-	protected final double MAX_STEPS;
-	protected final double rest;
-	protected double _steps;
-	
-	protected int _finalAnimation = 30;
-	protected Sprite _deadSprite;
+	protected int GameAnimation = 30;
+	protected Sprite DeletedSprite;
 	
 	public Enemy(int x, int y, Board board, Sprite dead, double speed, int points) {
 		super(x, y, board);
 		
-		_points = points;
-		_speed = speed;
+		ScoresGame = points;
+		EnemySpeed = speed;
 		
-		MAX_STEPS = Game.TILES_SIZE / _speed;
-		rest = (MAX_STEPS - (int) MAX_STEPS) / MAX_STEPS;
-		_steps = MAX_STEPS;
+		StepsMax = Game.TILES_SIZE / EnemySpeed;
+		TheRest = (StepsMax - (int) StepsMax) / StepsMax;
+		GameSteps = StepsMax;
 		
-		_timeAfter = 20;
-		_deadSprite = dead;
+		DelayEntiTiming = 20;
+		DeletedSprite = dead;
 	}
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Render & Update
+	| Render dam dong
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	public void update() {
 		animate();
 		
-		if(_alive == false) {
+		if(CheckAlive == false) {
 			afterKill();
 			return;
 		}
 		
-		if(_alive)
+		if(CheckAlive)
 			calculateMove();
 	}
 	
 	@Override
 	public void render(Screen screen) {
 		
-		if(_alive)
+		if(CheckAlive)
 			chooseSprite();
 		else {
-			if(_timeAfter > 0) {
-				_sprite = _deadSprite;
-				_animate = 0;
+			if(DelayEntiTiming > 0) {
+				GameSprite = DeletedSprite;
+				AnimationOfEnti = 0;
 			} else {
-				_sprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, _animate, 60);
+				GameSprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, AnimationOfEnti, 60);
 			}
 				
 		}
 			
-		screen.renderEntity((int)_x, (int)_y - _sprite.SIZE, this);
+		screen.renderEntity((int)_x, (int)_y - GameSprite.SIZE, this);
 	}
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Move
+	| dam dong di chuyen
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	public void calculateMove() {
-		int xa = 0, ya = 0;
-		if(_steps <= 0){
-			_direction = _ai.calculateDirection();
-			_steps = MAX_STEPS;
+		int xP = 0, yP = 0;
+		if(GameSteps <= 0){
+			DirectionBomb = _ai.calculateDirection();
+			GameSteps = StepsMax;
 		}
 			
-		if(_direction == 0) ya--; 
-		if(_direction == 2) ya++;
-		if(_direction == 3) xa--;
-		if(_direction == 1) xa++;
+		if(DirectionBomb == 0) yP--; 
+		if(DirectionBomb == 2) yP++;
+		if(DirectionBomb == 3) xP--;
+		if(DirectionBomb == 1) xP++;
 		
-		if(canMove(xa, ya)) {
-			_steps -= 1 + rest;
-			move(xa * _speed, ya * _speed);
-			_moving = true;
+		if(canMove(xP, yP)) {
+			GameSteps -= 1 + TheRest;
+			move(xP * EnemySpeed, yP * EnemySpeed);
+			CheckMove = true;
 		} else {
-			_steps = 0;
-			_moving = false;
+			GameSteps = 0;
+			CheckMove = false;
 		}
 	}
 	
 	@Override
-	public void move(double xa, double ya) {
-		if(!_alive) return;
+	public void move(double xP, double yP) {
+		if(!CheckAlive) return;
 
-			_y += ya;
-			_x += xa;
+			_y += yP;
+			_x += xP;
 	}
 	
 	@Override
 	public boolean canMove(double x, double y) {
 		
-		double xr = _x, yr = _y - 16; //subtract y to get more accurate results
+		double xMove = _x, yMove = _y - 16; //tru them y de them chinh xac
 		
-		//the thing is, subract 15 to 16 (sprite size), so if we add 1 tile we get the next pixel tile with this
-		//we avoid the shaking inside tiles with the help of steps
-		if(_direction == 0) { yr += _sprite.getSize() -1 ; xr += _sprite.getSize()/2; } 
-		if(_direction == 1) {yr += _sprite.getSize()/2; xr += 1;}
-		if(_direction == 2) { xr += _sprite.getSize()/2; yr += 1;}
-		if(_direction == 3) { xr += _sprite.getSize() -1; yr += _sprite.getSize()/2;}
+		//trừ 15 đến 16 (kích thước sprite), vì vậy nếu chúng tôi thêm 1 ô, chúng tôi sẽ nhận được ô pixel tiếp theo với
+		//tránh rung lắc bên trong gạch với sự trợ giúp của các bước
+		if(DirectionBomb == 0) { yMove += GameSprite.getSize() -1 ; xMove += GameSprite.getSize()/2; } 
+		if(DirectionBomb == 1) {yMove += GameSprite.getSize()/2; xMove += 1;}
+		if(DirectionBomb == 2) { xMove += GameSprite.getSize()/2; yMove += 1;}
+		if(DirectionBomb == 3) { xMove += GameSprite.getSize() -1; yMove += GameSprite.getSize()/2;}
 		
-		int xx = Coordinates.pixelToTile(xr) +(int)x;
-		int yy = Coordinates.pixelToTile(yr) +(int)y;
+		int xx = Coordinates.pixelToTile(xMove) +(int)x;
+		int yy = Coordinates.pixelToTile(yMove) +(int)y;
 		
-		Entity a = _board.getEntity(xx, yy, this); //entity of the position we want to go
+		Entity a = GameBoard.getEntity(xx, yy, this);
 		
-		return a.collide(this);
+		return a.checkCollide(this);
 	}
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Colide & Kill
+	| Check va cham va giet dam dong
 	|--------------------------------------------------------------------------
 	 */
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		if(e instanceof DirectionalExplosion) {
 			kill();
 			return false;
@@ -157,22 +156,22 @@ public abstract class Enemy extends Mob {
 	
 	@Override
 	public void kill() {
-		if(_alive == false) return;
-		_alive = false;
+		if(CheckAlive == false) return;
+		CheckAlive = false;
 		
-		_board.addPoints(_points);
+		GameBoard.addPoints(ScoresGame);
 
-		Message msg = new Message("+" + _points, getXMessage(), getYMessage(), 2, Color.white, 14);
-		_board.addMessage(msg);
+		Message gamemess = new Message("+" + ScoresGame, getMessX(), getMessY(), 2, Color.white, 14);
+		GameBoard.addMessage(gamemess);
 	}
 	
 	
 	@Override
 	protected void afterKill() {
-		if(_timeAfter > 0) --_timeAfter;
+		if(DelayEntiTiming > 0) --DelayEntiTiming;
 		else {
 			
-			if(_finalAnimation > 0) --_finalAnimation;
+			if(GameAnimation > 0) --GameAnimation;
 			else
 				remove();
 		}

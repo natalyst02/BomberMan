@@ -47,24 +47,24 @@ public class Game extends JMenu {
 	}
 	
 	class MenuActionListener implements ActionListener {
-		public Frame _frame;
+		public Frame GameFrame;
 		public MenuActionListener(Frame frame) {
-			_frame = frame;
+			GameFrame = frame;
 		}
 		
 		  @Override
 		public void actionPerformed(ActionEvent e) {
 			  
 			  if(e.getActionCommand().equals("New Game")) {
-				  _frame.newGame();
+				  GameFrame.newGame();
 			  }
 			  
 			  if(e.getActionCommand().equals("High Scores")) {
-				  new InfoDialog(_frame, "High Scores", "YOU SHOULD TRY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
+				  new InfoDialog(GameFrame, "High Scores", "YOU SHOULD TRY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
 			  }
 			  
 			  if(e.getActionCommand().equals("Mode")) {
-				  new CodeDialog(_frame);
+				  new CodeDialog(GameFrame);
 			  }
 
 		  }

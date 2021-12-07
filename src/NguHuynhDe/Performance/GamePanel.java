@@ -10,18 +10,18 @@ import NguHuynhDe.exceptions.BombermanException;
 
 public class GamePanel extends JPanel {
 
-	private Game _game;
+	private Game GamePlay;
 	
 	public GamePanel(Frame frame) {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 		
 		try {
-			_game = new Game(frame);
+			GamePlay = new Game(frame);
 			
-			add(_game);
+			add(GamePlay);
 			
-			_game.setVisible(true);
+			GamePlay.setVisible(true);
 			
 		} catch (BombermanException e) {
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel {
 	}
 	
 	public Game getGame() {
-		return _game;
+		return GamePlay;
 	}
 	
 }

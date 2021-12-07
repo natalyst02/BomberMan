@@ -4,18 +4,18 @@ public class LoadLevelException extends BombermanException {
 	public LoadLevelException() {
 	}
 	
-	public LoadLevelException(String str) {
-		super(str);
+	public LoadLevelException(String tex) {
+		super(tex);
 		
 	}
 	
-	public LoadLevelException(String str, Throwable cause) {
-		super(str, cause);
+	public LoadLevelException(String tex, Throwable thr) {
+		super(tex, thr);
 		
 	}
 	
-	public LoadLevelException(Throwable cause) {
-		super(cause);
+	public LoadLevelException(Throwable thr) {
+		super(thr);
 		
 	}
 	

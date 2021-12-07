@@ -39,18 +39,18 @@ public class AIMedium extends AI {
 	}
 	
 	protected int calculateColDirection() {
-		if(_player.getXTile() < _e.getXTile())
+		if(_player.getTileX() < _e.getTileX())
 			return 3;
-		else if(_player.getXTile() > _e.getXTile())
+		else if(_player.getTileX() > _e.getTileX())
 			return 1;
 		
 		return -1;
 	}
 	
 	protected int calculateRowDirection() {
-		if(_player.getYTile() < _e.getYTile())
+		if(_player.getTileY() < _e.getTileY())
 			return 0;
-		else if(_player.getYTile() > _e.getYTile())
+		else if(_player.getTileY() > _e.getTileY())
 			return 2;
 		return -1;
 	}

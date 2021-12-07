@@ -31,7 +31,7 @@ public class Mainmenu extends JFrame  {
                System.out.println(1);
                 dispose();
 
-                rame._gamepane.getGame().start();
+                rame.GamePlaypane.getGame().start();
                 System.out.println(0);
             }
         });

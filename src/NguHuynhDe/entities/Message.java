@@ -6,30 +6,30 @@ import NguHuynhDe.display.Screen;
 
 public class Message extends Entity {
 
-	protected String _message;
-	protected int _duration;
+	protected String Notice;
+	protected int PUduration;
 	protected Color _color;
 	protected int _size;
 	
-	public Message(String message, double x, double y, int duration, Color color, int size) {
+	public Message(String noti, double x, double y, int duration, Color color, int size) {
 		_x =x;
 		_y = y;
-		_message = message;
-		_duration = duration * 60; //seconds
+		Notice = noti;
+		PUduration = duration * 60;
 		_color = color;
 		_size = size;
 	}
 
 	public int getDuration() {
-		return _duration;
+		return PUduration;
 	}
 
-	public void setDuration(int _duration) {
-		this._duration = _duration;
+	public void setDuration(int PUduration) {
+		this.PUduration = PUduration;
 	}
 
 	public String getMessage() {
-		return _message;
+		return Notice;
 	}
 
 	public Color getColor() {
@@ -49,7 +49,7 @@ public class Message extends Entity {
 	}
 
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		return true;
 	}
 	

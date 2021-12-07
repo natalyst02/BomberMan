@@ -5,10 +5,10 @@ import java.util.Arrays;
 public class Sprite {
 
 	public final int SIZE;
-	private int _x, _y;
-	public int[] _pixels;
-	protected int _realWidth;
-	protected int _realHeight;
+	private int XPoint, YPoint;
+	public int[] pixelInGame;
+	protected int ScreenGameWidth;
+	protected int ScreenGameHeight;
 	private SpriteSheet _sheet;
 
 	/**
@@ -16,25 +16,25 @@ public class Sprite {
 	 * Chia thành các Sprite nhỏ với size là 16*16 => sẽ có 256 sprite nhỏ
 	 * Các sprite có thể được nối với nhau để tạo thành animation
 	 */
-	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
+	public Sprite(int size, int x, int y, SpriteSheet sheet, int SW, int SH) {
 		SIZE = size;
-		_pixels = new int[SIZE * SIZE];
-		_x = x * SIZE;
-		_y = y * SIZE;
+		pixelInGame = new int[SIZE * SIZE];
+		XPoint = x * SIZE;
+		YPoint = y * SIZE;
 		_sheet = sheet;
-		_realWidth = rw;
-		_realHeight = rh;
+		ScreenGameWidth = SW;
+		ScreenGameHeight = SH;
 		load();
 	}
 
 	public Sprite(int size, int color) {
 		SIZE = size;
 
-		_pixels = new int[SIZE * SIZE];
+		pixelInGame = new int[SIZE * SIZE];
 		setColor(color);
 	}
 
-	public static Sprite voidSprite = new Sprite(16, 0xffffff); //black
+	public static Sprite voidSprite = new Sprite(16, 0xffffff); //set mau den
 
 	/**
 	 * Lấy các hình ảnh thực thể tĩnh từ classic.png
@@ -53,70 +53,69 @@ public class Sprite {
 	/**
 	 * Lấy các hình ảnh người chơi từ classic.png
 	 */
-	public static Sprite player_up = new Sprite(16, 0, 0, SpriteSheet.tiles, 12, 15);
-	public static Sprite player_down = new Sprite(16, 2, 0, SpriteSheet.tiles, 12, 14);
-	public static Sprite player_left = new Sprite(16, 3, 0, SpriteSheet.tiles, 10, 14);
-	public static Sprite player_right = new Sprite(16, 1, 0, SpriteSheet.tiles, 10, 15);
+	public static Sprite playerMoveUp = new Sprite(16, 0, 0, SpriteSheet.tiles, 12, 15);
+	public static Sprite playerMoveDown = new Sprite(16, 2, 0, SpriteSheet.tiles, 12, 14);
+	public static Sprite playerMoveLeft = new Sprite(16, 3, 0, SpriteSheet.tiles, 10, 14);
+	public static Sprite playerMoveRight = new Sprite(16, 1, 0, SpriteSheet.tiles, 10, 15);
 	/**
-	 * Animate đi lên của người chơi
+	 * Animattion đi lên của người chơi
 	 */
-	public static Sprite player_up_1 = new Sprite(16, 0, 1, SpriteSheet.tiles, 12, 15);
-	public static Sprite player_up_2 = new Sprite(16, 0, 2, SpriteSheet.tiles, 12, 14);
-	/**
-	 * Animate đi xuống của người chơi
-	 */
-	public static Sprite player_down_1 = new Sprite(16, 2, 1, SpriteSheet.tiles, 12, 14);
-	public static Sprite player_down_2 = new Sprite(16, 2, 2, SpriteSheet.tiles, 12, 15);
-	/**
-	 * Animate rẽ trái của người chơi
-	 */
-	public static Sprite player_left_1 = new Sprite(16, 3, 1, SpriteSheet.tiles, 11, 16);
-	public static Sprite player_left_2 = new Sprite(16, 3, 2, SpriteSheet.tiles, 12 ,16);
-	/**
-	 * Animate rẽ pahir của người chơi
-	 */
-	public static Sprite player_right_1 = new Sprite(16, 1, 1, SpriteSheet.tiles, 11, 16);
-	public static Sprite player_right_2 = new Sprite(16, 1, 2, SpriteSheet.tiles, 12, 16);
-	/**
-	 * Animate người chơi bị tiêu diệt
-	 */
-	public static Sprite player_dead1 = new Sprite(16, 4, 2, SpriteSheet.tiles, 16, 16);
-	public static Sprite player_dead2 = new Sprite(16, 5, 2, SpriteSheet.tiles, 16, 16);
-	public static Sprite player_dead3 = new Sprite(16, 6, 2, SpriteSheet.tiles, 16, 16);
-
-	// invincible
-
-
-	public static Sprite player_up1 = new Sprite(16, 0, 0, SpriteSheet.tiles1, 12, 15);
-	public static Sprite player_down1 = new Sprite(16, 2, 0, SpriteSheet.tiles1, 12, 14);
-	public static Sprite player_left1 = new Sprite(16, 3, 0, SpriteSheet.tiles1, 10, 14);
-	public static Sprite player_right1 = new Sprite(16, 1, 0, SpriteSheet.tiles1, 10, 15);
-	/**
-	 * Animate đi lên của người chơi
-	 */
-	public static Sprite player_up_11 = new Sprite(16, 0, 1, SpriteSheet.tiles1, 12, 15);
-	public static Sprite player_up_21 = new Sprite(16, 0, 2, SpriteSheet.tiles1, 12, 14);
+	public static Sprite playerMoveUp_1 = new Sprite(16, 0, 1, SpriteSheet.tiles, 12, 15);
+	public static Sprite playerMoveUp_2 = new Sprite(16, 0, 2, SpriteSheet.tiles, 12, 14);
 	/**
 	 * Animate đi xuống của người chơi
 	 */
-	public static Sprite player_down_11 = new Sprite(16, 2, 1, SpriteSheet.tiles1, 12, 14);
-	public static Sprite player_down_21 = new Sprite(16, 2, 2, SpriteSheet.tiles1, 12, 15);
+	public static Sprite playerMoveDown_1 = new Sprite(16, 2, 1, SpriteSheet.tiles, 12, 14);
+	public static Sprite playerMoveDown_2 = new Sprite(16, 2, 2, SpriteSheet.tiles, 12, 15);
 	/**
 	 * Animate rẽ trái của người chơi
 	 */
-	public static Sprite player_left_11 = new Sprite(16, 3, 1, SpriteSheet.tiles1, 11, 16);
-	public static Sprite player_left_21 = new Sprite(16, 3, 2, SpriteSheet.tiles1, 12 ,16);
+	public static Sprite playerMoveLeft_1 = new Sprite(16, 3, 1, SpriteSheet.tiles, 11, 16);
+	public static Sprite playerMoveLeft_2 = new Sprite(16, 3, 2, SpriteSheet.tiles, 12 ,16);
 	/**
 	 * Animate rẽ pahir của người chơi
 	 */
-	public static Sprite player_right_11 = new Sprite(16, 1, 1, SpriteSheet.tiles1, 11, 16);
-	public static Sprite player_right_21 = new Sprite(16, 1, 2, SpriteSheet.tiles1, 12, 16);
+	public static Sprite playerMoveRight_1 = new Sprite(16, 1, 1, SpriteSheet.tiles, 11, 16);
+	public static Sprite playerMoveRight_2 = new Sprite(16, 1, 2, SpriteSheet.tiles, 12, 16);
 	/**
 	 * Animate người chơi bị tiêu diệt
 	 */
-	public static Sprite player_dead11 = new Sprite(16, 4, 2, SpriteSheet.tiles1, 16, 16);
-	public static Sprite player_dead21 = new Sprite(16, 5, 2, SpriteSheet.tiles1, 16, 16);
-	public static Sprite player_dead31 = new Sprite(16, 6, 2, SpriteSheet.tiles1, 16, 16);
+	public static Sprite DeadPlayer1 = new Sprite(16, 4, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite DeadPlayer2 = new Sprite(16, 5, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite DeadPlayer3 = new Sprite(16, 6, 2, SpriteSheet.tiles, 16, 16);
+	
+
+
+	public static Sprite playerMoveUp1 = new Sprite(16, 0, 0, SpriteSheet.tiles1, 12, 15);
+	public static Sprite playerMoveDown1 = new Sprite(16, 2, 0, SpriteSheet.tiles1, 12, 14);
+	public static Sprite playerMoveLeft1 = new Sprite(16, 3, 0, SpriteSheet.tiles1, 10, 14);
+	public static Sprite playerMoveRight1 = new Sprite(16, 1, 0, SpriteSheet.tiles1, 10, 15);
+	/**
+	 * Animate đi lên của người chơi
+	 */
+	public static Sprite playerMoveUp_11 = new Sprite(16, 0, 1, SpriteSheet.tiles1, 12, 15);
+	public static Sprite playerMoveUp_21 = new Sprite(16, 0, 2, SpriteSheet.tiles1, 12, 14);
+	/**
+	 * Animate đi xuống của người chơi
+	 */
+	public static Sprite playerMoveDown_11 = new Sprite(16, 2, 1, SpriteSheet.tiles1, 12, 14);
+	public static Sprite playerMoveDown_21 = new Sprite(16, 2, 2, SpriteSheet.tiles1, 12, 15);
+	/**
+	 * Animate rẽ trái của người chơi
+	 */
+	public static Sprite playerMoveLeft_11 = new Sprite(16, 3, 1, SpriteSheet.tiles1, 11, 16);
+	public static Sprite playerMoveLeft_21 = new Sprite(16, 3, 2, SpriteSheet.tiles1, 12 ,16);
+	/**
+	 * Animate rẽ pahir của người chơi
+	 */
+	public static Sprite playerMoveRight_11 = new Sprite(16, 1, 1, SpriteSheet.tiles1, 11, 16);
+	public static Sprite playerMoveRight_21 = new Sprite(16, 1, 2, SpriteSheet.tiles1, 12, 16);
+	/**
+	 * Animate người chơi bị tiêu diệt
+	 */
+	public static Sprite DeadPlayer11 = new Sprite(16, 4, 2, SpriteSheet.tiles1, 16, 16);
+	public static Sprite DeadPlayer21 = new Sprite(16, 5, 2, SpriteSheet.tiles1, 16, 16);
+	public static Sprite DeadPlayer31 = new Sprite(16, 6, 2, SpriteSheet.tiles1, 16, 16);
 
 
 
@@ -128,57 +127,57 @@ public class Sprite {
 	 | Mobiles Ent
 	 */
 	//BALLOM
-	public static Sprite balloom_left1 = new Sprite(16, 9, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite balloom_left2 = new Sprite(16, 9, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite balloom_left3 = new Sprite(16, 9, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveLeft1 = new Sprite(16, 9, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveLeft2 = new Sprite(16, 9, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveLeft3 = new Sprite(16, 9, 2, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite balloom_right1 = new Sprite(16, 10, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite balloom_right2 = new Sprite(16, 10, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite balloom_right3 = new Sprite(16, 10, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveRight1 = new Sprite(16, 10, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveRight2 = new Sprite(16, 10, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite balloomMoveRight3 = new Sprite(16, 10, 2, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite balloom_dead = new Sprite(16, 9, 3, SpriteSheet.tiles, 16, 16);
+	public static Sprite deadBalloom = new Sprite(16, 9, 3, SpriteSheet.tiles, 16, 16);
 
 	//ONEAL
-	public static Sprite oneal_left1 = new Sprite(16, 11, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_left2 = new Sprite(16, 11, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_left3 = new Sprite(16, 11, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveLeft1 = new Sprite(16, 11, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveLeft2 = new Sprite(16, 11, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveLeft3 = new Sprite(16, 11, 2, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite oneal_right1 = new Sprite(16, 12, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_right2 = new Sprite(16, 12, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_right3 = new Sprite(16, 12, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveRight1 = new Sprite(16, 12, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveRight2 = new Sprite(16, 12, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_MoveRight3 = new Sprite(16, 12, 2, SpriteSheet.tiles, 16, 16);
 
 	public static Sprite oneal_dead = new Sprite(16, 11, 3, SpriteSheet.tiles, 16, 16);
 
 	//Doll
-	public static Sprite doll_left1 = new Sprite(16, 13, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_left2 = new Sprite(16, 13, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_left3 = new Sprite(16, 13, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveLeft1 = new Sprite(16, 13, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveLeft2 = new Sprite(16, 13, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveLeft3 = new Sprite(16, 13, 2, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite doll_right1 = new Sprite(16, 14, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_right2 = new Sprite(16, 14, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite doll_right3 = new Sprite(16, 14, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveRight1 = new Sprite(16, 14, 0, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveRight2 = new Sprite(16, 14, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite dollMoveRight3 = new Sprite(16, 14, 2, SpriteSheet.tiles, 16, 16);
 
 	public static Sprite doll_dead = new Sprite(16, 13, 3, SpriteSheet.tiles, 16, 16);
 
 	//Minvo
-	public static Sprite minvo_left1 = new Sprite(16, 8, 5, SpriteSheet.tiles, 16, 16);
-	public static Sprite minvo_left2 = new Sprite(16, 8, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite minvo_left3 = new Sprite(16, 8, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveLeft1 = new Sprite(16, 8, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveLeft2 = new Sprite(16, 8, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveLeft3 = new Sprite(16, 8, 7, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite minvo_right1 = new Sprite(16, 9, 5, SpriteSheet.tiles, 16, 16);
-	public static Sprite minvo_right2 = new Sprite(16, 9, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite minvo_right3 = new Sprite(16, 9, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveRight1 = new Sprite(16, 9, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveRight2 = new Sprite(16, 9, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite minvoMoveRight3 = new Sprite(16, 9, 7, SpriteSheet.tiles, 16, 16);
 
 	public static Sprite minvo_dead = new Sprite(16, 8, 8, SpriteSheet.tiles, 16, 16);
 
 	//Kondoria
-	public static Sprite kondoria_left1 = new Sprite(16, 10, 5, SpriteSheet.tiles, 16, 16);
-	public static Sprite kondoria_left2 = new Sprite(16, 10, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite kondoria_left3 = new Sprite(16, 10, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveLeft1 = new Sprite(16, 10, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveLeft2 = new Sprite(16, 10, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveLeft3 = new Sprite(16, 10, 7, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite kondoria_right1 = new Sprite(16, 11, 5, SpriteSheet.tiles, 16, 16);
-	public static Sprite kondoria_right2 = new Sprite(16, 11, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite kondoria_right3 = new Sprite(16, 11, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveRight1 = new Sprite(16, 11, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveRight2 = new Sprite(16, 11, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite kondoriaMoveRight3 = new Sprite(16, 11, 7, SpriteSheet.tiles, 16, 16);
 
 	public static Sprite kondoria_dead = new Sprite(16, 10, 8, SpriteSheet.tiles, 16, 16);
 
@@ -200,9 +199,9 @@ public class Sprite {
 	/**
 	 * Animate boom nổ sang các hướng khác
 	 */
-	public static Sprite bomb_exploded = new Sprite(16, 0, 4, SpriteSheet.tiles, 16, 16);
-	public static Sprite bomb_exploded1 = new Sprite(16, 0, 5, SpriteSheet.tiles, 16, 16);
-	public static Sprite bomb_exploded2 = new Sprite(16, 0, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite bombbeExploded = new Sprite(16, 0, 4, SpriteSheet.tiles, 16, 16);
+	public static Sprite bombbeExploded1 = new Sprite(16, 0, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite bombbeExploded2 = new Sprite(16, 0, 6, SpriteSheet.tiles, 16, 16);
 
 	public static Sprite explosion_vertical = new Sprite(16, 1, 5, SpriteSheet.tiles, 16, 16);
 	public static Sprite explosion_vertical1 = new Sprite(16, 2, 5, SpriteSheet.tiles, 16, 16);
@@ -212,39 +211,39 @@ public class Sprite {
 	public static Sprite explosion_horizontal1 = new Sprite(16, 1, 8, SpriteSheet.tiles, 16, 16);
 	public static Sprite explosion_horizontal2 = new Sprite(16, 1, 9, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite explosion_horizontal_left_last = new Sprite(16, 0, 7, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_horizontal_left_last1 = new Sprite(16, 0, 8, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_horizontal_left_last2 = new Sprite(16, 0, 9, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_leftlastCheck = new Sprite(16, 0, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_leftlastCheck1 = new Sprite(16, 0, 8, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_leftlastCheck2 = new Sprite(16, 0, 9, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite explosion_horizontal_right_last = new Sprite(16, 2, 7, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_horizontal_right_last1 = new Sprite(16, 2, 8, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_horizontal_right_last2 = new Sprite(16, 2, 9, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_rightlastCheck = new Sprite(16, 2, 7, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_rightlastCheck1 = new Sprite(16, 2, 8, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_horizontal_rightlastCheck2 = new Sprite(16, 2, 9, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite explosion_vertical_top_last = new Sprite(16, 1, 4, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_vertical_top_last1 = new Sprite(16, 2, 4, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_vertical_top_last2 = new Sprite(16, 3, 4, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_toplastCheck = new Sprite(16, 1, 4, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_toplastCheck1 = new Sprite(16, 2, 4, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_toplastCheck2 = new Sprite(16, 3, 4, SpriteSheet.tiles, 16, 16);
 
-	public static Sprite explosion_vertical_down_last = new Sprite(16, 1, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_vertical_down_last1 = new Sprite(16, 2, 6, SpriteSheet.tiles, 16, 16);
-	public static Sprite explosion_vertical_down_last2 = new Sprite(16, 3, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_downlastCheck = new Sprite(16, 1, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_downlastCheck1 = new Sprite(16, 2, 6, SpriteSheet.tiles, 16, 16);
+	public static Sprite explosion_vertical_downlastCheck2 = new Sprite(16, 3, 6, SpriteSheet.tiles, 16, 16);
 
 	/**
 	 |--------------------------------------------------------------------------
 	 | Brick Explosion
 	 |--------------------------------------------------------------------------
 	 */
-	public static Sprite brick_exploded = new Sprite(16, 7, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite brick_exploded1 = new Sprite(16, 7, 2, SpriteSheet.tiles, 16, 16);
-	public static Sprite brick_exploded2 = new Sprite(16, 7, 3, SpriteSheet.tiles, 16, 16);
+	public static Sprite BeExplodedBrick = new Sprite(16, 7, 1, SpriteSheet.tiles, 16, 16);
+	public static Sprite BeExplodedBrick1 = new Sprite(16, 7, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite BeExplodedBrick2 = new Sprite(16, 7, 3, SpriteSheet.tiles, 16, 16);
 
 	/**
 	 |--------------------------------------------------------------------------
 	 | Powerups_Item
 	 |--------------------------------------------------------------------------
 	 */
-	public static Sprite powerup_bombs = new Sprite(16, 0, 10, SpriteSheet.tiles, 16, 16);
+	public static Sprite powerupBombs = new Sprite(16, 0, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_flames = new Sprite(16, 1, 10, SpriteSheet.tiles, 16, 16);
-	public static Sprite powerup_speed = new Sprite(16, 2, 10, SpriteSheet.tiles, 16, 16);
+	public static Sprite powerupEnemySpeed = new Sprite(16, 2, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_wallpass = new Sprite(16, 3, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_detonator = new Sprite(16, 4, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_bombpass = new Sprite(16, 5, 10, SpriteSheet.tiles, 16, 16);
@@ -260,13 +259,13 @@ public class Sprite {
 
 
 	public void setColor(int color) {
-		Arrays.fill(_pixels, color);
+		Arrays.fill(pixelInGame, color);
 	}
 
 	private void load() {
 		for (int y = 0; y < SIZE; y++)
 			for (int x = 0; x < SIZE; x++) {
-				_pixels[x + y * SIZE] = _sheet._pixels[(x + _x) + (y + _y) * _sheet.SIZE];
+				pixelInGame[x + y * SIZE] = _sheet.pixelInGame[(x + XPoint) + (y + YPoint) * _sheet.SIZE];
 			}
 	}
 
@@ -300,19 +299,19 @@ public class Sprite {
 	}
 
 	public int[] getPixels() {
-		return _pixels;
+		return pixelInGame;
 	}
 
 	public int getPixel(int i) {
-		return _pixels[i];
+		return pixelInGame[i];
 	}
 
-	public int getRealWidth() {
-		return _realWidth;
+	public int getGameWidth() {
+		return ScreenGameWidth;
 	}
 
-	public int getRealHeight() {
-		return _realHeight;
+	public int getGameHeight() {
+		return ScreenGameHeight;
 	}
 
 }

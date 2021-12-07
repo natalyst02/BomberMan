@@ -24,17 +24,17 @@ public class BrickTile extends DestroyableTile {
 		int x = Coordinates.tileToPixel(_x);
 		int y = Coordinates.tileToPixel(_y);
 		
-		if(_destroyed) {
-			_sprite = movingSprite(Sprite.brick_exploded, Sprite.brick_exploded1, Sprite.brick_exploded2);
+		if(beDemolished) {
+			GameSprite = movingSprite(Sprite.BeExplodedBrick, Sprite.BeExplodedBrick1, Sprite.BeExplodedBrick2);
 			
-			screen.renderEntityWithBelowSprite(x, y, this, _belowSprite);
+			screen.RenderEntitiesWithSpriteBelow(x, y, this, SpriteBelowP);
 		}
 		else
 			screen.renderEntity( x, y, this);
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		
 		if(e instanceof DirectionalExplosion)
 			destroy();

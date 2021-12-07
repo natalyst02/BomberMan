@@ -9,30 +9,30 @@ import NguHuynhDe.display.Sprite;
 public class Balloom extends Enemy {
 	
 	
-	public Balloom(int x, int y, Board board) {
-		super(x, y, board, Sprite.balloom_dead, Game.getPlayerSpeed() / 2, 100);
+	public Balloom(int x, int y, Board GameBoard) {
+		super(x, y, GameBoard, Sprite.deadBalloom, Game.getPlayerSpeed() / 2, 100);
 		
-		_sprite = Sprite.balloom_left1;
+		GameSprite = Sprite.balloomMoveLeft1;
 		
 		_ai = new AILow();
-		_direction = _ai.calculateDirection();
+		DirectionBomb = _ai.calculateDirection();
 	}
 	
 	/*
 	|--------------------------------------------------------------------------
-	| Mob Sprite
+	| Dam Dong Spite
 	|--------------------------------------------------------------------------
 	 */
 	@Override
 	protected void chooseSprite() {
-		switch(_direction) {
+		switch(DirectionBomb) {
 			case 0:
 			case 1:
-					_sprite = Sprite.movingSprite(Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3, _animate, 60);
+					GameSprite = Sprite.movingSprite(Sprite.balloomMoveRight1, Sprite.balloomMoveRight2, Sprite.balloomMoveRight3, AnimationOfEnti, 60);
 				break;
 			case 2:
 			case 3:
-					_sprite = Sprite.movingSprite(Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3, _animate, 60);
+					GameSprite = Sprite.movingSprite(Sprite.balloomMoveLeft1, Sprite.balloomMoveLeft2, Sprite.balloomMoveLeft3, AnimationOfEnti, 60);
 				break;
 		}
 	}

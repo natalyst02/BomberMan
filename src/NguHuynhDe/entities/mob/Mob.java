@@ -7,16 +7,16 @@ import NguHuynhDe.display.Screen;
 
 public abstract class Mob extends AnimatedEntitiy {
 	
-	protected Board _board;
-	protected int _direction = -1;
-	protected boolean _alive = true;
-	protected boolean _moving = false;
-	public int _timeAfter = 80;
+	protected Board GameBoard;
+	protected int DirectionBomb = -1;
+	protected boolean CheckAlive = true;
+	protected boolean CheckMove = false;
+	public int DelayEntiTiming = 80;
 	
 	public Mob(int x, int y, Board board) {
 		_x = x;
 		_y = y;
-		_board = board;
+		GameBoard = board;
 	}
 	
 	@Override
@@ -35,24 +35,24 @@ public abstract class Mob extends AnimatedEntitiy {
 	
 	protected abstract boolean canMove(double x, double y);
 	
-	public boolean isAlive() {
-		return _alive;
+	public boolean beAliveP() {
+		return CheckAlive;
 	}
 	
-	public boolean isMoving() {
-		return _moving;
+	public boolean beMovingP() {
+		return CheckMove;
 	}
 	
 	public int getDirection() {
-		return _direction;
+		return DirectionBomb;
 	}
 	
-	protected double getXMessage() {
-		return (_x * Game.SCALE) + (_sprite.SIZE / 2 * Game.SCALE);
+	protected double getMessX() {
+		return (_x * Game.SCALE) + (GameSprite.SIZE / 2 * Game.SCALE);
 	}
 	
-	protected double getYMessage() {
-		return (_y* Game.SCALE) - (_sprite.SIZE / 2 * Game.SCALE);
+	protected double getMessY() {
+		return (_y* Game.SCALE) - (GameSprite.SIZE / 2 * Game.SCALE);
 	}
 	
 }

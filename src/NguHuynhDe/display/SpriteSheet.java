@@ -10,7 +10,7 @@ public class SpriteSheet {
 
 	private String _path;
 	public final int SIZE;
-	public int[] _pixels;
+	public int[] pixelInGame;
 	
 	public static SpriteSheet tiles = new SpriteSheet("/textures/classics.png", 256);
 	public static SpriteSheet tiles1 = new SpriteSheet("/textures/New folder/classics1.png", 256);
@@ -18,17 +18,17 @@ public class SpriteSheet {
 	public SpriteSheet(String path, int size) {
 		_path = path;
 		SIZE = size;
-		_pixels = new int[SIZE * SIZE];
+		pixelInGame = new int[SIZE * SIZE];
 		load();
 	}
 	
 	private void load() {
 		try {
-			URL a = SpriteSheet.class.getResource(_path);
-			BufferedImage image = ImageIO.read(a);
-			int w = image.getWidth();
-			int h = image.getHeight();
-			image.getRGB(0, 0, w, h, _pixels, 0, w);
+			URL urlLink = SpriteSheet.class.getResource(_path);
+			BufferedImage image = ImageIO.read(urlLink);
+			int wG = image.getWidth();
+			int hG = image.getHeight();
+			image.getRGB(0, 0, wG, hG, pixelInGame, 0, wG);
 
 
 		} catch (IOException e) {

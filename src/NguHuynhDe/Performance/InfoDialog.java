@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 
 public class InfoDialog implements WindowListener {
 
-		private Frame _frame;
+		private Frame GameFrame;
 	
 	  public InfoDialog(Frame f, String title, String message, int option) {
-		  _frame = f;
+		  GameFrame = f;
 		  
 		  final JFrame dialog = new JFrame(title);  
 	        final JButton button = new JButton("Ok");  
@@ -42,7 +42,7 @@ public class InfoDialog implements WindowListener {
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		_frame.pauseGame();
+		GameFrame.pauseGame();
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class InfoDialog implements WindowListener {
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		_frame.resumeGame();
+		GameFrame.resumeGame();
 	}
 
 	@Override

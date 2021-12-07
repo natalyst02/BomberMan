@@ -11,11 +11,11 @@ public abstract class Tile extends Entity {
 	public Tile(int x, int y, Sprite sprite) {
 		_x = x;
 		_y = y;
-		_sprite = sprite;
+		GameSprite = sprite;
 	}
 	
 	@Override
-	public boolean collide(Entity e) {
+	public boolean checkCollide(Entity e) {
 		return false;
 	}
 	
