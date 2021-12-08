@@ -6,15 +6,15 @@ import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.Notification;
-import NguHuynhDe.entities.mob.Mob;
+import NguHuynhDe.entities.mob.MobileEnti;
 import NguHuynhDe.entities.mob.Player;
 import NguHuynhDe.MapLv.Coordinates;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.ai.AI;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
-public abstract class Enemy extends Mob {
+public abstract class Enemy extends MobileEnti {
 
 	protected int ScoresGame;
 	
@@ -26,9 +26,9 @@ public abstract class Enemy extends Mob {
 	protected double GameSteps;
 	
 	protected int GameAnimation = 30;
-	protected Sprite DeletedSprite;
+	protected SpriteInGame DeletedSprite;
 	
-	public Enemy(int x, int y, Board board, Sprite dead, double speed, int points) {
+	public Enemy(int x, int y, Board board, SpriteInGame dead, double speed, int points) {
 		super(x, y, board);
 		
 		ScoresGame = points;
@@ -61,7 +61,7 @@ public abstract class Enemy extends Mob {
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		
 		if(CheckAlive)
 			chooseSprite();
@@ -70,7 +70,7 @@ public abstract class Enemy extends Mob {
 				GameSprite = DeletedSprite;
 				AnimationOfEnti = 0;
 			} else {
-				GameSprite = Sprite.movingSprite(Sprite.mob_dead1, Sprite.mob_dead2, Sprite.mob_dead3, AnimationOfEnti, 60);
+				GameSprite = SpriteInGame.movingSprite(SpriteInGame.mob_dead1, SpriteInGame.mob_dead2, SpriteInGame.mob_dead3, AnimationOfEnti, 60);
 			}
 				
 		}

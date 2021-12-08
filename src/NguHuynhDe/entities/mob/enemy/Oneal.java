@@ -4,14 +4,14 @@ package NguHuynhDe.entities.mob.enemy;
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.mob.enemy.ai.AIMedium;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public class Oneal extends Enemy {
 	
 	public Oneal(int x, int y, Board boardgame) {
-		super(x, y, boardgame, Sprite.oneal_dead, Game.getPlayerSpeed(), 200);
+		super(x, y, boardgame, SpriteInGame.oneal_dead, Game.getPlayerSpeed(), 200);
 		
-		GameSprite = Sprite.oneal_MoveLeft1;
+		GameSprite = SpriteInGame.oneal_MoveLeft1;
 		
 		_ai = new AIMedium(GameBoard.getPlayer(), this);
 		DirectionBomb  = _ai.calculateDirection();
@@ -28,16 +28,16 @@ public class Oneal extends Enemy {
 			case 0:
 			case 1:
 				if(CheckMove)
-					GameSprite = Sprite.movingSprite(Sprite.oneal_MoveRight1, Sprite.oneal_MoveRight2, Sprite.oneal_MoveRight3, AnimationOfEnti, 60);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.oneal_MoveRight1, SpriteInGame.oneal_MoveRight2, SpriteInGame.oneal_MoveRight3, AnimationOfEnti, 60);
 				else
-					GameSprite = Sprite.oneal_MoveLeft1;
+					GameSprite = SpriteInGame.oneal_MoveLeft1;
 				break;
 			case 2:
 			case 3:
 				if(CheckMove)
-					GameSprite = Sprite.movingSprite(Sprite.oneal_MoveLeft1, Sprite.oneal_MoveLeft2, Sprite.oneal_MoveLeft3, AnimationOfEnti, 60);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.oneal_MoveLeft1, SpriteInGame.oneal_MoveLeft2, SpriteInGame.oneal_MoveLeft3, AnimationOfEnti, 60);
 				else
-					GameSprite = Sprite.oneal_MoveLeft1;
+					GameSprite = SpriteInGame.oneal_MoveLeft1;
 				break;
 		}
 	}

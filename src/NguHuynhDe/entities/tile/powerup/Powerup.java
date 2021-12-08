@@ -1,7 +1,7 @@
 package NguHuynhDe.entities.tile.powerup;
 
 import NguHuynhDe.entities.tile.Tile;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public abstract class Powerup extends Tile {
 
@@ -9,7 +9,7 @@ public abstract class Powerup extends Tile {
 	protected boolean beActive = false;
 	protected int modeG;
 	
-	public Powerup(int x, int y, int level, Sprite sprite) {
+	public Powerup(int x, int y, int level, SpriteInGame sprite) {
 		super(x, y, sprite);
 		modeG = level;
 	}

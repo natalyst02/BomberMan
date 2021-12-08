@@ -2,16 +2,16 @@ package NguHuynhDe.entities.bomb;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Mob;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.entities.mob.MobileEnti;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
 
 public class Explosion extends Entity {
 
 	protected boolean lastCheck = false;
 	protected Board GameBoard;
-	protected Sprite GameSprite1, GameSprite2;
+	protected SpriteInGame GameSprite1, GameSprite2;
 	
 	public Explosion(int x, int y, int direction, boolean lastStatus, Board board) {
 		_x = x;
@@ -22,37 +22,37 @@ public class Explosion extends Entity {
 		switch (direction) {
 			case 0:
 				if(lastStatus == false) {
-					GameSprite = Sprite.explosion_vertical2;
+					GameSprite = SpriteInGame.explosion_vertical2;
 				} else {
-					GameSprite = Sprite.explosion_vertical_toplastCheck2;
+					GameSprite = SpriteInGame.explosion_vertical_toplastCheck2;
 				}
 			break;
 			case 1:
 				if(lastStatus == false) {
-					GameSprite = Sprite.explosion_horizontal2;
+					GameSprite = SpriteInGame.explosion_horizontal2;
 				} else {
-					GameSprite = Sprite.explosion_horizontal_rightlastCheck2;
+					GameSprite = SpriteInGame.explosion_horizontal_rightlastCheck2;
 				}
 				break;
 			case 2:
 				if(lastStatus == false) {
-					GameSprite = Sprite.explosion_vertical2;
+					GameSprite = SpriteInGame.explosion_vertical2;
 				} else {
-					GameSprite = Sprite.explosion_vertical_downlastCheck2;
+					GameSprite = SpriteInGame.explosion_vertical_downlastCheck2;
 				}
 				break;
 			case 3: 
 				if(lastStatus == false) {
-					GameSprite = Sprite.explosion_horizontal2;
+					GameSprite = SpriteInGame.explosion_horizontal2;
 				} else {
-					GameSprite = Sprite.explosion_horizontal_leftlastCheck2;
+					GameSprite = SpriteInGame.explosion_horizontal_leftlastCheck2;
 				}
 				break;
 		}
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		int xP = (int)_x << 4;
 		int yP = (int)_y << 4;
 		
@@ -65,8 +65,8 @@ public class Explosion extends Entity {
 	@Override
 	public boolean checkCollide(Entity e) {
 		
-		if(e instanceof Mob) {
-			((Mob)e).kill();
+		if(e instanceof MobileEnti) {
+			((MobileEnti)e).kill();
 		}
 		
 		return true;

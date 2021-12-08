@@ -2,13 +2,13 @@ package NguHuynhDe.entities.tile.powerup;
 
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class PowerupUndead extends Powerup {
 
-    public PowerupUndead(int x, int y, int level, Sprite sprite) {
+    public PowerupUndead(int x, int y, int level, SpriteInGame sprite) {
         super(x, y, level, sprite);
     }
 

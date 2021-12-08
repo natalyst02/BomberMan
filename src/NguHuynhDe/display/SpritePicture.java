@@ -6,16 +6,16 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-public class SpriteSheet {
+public class SpritePicture {
 
 	private String _path;
 	public final int SIZE;
 	public int[] pixelInGame;
 	
-	public static SpriteSheet tiles = new SpriteSheet("/textures/classics.png", 256);
-	public static SpriteSheet tiles1 = new SpriteSheet("/textures/New folder/classics1.png", 256);
+	public static SpritePicture tiles = new SpritePicture("/textures/classics.png", 256);
+	public static SpritePicture tiles1 = new SpritePicture("/textures/New folder/classics1.png", 256);
 
-	public SpriteSheet(String path, int size) {
+	public SpritePicture(String path, int size) {
 		_path = path;
 		SIZE = size;
 		pixelInGame = new int[SIZE * SIZE];
@@ -24,7 +24,7 @@ public class SpriteSheet {
 	
 	private void load() {
 		try {
-			URL urlLink = SpriteSheet.class.getResource(_path);
+			URL urlLink = SpritePicture.class.getResource(_path);
 			BufferedImage image = ImageIO.read(urlLink);
 			int wG = image.getWidth();
 			int hG = image.getHeight();

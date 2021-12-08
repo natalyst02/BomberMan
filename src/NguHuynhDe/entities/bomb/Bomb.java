@@ -4,11 +4,11 @@ import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.AnimationInGame;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Mob;
+import NguHuynhDe.entities.mob.MobileEnti;
 import NguHuynhDe.entities.mob.Player;
 import NguHuynhDe.MapLv.Coordinates;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 import NguHuynhDe.music.Audio;
 
 public class Bomb extends AnimationInGame {
@@ -26,7 +26,7 @@ public class Bomb extends AnimationInGame {
 		_x = x;
 		_y = y;
 		GameBoard = board;
-		GameSprite = Sprite.bomb;
+		GameSprite = SpriteInGame.bomb;
 	}
 	
 	@Override
@@ -49,12 +49,12 @@ public class Bomb extends AnimationInGame {
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		if(beExploded) {
-			GameSprite =  Sprite.bombbeExploded2;
+			GameSprite =  SpriteInGame.bombbeExploded2;
 			renderExplosions(screen);
 		} else
-			GameSprite = Sprite.movingSprite(Sprite.bomb, Sprite.bomb_1, Sprite.bomb_2, AnimationOfEnti, 60);
+			GameSprite = SpriteInGame.movingSprite(SpriteInGame.bomb, SpriteInGame.bomb_1, SpriteInGame.bomb_2, AnimationOfEnti, 60);
 		
 		int xBomb = (int)_x << 4;
 		int yBomb = (int)_y << 4;
@@ -62,7 +62,7 @@ public class Bomb extends AnimationInGame {
 		screen.renderEntity(xBomb, yBomb , this);
 	}
 	
-	public void renderExplosions(Screen screen) {
+	public void renderExplosions(ScreenInGame screen) {
 		for (int i = 0; i < ExplosionDirections.length; i++) {
 			ExplosionDirections[i].render(screen);
 		}
@@ -82,7 +82,7 @@ public class Bomb extends AnimationInGame {
 		BePassed = true;
 		beExploded = true;
 		
-		Mob a = GameBoard.getMobAt(_x, _y);
+		MobileEnti a = GameBoard.getMobAt(_x, _y);
 		if(a != null)  {
 			a.kill();
 		}

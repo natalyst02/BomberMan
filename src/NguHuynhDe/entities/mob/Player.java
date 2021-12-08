@@ -14,12 +14,12 @@ import NguHuynhDe.entities.bomb.Bomb;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.Enemy;
 import NguHuynhDe.entities.tile.powerup.Powerup;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 import NguHuynhDe.KeyBoard.Keyboard;
 import NguHuynhDe.MapLv.Coordinates;
 
-public class Player extends Mob {
+public class Player extends MobileEnti {
 
 	private List<Bomb> bombsList;
 	protected Keyboard InputFromKeyboard;
@@ -63,7 +63,7 @@ public class Player extends Mob {
 		super(x, y, board);
 		bombsList = GameBoard.getBoList();
 		InputFromKeyboard = GameBoard.getInput();
-		GameSprite = Sprite.playerMoveRight;
+		GameSprite = SpriteInGame.playerMoveRight;
 	}
 
 
@@ -94,7 +94,7 @@ public class Player extends Mob {
 	}
 
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		CalcOffsetPoint();
 
 		if(CheckAlive) {
@@ -103,7 +103,7 @@ public class Player extends Mob {
 		}
 
 		else
-			GameSprite = Sprite.movingSprite(Sprite.DeadPlayer1, Sprite.DeadPlayer2, AnimationOfEnti, 20);
+			GameSprite = SpriteInGame.movingSprite(SpriteInGame.DeadPlayer1, SpriteInGame.DeadPlayer2, AnimationOfEnti, 20);
 					//Sprite.DeadPlayer1;
 
 		screen.renderEntity((int)_x, (int)_y - GameSprite.SIZE, this);
@@ -112,8 +112,8 @@ public class Player extends Mob {
 	}
 
 	public void CalcOffsetPoint() {
-		int ScrollGame = Screen.CalcOffsetPoint(GameBoard, this);
-		Screen.setPointOffset(ScrollGame, 0);
+		int ScrollGame = ScreenInGame.CalcOffsetPoint(GameBoard, this);
+		ScreenInGame.setPointOffset(ScrollGame, 0);
 	}
 
 
@@ -307,66 +307,66 @@ public class Player extends Mob {
 		switch(DirectionBomb) {
 			case 0:
 				if(undead){
-					GameSprite = Sprite.playerMoveUp1;
+					GameSprite = SpriteInGame.playerMoveUp1;
 
 					if(CheckMove) {
-						GameSprite = Sprite.movingSprite(Sprite.playerMoveUp_11, Sprite.playerMoveUp_21, AnimationOfEnti, 20);
+						GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveUp_11, SpriteInGame.playerMoveUp_21, AnimationOfEnti, 20);
 					}
 				}
 			else {
-					GameSprite = Sprite.playerMoveUp;
+					GameSprite = SpriteInGame.playerMoveUp;
 
 					if (CheckMove) {
-						GameSprite = Sprite.movingSprite(Sprite.playerMoveUp_1, Sprite.playerMoveUp_2, AnimationOfEnti, 20);
+						GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveUp_1, SpriteInGame.playerMoveUp_2, AnimationOfEnti, 20);
 					}
 				}
 			break;
 		case 1:
 			if(undead){
-				GameSprite = Sprite.playerMoveRight1;
+				GameSprite = SpriteInGame.playerMoveRight1;
 				if(CheckMove) {
-					GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_11, Sprite.playerMoveRight_21, AnimationOfEnti, 20);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveRight_11, SpriteInGame.playerMoveRight_21, AnimationOfEnti, 20);
 			}}
 			else{
-			GameSprite = Sprite.playerMoveRight;
+			GameSprite = SpriteInGame.playerMoveRight;
 			if(CheckMove) {
-				GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_1, Sprite.playerMoveRight_2, AnimationOfEnti, 20);
+				GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveRight_1, SpriteInGame.playerMoveRight_2, AnimationOfEnti, 20);
 			}}
 
 			break;
 		case 2:
 			if(undead){
-				GameSprite = Sprite.playerMoveDown1;
+				GameSprite = SpriteInGame.playerMoveDown1;
 				if(CheckMove) {
-					GameSprite = Sprite.movingSprite(Sprite.playerMoveDown_11, Sprite.playerMoveDown_21, AnimationOfEnti, 20);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveDown_11, SpriteInGame.playerMoveDown_21, AnimationOfEnti, 20);
 				}
 			}
 			else {
-				GameSprite = Sprite.playerMoveDown;
+				GameSprite = SpriteInGame.playerMoveDown;
 				if (CheckMove) {
-					GameSprite = Sprite.movingSprite(Sprite.playerMoveDown_1, Sprite.playerMoveDown_2, AnimationOfEnti, 20);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveDown_1, SpriteInGame.playerMoveDown_2, AnimationOfEnti, 20);
 				}
 			}
 			break;
 		case 3:
 			if(undead)
 			{
-				GameSprite = Sprite.playerMoveLeft1;
+				GameSprite = SpriteInGame.playerMoveLeft1;
 				if(CheckMove) {
-					GameSprite = Sprite.movingSprite(Sprite.playerMoveLeft_11, Sprite.playerMoveLeft_21, AnimationOfEnti, 20);
+					GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveLeft_11, SpriteInGame.playerMoveLeft_21, AnimationOfEnti, 20);
 				}
 			}
 			else{
-			GameSprite = Sprite.playerMoveLeft;
+			GameSprite = SpriteInGame.playerMoveLeft;
 			if(CheckMove) {
-				GameSprite = Sprite.movingSprite(Sprite.playerMoveLeft_1, Sprite.playerMoveLeft_2, AnimationOfEnti, 20);
+				GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveLeft_1, SpriteInGame.playerMoveLeft_2, AnimationOfEnti, 20);
 			}}
 
 			break;
 		default:
-			GameSprite = Sprite.playerMoveRight;
+			GameSprite = SpriteInGame.playerMoveRight;
 			if(CheckMove) {
-				GameSprite = Sprite.movingSprite(Sprite.playerMoveRight_1, Sprite.playerMoveRight_2, AnimationOfEnti, 20);
+				GameSprite = SpriteInGame.movingSprite(SpriteInGame.playerMoveRight_1, SpriteInGame.playerMoveRight_2, AnimationOfEnti, 20);
 			}
 
 			break;

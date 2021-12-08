@@ -2,7 +2,7 @@ package NguHuynhDe.entities;
 
 import java.awt.Color;
 
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 
 public class Notification extends Entity {
 
@@ -45,7 +45,7 @@ public class Notification extends Entity {
 	}
 
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 	}
 
 	@Override

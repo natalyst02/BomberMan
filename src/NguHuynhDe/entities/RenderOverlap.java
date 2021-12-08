@@ -3,7 +3,7 @@ package NguHuynhDe.entities;
 import java.util.LinkedList;
 
 import NguHuynhDe.entities.tile.destroyable.DestroyableTile;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 
 public class RenderOverlap extends Entity {
 	
@@ -30,7 +30,7 @@ public class RenderOverlap extends Entity {
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		getTopEntity().render(screen);
 	}
 	

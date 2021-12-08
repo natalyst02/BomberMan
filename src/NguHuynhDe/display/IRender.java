@@ -4,5 +4,5 @@ public interface IRender {
 
 	public void update();
 	
-	public void render(Screen screen);
+	public void render(ScreenInGame screen);
 }

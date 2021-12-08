@@ -2,10 +2,10 @@ package NguHuynhDe.entities.mob;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
-public class Shield extends Mob{
+public class Shield extends MobileEnti {
     private boolean beActive = false;
     private double theRestTime = 0;
     private double coolDown = 0;
@@ -16,7 +16,7 @@ public class Shield extends Mob{
         super(x,y,board);
         this._x = x;
         this._y = y;
-        GameSprite = Sprite.shield;
+        GameSprite = SpriteInGame.shield;
         GameBoard = board;
         this.theRestTime = theRestTime; // 5s
         this.coolDown = coolDown; //30s cd
@@ -71,7 +71,7 @@ public class Shield extends Mob{
 
 
     @Override
-    public void render(Screen screen) {
+    public void render(ScreenInGame screen) {
 
 
         if (theRestTime > 0)

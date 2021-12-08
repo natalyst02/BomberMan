@@ -3,13 +3,13 @@ package NguHuynhDe.entities.tile;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public class PortalTile extends Tile {
 
 	protected Board GameBoard;
 	
-	public PortalTile(int x, int y, Board boardgame, Sprite sprite) {
+	public PortalTile(int x, int y, Board boardgame, SpriteInGame sprite) {
 		super(x, y, sprite);
 		GameBoard = boardgame;
 	}

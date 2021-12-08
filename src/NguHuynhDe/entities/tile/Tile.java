@@ -2,13 +2,13 @@ package NguHuynhDe.entities.tile;
 
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.MapLv.Coordinates;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
 public abstract class Tile extends Entity {
 	
 	
-	public Tile(int x, int y, Sprite sprite) {
+	public Tile(int x, int y, SpriteInGame sprite) {
 		_x = x;
 		_y = y;
 		GameSprite = sprite;
@@ -20,7 +20,7 @@ public abstract class Tile extends Entity {
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		screen.renderEntity( Coordinates.tileToPixel(_x), Coordinates.tileToPixel(_y), this);
 	}
 	

@@ -25,19 +25,19 @@ import NguHuynhDe.entities.tile.powerup.PowerupFlames;
 import NguHuynhDe.entities.tile.powerup.PowerupSpeed;
 import NguHuynhDe.entities.tile.powerup.PowerupUndead;
 import NguHuynhDe.exceptions.LoadLevelException;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
-public class FileLevel extends Level {
+public class SetupLevel extends ModeGame {
 	
-	public FileLevel(String path, Board boardgame) throws LoadLevelException {
+	public SetupLevel(String path, Board boardgame) throws LoadLevelException {
 		super(path, boardgame);
 	}
 	
 	@Override
 	public void loadLevel(String path) throws LoadLevelException {
 		try {
-			URL absPath = FileLevel.class.getResource("/" + path);
+			URL absPath = SetupLevel.class.getResource("/" + path);
 			
 			BufferedReader in = new BufferedReader(
 			        new InputStreamReader(absPath.openStream()));
@@ -75,95 +75,95 @@ public class FileLevel extends Level {
 		
 		switch(c) {
 			case '#': 
-				GameBoard.addEntitie(pos, new WallTile(x, y, Sprite.wall));  
+				GameBoard.addEntitie(pos, new WallTile(x, y, SpriteInGame.wall));
 				break;
 			case 'b': 
 				RenderOverlap layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass), 
-						new BrickTile(x ,y, Sprite.brick));
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new BrickTile(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupBombs(x, y, modeG, Sprite.powerupBombs));
+					layer.addBeforeTop(new PowerupBombs(x, y, modeG, SpriteInGame.powerupBombs));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'u':
 				 layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass),
-						new BrickTile(x ,y, Sprite.brick));
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new BrickTile(x ,y, SpriteInGame.brick));
 
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupUndead(x, y, modeG, Sprite.powerup_undead));
+					layer.addBeforeTop(new PowerupUndead(x, y, modeG, SpriteInGame.powerup_undead));
 				}
 
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 's':
 				layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass), 
-						new BrickTile(x ,y, Sprite.brick));
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new BrickTile(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupSpeed(x, y, modeG, Sprite.powerupEnemySpeed));
+					layer.addBeforeTop(new PowerupSpeed(x, y, modeG, SpriteInGame.powerupEnemySpeed));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'f': 
 				layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass), 
-						new BrickTile(x ,y, Sprite.brick));
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new BrickTile(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupFlames(x, y, modeG, Sprite.powerup_flames));
+					layer.addBeforeTop(new PowerupFlames(x, y, modeG, SpriteInGame.powerup_flames));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case '*': 
 				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass), 
-						new BrickTile(x ,y, Sprite.brick)) );
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new BrickTile(x ,y, SpriteInGame.brick)) );
 				break;
 			case 'x': 
 				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
-						new GrassTile(x ,y, Sprite.grass), 
-						new PortalTile(x ,y, GameBoard, Sprite.portal), 
-						new BrickTile(x ,y, Sprite.brick)) );
+						new GrassTile(x ,y, SpriteInGame.grass),
+						new PortalTile(x ,y, GameBoard, SpriteInGame.portal),
+						new BrickTile(x ,y, SpriteInGame.brick)) );
 				break;
 			case ' ': 
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			case 'p': 
 				GameBoard.addMob( new Player(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard) );
-				Screen.setPointOffset(0, 0);
+				ScreenInGame.setPointOffset(0, 0);
 				
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			// quai
 			case '1':
 				GameBoard.addMob( new Balloom(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			case '2':
 				GameBoard.addMob( new Oneal(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			case '3':
 				GameBoard.addMob( new Doll(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			case '4':
 				GameBoard.addMob( new Minvo(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			case '5':
 				GameBoard.addMob( new Kondoria(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			default: 
-				GameBoard.addEntitie(pos, new GrassTile(x, y, Sprite.grass) );
+				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
 				break;
 			}
 	}

@@ -8,7 +8,7 @@ import java.awt.image.DataBufferInt;
 
 
 import NguHuynhDe.exceptions.BombermanException;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.Performance.Frame;
 import NguHuynhDe.KeyBoard.Keyboard;
 
@@ -54,7 +54,7 @@ public class Game extends Canvas {
 	private boolean GPaused = true;
 	
 	private Board GameBoard;
-	private Screen screen;
+	private ScreenInGame screen;
 	private Frame GameFrame;
 	
 	//render 
@@ -65,7 +65,7 @@ public class Game extends Canvas {
 		GameFrame = frame;
 		GameFrame.setTitle(TITLE);
 		
-		screen = new Screen(WIDTH, HEIGHT);
+		screen = new ScreenInGame(WIDTH, HEIGHT);
 		InputFromKeyboard = new Keyboard();
 		
 		GameBoard = new Board(this, InputFromKeyboard, screen);

@@ -2,20 +2,20 @@ package NguHuynhDe.entities;
 
 import NguHuynhDe.MapLv.Coordinates;
 import NguHuynhDe.display.IRender;
-import NguHuynhDe.display.Screen;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.ScreenInGame;
+import NguHuynhDe.display.SpriteInGame;
 
 public abstract class Entity implements IRender {
 
 	protected double _x, _y;
 	protected boolean _removed = false;
-	protected Sprite GameSprite;
+	protected SpriteInGame GameSprite;
 	
 	@Override
 	public abstract void update();
 	
 	@Override
-	public abstract void render(Screen screen);
+	public abstract void render(ScreenInGame screen);
 	
 	public void remove() {
 		_removed = true;
@@ -25,7 +25,7 @@ public abstract class Entity implements IRender {
 		return _removed;
 	}
 	
-	public Sprite getSprite() {
+	public SpriteInGame getSprite() {
 		return GameSprite;
 	}
 	

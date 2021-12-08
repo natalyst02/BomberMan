@@ -3,11 +3,11 @@ package NguHuynhDe.entities.tile.powerup;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public class PowerupSpeed extends Powerup {
 
-	public PowerupSpeed(int x, int y, int level, Sprite sprite) {
+	public PowerupSpeed(int x, int y, int level, SpriteInGame sprite) {
 		super(x, y, level, sprite);
 	}
 	

@@ -2,8 +2,8 @@ package NguHuynhDe.entities.bomb;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Mob;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.entities.mob.MobileEnti;
+import NguHuynhDe.display.ScreenInGame;
 
 public class DirectionalExplosion extends Entity {
 
@@ -56,7 +56,7 @@ public class DirectionalExplosion extends Entity {
 			
 			Entity a = GameBoard.getEntity(x, y, null);
 			
-			if(a instanceof Mob) ++radiusBo; // vu no tac dong xung quanh
+			if(a instanceof MobileEnti) ++radiusBo; // vu no tac dong xung quanh
 			
 			if(a.checkCollide(this) == false)
 				break;
@@ -78,7 +78,7 @@ public class DirectionalExplosion extends Entity {
 	public void update() {}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		
 		for (int i = 0; i < ExplosionDirections.length; i++) {
 			ExplosionDirections[i].render(screen);

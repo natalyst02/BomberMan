@@ -12,7 +12,7 @@ import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Player;
 
-public class Screen {
+public class ScreenInGame {
 	protected int ScreenWidth, ScreenHeight;
 	public int[] pixelInGame;
 	private int transColor = 0xffff00ff;
@@ -20,7 +20,7 @@ public class Screen {
 	
 	public static int xOffset = 0, yOffset = 0;
 	
-	public Screen(int width, int height) {
+	public ScreenInGame(int width, int height) {
 		ScreenWidth = width;
 		ScreenHeight = height;
 		
@@ -51,7 +51,7 @@ public class Screen {
 		}
 	}
 	
-	public void RenderEntitiesWithSpriteBelow(int PointX, int PointY, Entity GameEntity, Sprite BelowPoint) {
+	public void RenderEntitiesWithSpriteBelow(int PointX, int PointY, Entity GameEntity, SpriteInGame BelowPoint) {
 		PointX -= xOffset;
 		PointY -= yOffset;
 		for (int y = 0; y < GameEntity.getSprite().getSize(); y++) {

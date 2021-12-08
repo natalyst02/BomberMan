@@ -3,7 +3,7 @@ package NguHuynhDe.entities.tile.destroyable;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.tile.Tile;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public class DestroyableTile extends Tile {
 
@@ -11,9 +11,9 @@ public class DestroyableTile extends Tile {
 	private int AnimationOfEnti = 0;
 	protected boolean beDemolished = false;
 	protected int DisppearTime = 20;
-	protected Sprite SpriteBelowP = Sprite.grass; 
+	protected SpriteInGame SpriteBelowP = SpriteInGame.grass;
 	
-	public DestroyableTile(int x, int y, Sprite sprite) {
+	public DestroyableTile(int x, int y, SpriteInGame sprite) {
 		super(x, y, sprite);
 	}
 	
@@ -45,11 +45,11 @@ public class DestroyableTile extends Tile {
 		return false;
 	}
 	
-	public void addBelowSprite(Sprite sprite) {
+	public void addBelowSprite(SpriteInGame sprite) {
 		SpriteBelowP = sprite;
 	}
 	
-	protected Sprite movingSprite(Sprite normal, Sprite x1, Sprite x2) {
+	protected SpriteInGame movingSprite(SpriteInGame normal, SpriteInGame x1, SpriteInGame x2) {
 		int CalcDestroy = AnimationOfEnti % 30;
 		
 		if(CalcDestroy < 10) {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import NguHuynhDe.entities.mob.Mob;
+import NguHuynhDe.entities.mob.MobileEnti;
 import NguHuynhDe.entities.mob.Player;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.Notification;
@@ -15,10 +15,10 @@ import NguHuynhDe.entities.bomb.Explosion;
 import NguHuynhDe.entities.tile.powerup.Powerup;
 import NguHuynhDe.exceptions.LoadLevelException;
 import NguHuynhDe.display.IRender;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.KeyBoard.Keyboard;
-import NguHuynhDe.MapLv.FileLevel;
-import NguHuynhDe.MapLv.Level;
+import NguHuynhDe.MapLv.SetupLevel;
+import NguHuynhDe.MapLv.ModeGame;
 import NguHuynhDe.music.Audio;
 
 public class Board implements IRender {
@@ -32,11 +32,11 @@ public class Board implements IRender {
 	/**
 	 * Thực thể di chuyển
 	 */
-	public List<Mob> MobList = new ArrayList<>();/**
+	public List<MobileEnti> MobList = new ArrayList<>();/**
 	 /**
 	 * Màn chơi
 	 */
-	protected Level modeG;
+	protected ModeGame modeG;
 	/**
 	 */
 	protected Game GamePlay;
@@ -44,7 +44,7 @@ public class Board implements IRender {
 	 * Input từ keyboard
 	 */
 	protected Keyboard InputFromKeyboard;
-	protected Screen ScreenGame;
+	protected ScreenInGame ScreenGame;
 	/**
 	 * Bomb
 	 */
@@ -72,7 +72,7 @@ public class Board implements IRender {
 	protected boolean checkLose = false;
 	protected boolean checkFirstBlood = false;
 
-	public Board(Game game, Keyboard input, Screen screen) {
+	public Board(Game game, Keyboard input, ScreenInGame screen) {
 		GamePlay = game;
 		InputFromKeyboard = input;
 		ScreenGame = screen;
@@ -105,7 +105,7 @@ public class Board implements IRender {
 		if (!checkFirstBlood) FirstBloodNotify();
 
 		for (int i = 0; i < MobList.size(); i++) {
-			Mob a = MobList.get(i);
+			MobileEnti a = MobList.get(i);
 			if (a.checkBeRemoved()) MobList.remove(i);
 		}
 	}
@@ -115,13 +115,13 @@ public class Board implements IRender {
 	 *
 	 */
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		if( GamePlay.isPaused() ) return;
 
-		int x0 = Screen.xOffset >> 4;
-		int x1 = (Screen.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE;
-		int y0 = Screen.yOffset >> 4;
-		int y1 = (Screen.yOffset + screen.getHeight()) / Game.TILES_SIZE; //
+		int x0 = ScreenInGame.xOffset >> 4;
+		int x1 = (ScreenInGame.xOffset + screen.getWidth() + Game.TILES_SIZE) / Game.TILES_SIZE;
+		int y0 = ScreenInGame.yOffset >> 4;
+		int y1 = (ScreenInGame.yOffset + screen.getHeight()) / Game.TILES_SIZE; //
 
 		for (int y = y0; y < y1; y++) {
 			for (int x = x0; x < x1; x++) {
@@ -220,7 +220,7 @@ public class Board implements IRender {
 		checkLose = false;
 
 		try {
-			modeG = new FileLevel("levels/Level" + level + ".txt", this);
+			modeG = new SetupLevel("levels/Level" + level + ".txt", this);
 			EntiGameList = new Entity[modeG.getHeight() * modeG.getWidth()];
 
 			modeG.createEntities();
@@ -275,7 +275,7 @@ public class Board implements IRender {
 	 */
 	public boolean detectNoEnemies() {
 		int AllEnTi = 0;
-		for (Mob mob : MobList) {
+		for (MobileEnti mob : MobList) {
 			if (!(mob instanceof Player))
 				++AllEnTi;
 		}
@@ -304,7 +304,7 @@ public class Board implements IRender {
 
 	public boolean  detectFirstBlood(){
 		int AllEnTi = 0;
-		for (Mob mob : MobList) {
+		for (MobileEnti mob : MobList) {
 			if (!(mob instanceof Player))
 				if (mob.beAliveP())
 					++AllEnTi;
@@ -358,7 +358,7 @@ public class Board implements IRender {
 	 |--------------------------------------------------------------------------
 	 */
 
-	public Entity getEntity(double x, double y, Mob m) {
+	public Entity getEntity(double x, double y, MobileEnti m) {
 
 		Entity tmp;
 
@@ -392,10 +392,10 @@ public class Board implements IRender {
 		return null;
 	}
 
-	public Mob getMobAt(double x, double y) {
-		Iterator<Mob> MobInList = MobList.iterator();
+	public MobileEnti getMobAt(double x, double y) {
+		Iterator<MobileEnti> MobInList = MobList.iterator();
 
-		Mob currentP;
+		MobileEnti currentP;
 		while(MobInList.hasNext()) {
 			currentP = MobInList.next();
 
@@ -407,9 +407,9 @@ public class Board implements IRender {
 	}
 
 	public Player getPlayer() {
-		Iterator<Mob> itr = MobList.iterator();
+		Iterator<MobileEnti> itr = MobList.iterator();
 
-		Mob currentP;
+		MobileEnti currentP;
 		while(itr.hasNext()) {
 			currentP = itr.next();
 
@@ -420,10 +420,10 @@ public class Board implements IRender {
 		return null;
 	}
 
-	public Mob getMobAtExcluding(int x, int y, Mob a) {
-		Iterator<Mob> MobInList = MobList.iterator();
+	public MobileEnti getMobAtExcluding(int x, int y, MobileEnti a) {
+		Iterator<MobileEnti> MobInList = MobList.iterator();
 
-		Mob currentP;
+		MobileEnti currentP;
 		while(MobInList.hasNext()) {
 			currentP = MobInList.next();
 			if(currentP == a) {
@@ -469,7 +469,7 @@ public class Board implements IRender {
 	}
 	
 
-	public void addMob(Mob e) {
+	public void addMob(MobileEnti e) {
 		MobList.add(e);
 	}
 
@@ -486,18 +486,18 @@ public class Board implements IRender {
 	 | Render
 	 |--------------------------------------------------------------------------
 	 */
-	protected void renderEntities(Screen screen) {
+	protected void renderEntities(ScreenInGame screen) {
 		for (Entity entity : EntiGameList) {
 			entity.render(screen);
 		}
 	}
 
-	protected void renderMobs(Screen screen) {
+	protected void renderMobs(ScreenInGame screen) {
 
-		for (Mob mob : MobList) mob.render(screen);
+		for (MobileEnti mob : MobList) mob.render(screen);
 	}
 
-	protected void renderBombs(Screen screen) {
+	protected void renderBombs(ScreenInGame screen) {
 
 		for (Bomb bomb : bombsList) bomb.render(screen);
 	}
@@ -509,7 +509,7 @@ public class Board implements IRender {
 
 			g.setFont(new Font("Arial", Font.PLAIN, noti.getSize()));
 			g.setColor(noti.getColor());
-			g.drawString(noti.getMessage(), (int) noti.getX() - Screen.xOffset * Game.SCALE, (int) noti.getY());
+			g.drawString(noti.getMessage(), (int) noti.getX() - ScreenInGame.xOffset * Game.SCALE, (int) noti.getY());
 		}
 	}
 
@@ -527,7 +527,7 @@ public class Board implements IRender {
 
 	protected void updateMobs() {
 		if(GamePlay.isPaused()) return;
-		Iterator<Mob> itr = MobList.iterator();
+		Iterator<MobileEnti> itr = MobList.iterator();
 
 		while(itr.hasNext() && !GamePlay.isPaused())
 			itr.next().update();
@@ -568,7 +568,7 @@ public class Board implements IRender {
 		return InputFromKeyboard;
 	}
 
-	public Level getLevel() {
+	public ModeGame getLevel() {
 		return modeG;
 	}
 

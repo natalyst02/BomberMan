@@ -22,7 +22,7 @@ public class BFSTrace implements TraceStrategy {
         Queue<Integer> tileY = new LinkedList<>();
         boolean[][] checkPass = new boolean[gameMap.WIDTH][gameMap.HEIGHT];
         boolean CheckFaceBooms = CheckFaceBoom(enemy.tileX, enemy.tileY, lengthBomb);
-        int directionDodge = -1;
+        int ddoge = -1;
 
         for (int i = 0; i < gameMap.WIDTH; i++) {
             for (int j = 0; j < gameMap.HEIGHT; j++) {
@@ -46,24 +46,24 @@ public class BFSTrace implements TraceStrategy {
         }
 
         while (!direc.isEmpty()) {
-            int X = tileX.poll(), Y = tileY.poll(), direcFirst = direc.poll();
+            int X = tileX.poll(), Y = tileY.poll(), diFi = direc.poll();
 
-            if (directionDodge == -1 && !CheckFaceBoom(enemy.tileX + dx[direcFirst], enemy.tileY + dy[direcFirst], lengthBomb))
-                directionDodge = direcFirst;
+            if (ddoge == -1 && !CheckFaceBoom(enemy.tileX + dx[diFi], enemy.tileY + dy[diFi], lengthBomb))
+                ddoge = diFi;
 
             if (CheckFaceBooms && !CheckFaceBoom(X, Y, lengthBomb)) {
-                return direcFirst;
+                return diFi;
             }
 
-            if ((X == player.tileX) && (Y == player.tileY) && !CheckFaceBoom(enemy.tileX + dx[direcFirst], enemy.tileY + dy[direcFirst], lengthBomb)) {
-                return direcFirst;
+            if ((X == player.tileX) && (Y == player.tileY) && !CheckFaceBoom(enemy.tileX + dx[diFi], enemy.tileY + dy[diFi], lengthBomb)) {
+                return diFi;
             }
 
             for (int direction = 0; direction < 5; ++direction) {
                 X += dx[direction];
                 Y += dy[direction];
                 if (X >= 0 && Y >= 0 && !checkPass[X][Y] && (gameMap.tiles[X][Y] instanceof Grass || gameMap.tiles[X][Y] instanceof Bomber)) {
-                    direc.add(direcFirst);
+                    direc.add(diFi);
                     tileX.add(X);
                     tileY.add(Y);
                     checkPass[X][Y] = true;
@@ -73,10 +73,10 @@ public class BFSTrace implements TraceStrategy {
             }
         }
 
-        int directionRandom = new RandomTrace().trace(enemy, player);
-        if (directionDodge == -1 || !CheckFaceBoom(enemy.tileX + dx[directionRandom], enemy.tileY + dy[directionRandom], lengthBomb))
-            return directionRandom;
-        else return directionDodge;
+        int drand = new RandomTrace().trace(enemy, player);
+        if (ddoge == -1 || !CheckFaceBoom(enemy.tileX + dx[drand], enemy.tileY + dy[drand], lengthBomb))
+            return drand;
+        else return ddoge;
     }
 }
 */

@@ -3,9 +3,9 @@ package NguHuynhDe.entities.mob;
 import NguHuynhDe.Game;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.AnimationInGame;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 
-public abstract class Mob extends AnimationInGame {
+public abstract class MobileEnti extends AnimationInGame {
 	
 	protected Board GameBoard;
 	protected int DirectionBomb = -1;
@@ -13,7 +13,7 @@ public abstract class Mob extends AnimationInGame {
 	protected boolean CheckMove = false;
 	public int DelayEntiTiming = 80;
 	
-	public Mob(int x, int y, Board board) {
+	public MobileEnti(int x, int y, Board board) {
 		_x = x;
 		_y = y;
 		GameBoard = board;
@@ -23,7 +23,7 @@ public abstract class Mob extends AnimationInGame {
 	public abstract void update();
 	
 	@Override
-	public abstract void render(Screen screen);
+	public abstract void render(ScreenInGame screen);
 	
 	protected abstract void calculateMove();
 	

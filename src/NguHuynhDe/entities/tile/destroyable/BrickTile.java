@@ -4,13 +4,13 @@ package NguHuynhDe.entities.tile.destroyable;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
 import NguHuynhDe.entities.mob.enemy.Kondoria;
-import NguHuynhDe.display.Screen;
+import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.MapLv.Coordinates;
-import NguHuynhDe.display.Sprite;
+import NguHuynhDe.display.SpriteInGame;
 
 public class BrickTile extends DestroyableTile {
 	
-	public BrickTile(int x, int y, Sprite sprite) {
+	public BrickTile(int x, int y, SpriteInGame sprite) {
 		super(x, y, sprite);
 	}
 	
@@ -20,12 +20,12 @@ public class BrickTile extends DestroyableTile {
 	}
 	
 	@Override
-	public void render(Screen screen) {
+	public void render(ScreenInGame screen) {
 		int x = Coordinates.tileToPixel(_x);
 		int y = Coordinates.tileToPixel(_y);
 		
 		if(beDemolished) {
-			GameSprite = movingSprite(Sprite.BeExplodedBrick, Sprite.BeExplodedBrick1, Sprite.BeExplodedBrick2);
+			GameSprite = movingSprite(SpriteInGame.BeExplodedBrick, SpriteInGame.BeExplodedBrick1, SpriteInGame.BeExplodedBrick2);
 			
 			screen.RenderEntitiesWithSpriteBelow(x, y, this, SpriteBelowP);
 		}
