@@ -1,7 +1,7 @@
 package NguHuynhDe.entities;
 
 
-public abstract class AnimatedEntitiy extends Entity {
+public abstract class AnimationInGame extends Entity {
 
 	protected int AnimationOfEnti = 0;
 	protected final int AnimationMax = 7500;

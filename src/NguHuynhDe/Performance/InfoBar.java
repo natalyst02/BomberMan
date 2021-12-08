@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class InfoDialog implements WindowListener {
+public class InfoBar implements WindowListener {
 
 		private Frame GameFrame;
 	
-	  public InfoDialog(Frame f, String title, String message, int option) {
+	  public InfoBar(Frame f, String title, String message, int option) {
 		  GameFrame = f;
 		  
 		  final JFrame dialog = new JFrame(title);  

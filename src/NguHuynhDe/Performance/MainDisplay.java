@@ -7,12 +7,12 @@ import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class MainPanel extends JPanel {
+public class MainDisplay extends JPanel {
     private JButton redButton;
     private JButton blueButton;
     public JButton resetButton;
     private JPanel buttonPanel;
-    public MainPanel(Game game){
+    public MainDisplay(Game game){
         setLayout(new GridLayout());
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(null);

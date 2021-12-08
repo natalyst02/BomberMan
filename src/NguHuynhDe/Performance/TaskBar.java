@@ -9,13 +9,13 @@ import javax.swing.JPanel;
 
 import NguHuynhDe.Game;
 
-public class InfoPanel extends JPanel {
+public class TaskBar extends JPanel {
 	
 	private JLabel timeLabel;
 	private JLabel pointsLabel;
 	private JLabel livesLabel;
 
-	public InfoPanel(Game game) {
+	public TaskBar(Game game) {
 		setLayout(new GridLayout());
 		
 		timeLabel = new JLabel("Time: " + game.getBoard().getTime());

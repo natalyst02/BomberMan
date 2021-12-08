@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 import NguHuynhDe.Game;
 import NguHuynhDe.exceptions.BombermanException;
 
-public class GamePanel extends JPanel {
+public class GameDisplay extends JPanel {
 
 	private Game GamePlay;
 	
-	public GamePanel(Frame frame) {
+	public GameDisplay(Frame frame) {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 		
@@ -25,7 +25,6 @@ public class GamePanel extends JPanel {
 			
 		} catch (BombermanException e) {
 			e.printStackTrace();
-			//TODO: so we got a error hum..
 			System.exit(0);
 		}
 		setVisible(true);

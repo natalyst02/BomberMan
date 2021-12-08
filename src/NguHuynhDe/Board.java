@@ -9,21 +9,21 @@ import java.util.List;
 import NguHuynhDe.entities.mob.Mob;
 import NguHuynhDe.entities.mob.Player;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.Message;
+import NguHuynhDe.entities.Notification;
 import NguHuynhDe.entities.bomb.Bomb;
 import NguHuynhDe.entities.bomb.Explosion;
 import NguHuynhDe.entities.tile.powerup.Powerup;
 import NguHuynhDe.exceptions.LoadLevelException;
 import NguHuynhDe.display.IRender;
 import NguHuynhDe.display.Screen;
-import NguHuynhDe.input.Keyboard;
+import NguHuynhDe.KeyBoard.Keyboard;
 import NguHuynhDe.MapLv.FileLevel;
 import NguHuynhDe.MapLv.Level;
 import NguHuynhDe.music.Audio;
 
 public class Board implements IRender {
 
-	private final List<Message> NotiList = new ArrayList<>();
+	private final List<Notification> NotiList = new ArrayList<>();
 	public int ScreenWidth, ScreenHeight;
 	/**
 	 * Thực thể không di chuyển
@@ -477,7 +477,7 @@ public class Board implements IRender {
 		bombsList.add(e);
 	}
 
-	public void addMessage(Message e) {
+	public void addMessage(Notification e) {
 		NotiList.add(e);
 	}
 
@@ -503,8 +503,8 @@ public class Board implements IRender {
 	}
 
 	public void renderMessages(Graphics g) {
-		Message noti;
-		for (Message message : NotiList) {
+		Notification noti;
+		for (Notification message : NotiList) {
 			noti = message;
 
 			g.setFont(new Font("Arial", Font.PLAIN, noti.getSize()));
@@ -546,7 +546,7 @@ public class Board implements IRender {
 
 	protected void updateMessages() {
 		if (GamePlay.isPaused()) return;
-		Message noti;
+		Notification noti;
 		int left;
 		for (int i = 0; i < NotiList.size(); i++) {
 			noti = NotiList.get(i);

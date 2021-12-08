@@ -5,7 +5,7 @@ import java.awt.Color;
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.Message;
+import NguHuynhDe.entities.Notification;
 import NguHuynhDe.entities.mob.Mob;
 import NguHuynhDe.entities.mob.Player;
 import NguHuynhDe.MapLv.Coordinates;
@@ -161,7 +161,7 @@ public abstract class Enemy extends Mob {
 		
 		GameBoard.addPoints(ScoresGame);
 
-		Message gamemess = new Message("+" + ScoresGame, getMessX(), getMessY(), 2, Color.white, 14);
+		Notification gamemess = new Notification("+" + ScoresGame, getMessX(), getMessY(), 2, Color.white, 14);
 		GameBoard.addMessage(gamemess);
 	}
 	

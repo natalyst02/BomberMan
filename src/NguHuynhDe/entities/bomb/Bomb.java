@@ -2,7 +2,7 @@ package NguHuynhDe.entities.bomb;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
-import NguHuynhDe.entities.AnimatedEntitiy;
+import NguHuynhDe.entities.AnimationInGame;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.mob.Mob;
 import NguHuynhDe.entities.mob.Player;
@@ -11,7 +11,7 @@ import NguHuynhDe.display.Screen;
 import NguHuynhDe.display.Sprite;
 import NguHuynhDe.music.Audio;
 
-public class Bomb extends AnimatedEntitiy {
+public class Bomb extends AnimationInGame {
 
 	protected double ExPlodeTiming = 120; //2 giay
 	public int DelayEntiTiming = 20; //bien mat

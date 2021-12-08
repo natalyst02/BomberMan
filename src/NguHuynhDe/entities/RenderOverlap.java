@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import NguHuynhDe.entities.tile.destroyable.DestroyableTile;
 import NguHuynhDe.display.Screen;
 
-public class LayeredEntity extends Entity {
+public class RenderOverlap extends Entity {
 	
 	protected LinkedList<Entity> EntiGameList = new LinkedList<Entity>();
 	
-	public LayeredEntity(int x, int y, Entity ... entities) {
+	public RenderOverlap(int x, int y, Entity ... entities) {
 		_x = x;
 		_y = y;
 		

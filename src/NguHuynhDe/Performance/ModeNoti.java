@@ -13,14 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CodeDialog implements WindowListener, ActionListener {
+public class ModeNoti implements WindowListener, ActionListener {
 
 	private Frame GameFrame;
 	private JFrame _dialog;
 	private JTextField _code;
 	private boolean _valid = false;
 
-	public CodeDialog(Frame f) {
+	public ModeNoti(Frame f) {
 		GameFrame = f;
 
 		_dialog = new JFrame("Enter a Valid Code");

@@ -10,7 +10,7 @@ import java.awt.image.DataBufferInt;
 import NguHuynhDe.exceptions.BombermanException;
 import NguHuynhDe.display.Screen;
 import NguHuynhDe.Performance.Frame;
-import NguHuynhDe.input.Keyboard;
+import NguHuynhDe.KeyBoard.Keyboard;
 
 public class Game extends Canvas {
 	

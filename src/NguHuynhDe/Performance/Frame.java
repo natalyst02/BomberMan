@@ -13,10 +13,10 @@ import NguHuynhDe.music.Audio;
 
 public class Frame extends JFrame {
 	
-	public GamePanel GamePlaypane;
+	public GameDisplay GamePlaypane;
 	private JPanel _containerpane;
-	private InfoPanel _infopanel;
-	private MainPanel _MainPane;
+	private TaskBar _infopanel;
+	private MainDisplay _MainPane;
 	private final Audio _audio = new Audio();
 	
 	private Game GamePlay;
@@ -25,9 +25,9 @@ public class Frame extends JFrame {
 		setJMenuBar(new Menu(this));
 		
 		_containerpane = new JPanel(new BorderLayout());
-		GamePlaypane = new GamePanel(this);
-		_infopanel = new InfoPanel(GamePlaypane.getGame());
-		_MainPane = new MainPanel(GamePlaypane.getGame());
+		GamePlaypane = new GameDisplay(this);
+		_infopanel = new TaskBar(GamePlaypane.getGame());
+		_MainPane = new MainDisplay(GamePlaypane.getGame());
 		ImageIcon icon=  new ImageIcon("res/textures/background11.png");
 		ImagePanel buttonPanel = new ImagePanel(icon.getImage());
 

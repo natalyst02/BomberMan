@@ -8,7 +8,7 @@ import java.util.List;
 import NguHuynhDe.Game;
 import NguHuynhDe.Board;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.Message;
+import NguHuynhDe.entities.Notification;
 import NguHuynhDe.music.Audio;
 import NguHuynhDe.entities.bomb.Bomb;
 import NguHuynhDe.entities.bomb.DirectionalExplosion;
@@ -16,7 +16,7 @@ import NguHuynhDe.entities.mob.enemy.Enemy;
 import NguHuynhDe.entities.tile.powerup.Powerup;
 import NguHuynhDe.display.Screen;
 import NguHuynhDe.display.Sprite;
-import NguHuynhDe.input.Keyboard;
+import NguHuynhDe.KeyBoard.Keyboard;
 import NguHuynhDe.MapLv.Coordinates;
 
 public class Player extends Mob {
@@ -169,7 +169,7 @@ public class Player extends Mob {
 
 			GameBoard.addLives(-1);
 			_audio.playSound("res/sounds/dead.wav",0);
-			Message noti = new Message("-1 LIVE", getMessX(), getMessY(), 2, Color.white, 14);
+			Notification noti = new Notification("-1 LIVE", getMessX(), getMessY(), 2, Color.white, 14);
 			GameBoard.addMessage(noti);
 		}
 	}

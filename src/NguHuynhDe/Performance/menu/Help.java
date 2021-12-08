@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import NguHuynhDe.Performance.Frame;
-import NguHuynhDe.Performance.InfoDialog;
+import NguHuynhDe.Performance.InfoBar;
 
 public class Help extends JMenu {
 
@@ -38,7 +38,7 @@ public class Help extends JMenu {
 		public void actionPerformed(ActionEvent e) {
 			  
 			  if(e.getActionCommand().equals("How to play")) {
-				  new InfoDialog(GameFrame, "How to Play", "Movement: W,A,S,D or UP,DOWN, RIGHT, LEFT\nPut Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
+				  new InfoBar(GameFrame, "How to Play", "Movement: W,A,S,D or UP,DOWN, RIGHT, LEFT\nPut Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
 			  }
 
 			  

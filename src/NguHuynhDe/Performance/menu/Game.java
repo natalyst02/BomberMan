@@ -9,9 +9,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import NguHuynhDe.Performance.CodeDialog;
+import NguHuynhDe.Performance.ModeNoti;
 import NguHuynhDe.Performance.Frame;
-import NguHuynhDe.Performance.InfoDialog;
+import NguHuynhDe.Performance.InfoBar;
 
 public class Game extends JMenu {
 
@@ -60,11 +60,11 @@ public class Game extends JMenu {
 			  }
 			  
 			  if(e.getActionCommand().equals("High Scores")) {
-				  new InfoDialog(GameFrame, "High Scores", "YOU SHOULD TRY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
+				  new InfoBar(GameFrame, "High Scores", "YOU SHOULD TRY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
 			  }
 			  
 			  if(e.getActionCommand().equals("Mode")) {
-				  new CodeDialog(GameFrame);
+				  new ModeNoti(GameFrame);
 			  }
 
 		  }

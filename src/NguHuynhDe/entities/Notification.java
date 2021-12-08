@@ -4,14 +4,14 @@ import java.awt.Color;
 
 import NguHuynhDe.display.Screen;
 
-public class Message extends Entity {
+public class Notification extends Entity {
 
 	protected String Notice;
 	protected int PUduration;
 	protected Color _color;
 	protected int _size;
 	
-	public Message(String noti, double x, double y, int duration, Color color, int size) {
+	public Notification(String noti, double x, double y, int duration, Color color, int size) {
 		_x =x;
 		_y = y;
 		Notice = noti;

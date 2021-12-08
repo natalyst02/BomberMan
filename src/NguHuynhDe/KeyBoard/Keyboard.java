@@ -1,4 +1,4 @@
-package NguHuynhDe.input;
+package NguHuynhDe.KeyBoard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

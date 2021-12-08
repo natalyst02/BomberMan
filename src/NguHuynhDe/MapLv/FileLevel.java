@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.mob.Player;
-import NguHuynhDe.entities.LayeredEntity;
+import NguHuynhDe.entities.RenderOverlap;
 import NguHuynhDe.entities.mob.enemy.Balloom;
 import NguHuynhDe.entities.mob.enemy.Doll;
 import NguHuynhDe.entities.mob.enemy.Kondoria;
@@ -78,7 +78,7 @@ public class FileLevel extends Level {
 				GameBoard.addEntitie(pos, new WallTile(x, y, Sprite.wall));  
 				break;
 			case 'b': 
-				LayeredEntity layer = new LayeredEntity(x, y, 
+				RenderOverlap layer = new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass), 
 						new BrickTile(x ,y, Sprite.brick));
 				
@@ -89,7 +89,7 @@ public class FileLevel extends Level {
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'u':
-				 layer = new LayeredEntity(x, y,
+				 layer = new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass),
 						new BrickTile(x ,y, Sprite.brick));
 
@@ -100,7 +100,7 @@ public class FileLevel extends Level {
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 's':
-				layer = new LayeredEntity(x, y, 
+				layer = new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass), 
 						new BrickTile(x ,y, Sprite.brick));
 				
@@ -111,7 +111,7 @@ public class FileLevel extends Level {
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'f': 
-				layer = new LayeredEntity(x, y, 
+				layer = new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass), 
 						new BrickTile(x ,y, Sprite.brick));
 				
@@ -122,12 +122,12 @@ public class FileLevel extends Level {
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case '*': 
-				GameBoard.addEntitie(pos, new LayeredEntity(x, y, 
+				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass), 
 						new BrickTile(x ,y, Sprite.brick)) );
 				break;
 			case 'x': 
-				GameBoard.addEntitie(pos, new LayeredEntity(x, y, 
+				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
 						new GrassTile(x ,y, Sprite.grass), 
 						new PortalTile(x ,y, GameBoard, Sprite.portal), 
 						new BrickTile(x ,y, Sprite.brick)) );

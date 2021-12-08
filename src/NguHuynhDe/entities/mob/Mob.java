@@ -2,10 +2,10 @@ package NguHuynhDe.entities.mob;
 
 import NguHuynhDe.Game;
 import NguHuynhDe.Board;
-import NguHuynhDe.entities.AnimatedEntitiy;
+import NguHuynhDe.entities.AnimationInGame;
 import NguHuynhDe.display.Screen;
 
-public abstract class Mob extends AnimatedEntitiy {
+public abstract class Mob extends AnimationInGame {
 	
 	protected Board GameBoard;
 	protected int DirectionBomb = -1;
