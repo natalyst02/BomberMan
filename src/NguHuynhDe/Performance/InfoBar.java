@@ -13,7 +13,7 @@ public class InfoBar implements WindowListener {
 
 		private Frame GameFrame;
 	
-	  public InfoBar(Frame f, String title, String message, int option) {
+	  public InfoBar(Frame f, String title, String text, int option) {
 		  GameFrame = f;
 		  
 		  final JFrame dialog = new JFrame(title);  
@@ -29,7 +29,7 @@ public class InfoBar implements WindowListener {
 	        
 	        JButton[] buttons = { button };  
 	        JOptionPane optionPane = new JOptionPane(  
-	                                                 message,  
+	                                                 text,  
 	                                                 option,  
 	                                                 0, null, buttons, button);  
 	        dialog.getContentPane().add(optionPane);  

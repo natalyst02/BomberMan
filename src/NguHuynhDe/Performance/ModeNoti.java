@@ -16,30 +16,30 @@ import javax.swing.JTextField;
 public class ModeNoti implements WindowListener, ActionListener {
 
 	private Frame GameFrame;
-	private JFrame _dialog;
-	private JTextField _code;
-	private boolean _valid = false;
+	private JFrame NotificationMode;
+	private JTextField _mode;
+	private boolean checkbeTrue = false;
 
 	public ModeNoti(Frame f) {
 		GameFrame = f;
 
-		_dialog = new JFrame("Enter a Valid Code");
+		NotificationMode = new JFrame("Enter a Level");
 		final JButton button = new JButton("Load!");
 		button.addActionListener(this);
 
 		JPanel pane = new JPanel(new BorderLayout());
-		_code = new JTextField("code");
+		_mode = new JTextField("");
 
-		pane.add(new JLabel("Code: "), BorderLayout.WEST);
-		pane.add(_code, BorderLayout.CENTER);
+		pane.add(new JLabel("Mode: "), BorderLayout.WEST);
+		pane.add(_mode, BorderLayout.CENTER);
 		pane.add(button, BorderLayout.PAGE_END);
 
-		_dialog.getContentPane().add(pane);
-		_dialog.setLocationRelativeTo(f);
-		_dialog.setSize(400, 100);
-		_dialog.setVisible(true);
-		_dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		_dialog.addWindowListener(this);
+		NotificationMode.getContentPane().add(pane);
+		NotificationMode.setLocationRelativeTo(f);
+		NotificationMode.setSize(400, 100);
+		NotificationMode.setVisible(true);
+		NotificationMode.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		NotificationMode.addWindowListener(this);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class ModeNoti implements WindowListener, ActionListener {
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		if(_valid == false)
+		if(checkbeTrue == false)
 			GameFrame.resumeGame();
 	}
 
@@ -75,12 +75,12 @@ public class ModeNoti implements WindowListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String code = _code.getText();
+		String code = _mode.getText();
 
-		if(GameFrame.validCode(code)) {
+		if(GameFrame.trueMode(code)) {
 			GameFrame.changeLevelByCode(code);
-			_valid = true;
-			_dialog.dispose();
+			checkbeTrue = true;
+			NotificationMode.dispose();
 		} else {
 			JOptionPane.showMessageDialog(GameFrame,
 				    "Wrong!!!",

@@ -21,7 +21,7 @@ public class Bomb extends AnimationInGame {
 	protected DirectionalExplosion[] ExplosionDirections = null;
 	protected boolean beExploded = false;
 
-	protected Audio _audio = new Audio();
+	protected Audio musicGame = new Audio();
 	public Bomb(int x, int y,Board board) {
 		_x = x;
 		_y = y;
@@ -87,7 +87,7 @@ public class Bomb extends AnimationInGame {
 			a.kill();
 		}
 
-		_audio.playSound("res/sounds/bomb.wav",0);
+		musicGame.playSound("res/sounds/bomb.wav",0);
 		ExplosionDirections = new DirectionalExplosion[4];
 		
 		for (int i = 0; i < ExplosionDirections.length; i++) {

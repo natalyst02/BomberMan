@@ -22,30 +22,30 @@ public class Explosion extends Entity {
 		switch (direction) {
 			case 0:
 				if(lastStatus == false) {
-					GameSprite = SpriteInGame.explosion_vertical2;
+					GameSprite = SpriteInGame.verticalExplo2;
 				} else {
-					GameSprite = SpriteInGame.explosion_vertical_toplastCheck2;
+					GameSprite = SpriteInGame.verticalExplo_toplastCheck2;
 				}
 			break;
 			case 1:
 				if(lastStatus == false) {
-					GameSprite = SpriteInGame.explosion_horizontal2;
+					GameSprite = SpriteInGame.HorizonalExplo2;
 				} else {
-					GameSprite = SpriteInGame.explosion_horizontal_rightlastCheck2;
+					GameSprite = SpriteInGame.HorizonalExplo_rightlastCheck2;
 				}
 				break;
 			case 2:
 				if(lastStatus == false) {
-					GameSprite = SpriteInGame.explosion_vertical2;
+					GameSprite = SpriteInGame.verticalExplo2;
 				} else {
-					GameSprite = SpriteInGame.explosion_vertical_downlastCheck2;
+					GameSprite = SpriteInGame.verticalExplo_downlastCheck2;
 				}
 				break;
 			case 3: 
 				if(lastStatus == false) {
-					GameSprite = SpriteInGame.explosion_horizontal2;
+					GameSprite = SpriteInGame.HorizonalExplo2;
 				} else {
-					GameSprite = SpriteInGame.explosion_horizontal_leftlastCheck2;
+					GameSprite = SpriteInGame.HorizonalExplo_leftlastCheck2;
 				}
 				break;
 		}

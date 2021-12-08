@@ -116,11 +116,7 @@ public class SpriteInGame {
 	public static SpriteInGame DeadPlayer11 = new SpriteInGame(16, 4, 2, SpritePicture.tiles1, 16, 16);
 	public static SpriteInGame DeadPlayer21 = new SpriteInGame(16, 5, 2, SpritePicture.tiles1, 16, 16);
 	public static SpriteInGame DeadPlayer31 = new SpriteInGame(16, 6, 2, SpritePicture.tiles1, 16, 16);
-
-
-
-	//
-
+	
 
 
 	/**
@@ -188,7 +184,7 @@ public class SpriteInGame {
 
 	/*
 	|--------------------------------------------------------------------------
-	| Bomb Sprites
+	| Sprites cua bomb
 	|--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame bomb = new SpriteInGame(16, 0, 3, SpritePicture.tiles, 15, 15);
@@ -203,33 +199,33 @@ public class SpriteInGame {
 	public static SpriteInGame bombbeExploded1 = new SpriteInGame(16, 0, 5, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame bombbeExploded2 = new SpriteInGame(16, 0, 6, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_vertical = new SpriteInGame(16, 1, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical1 = new SpriteInGame(16, 2, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical2 = new SpriteInGame(16, 3, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo = new SpriteInGame(16, 1, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo1 = new SpriteInGame(16, 2, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo2 = new SpriteInGame(16, 3, 5, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_horizontal = new SpriteInGame(16, 1, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal1 = new SpriteInGame(16, 1, 8, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal2 = new SpriteInGame(16, 1, 9, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo = new SpriteInGame(16, 1, 7, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo1 = new SpriteInGame(16, 1, 8, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo2 = new SpriteInGame(16, 1, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_horizontal_leftlastCheck = new SpriteInGame(16, 0, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal_leftlastCheck1 = new SpriteInGame(16, 0, 8, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal_leftlastCheck2 = new SpriteInGame(16, 0, 9, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_leftlastCheck = new SpriteInGame(16, 0, 7, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_leftlastCheck1 = new SpriteInGame(16, 0, 8, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_leftlastCheck2 = new SpriteInGame(16, 0, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_horizontal_rightlastCheck = new SpriteInGame(16, 2, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal_rightlastCheck1 = new SpriteInGame(16, 2, 8, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_horizontal_rightlastCheck2 = new SpriteInGame(16, 2, 9, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_rightlastCheck = new SpriteInGame(16, 2, 7, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_rightlastCheck1 = new SpriteInGame(16, 2, 8, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame HorizonalExplo_rightlastCheck2 = new SpriteInGame(16, 2, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_vertical_toplastCheck = new SpriteInGame(16, 1, 4, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical_toplastCheck1 = new SpriteInGame(16, 2, 4, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical_toplastCheck2 = new SpriteInGame(16, 3, 4, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_toplastCheck = new SpriteInGame(16, 1, 4, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_toplastCheck1 = new SpriteInGame(16, 2, 4, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_toplastCheck2 = new SpriteInGame(16, 3, 4, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame explosion_vertical_downlastCheck = new SpriteInGame(16, 1, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical_downlastCheck1 = new SpriteInGame(16, 2, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame explosion_vertical_downlastCheck2 = new SpriteInGame(16, 3, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_downlastCheck = new SpriteInGame(16, 1, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_downlastCheck1 = new SpriteInGame(16, 2, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame verticalExplo_downlastCheck2 = new SpriteInGame(16, 3, 6, SpritePicture.tiles, 16, 16);
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Brick Explosion
+	 | Explosion Brick
 	 |--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame BeExplodedBrick = new SpriteInGame(16, 7, 1, SpritePicture.tiles, 16, 16);
@@ -238,15 +234,15 @@ public class SpriteInGame {
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Powerups_Item
+	 | Item Power
 	 |--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame powerupBombs = new SpriteInGame(16, 0, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerup_flames = new SpriteInGame(16, 1, 10, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame powerupFlame = new SpriteInGame(16, 1, 10, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame powerupEnemySpeed = new SpriteInGame(16, 2, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerup_wallpass = new SpriteInGame(16, 3, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerup_detonator = new SpriteInGame(16, 4, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerup_bombpass = new SpriteInGame(16, 5, 10, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame powerupWallPas = new SpriteInGame(16, 3, 10, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame powerupDe = new SpriteInGame(16, 4, 10, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame powerupBombPas = new SpriteInGame(16, 5, 10, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame powerup_undead = new SpriteInGame(16, 6, 10, SpritePicture.tiles, 16, 16);
 
 
@@ -271,7 +267,7 @@ public class SpriteInGame {
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Moving Sprites
+	 | di chuyen
 	 |--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame movingSprite(SpriteInGame normal, SpriteInGame x1, SpriteInGame x2, int animate, int time) {

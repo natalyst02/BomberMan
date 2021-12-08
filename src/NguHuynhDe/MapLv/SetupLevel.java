@@ -116,7 +116,7 @@ public class SetupLevel extends ModeGame {
 						new BrickTile(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupFlames(x, y, modeG, SpriteInGame.powerup_flames));
+					layer.addBeforeTop(new PowerupFlames(x, y, modeG, SpriteInGame.powerupFlame));
 				}
 				
 				GameBoard.addEntitie(pos, layer);

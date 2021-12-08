@@ -68,7 +68,7 @@ public class Board implements IRender {
 	/**
 	 * Audio
 	 */
-	protected Audio _audio = new Audio();
+	protected Audio musicGame = new Audio();
 	protected boolean checkLose = false;
 	protected boolean checkFirstBlood = false;
 
@@ -231,7 +231,7 @@ public class Board implements IRender {
 
 	// Thay đổi level bằng code cheat
 	public void changeLevelByCode(String str) {
-		int i = modeG.validCode(str);
+		int i = modeG.trueMode(str);
 
 		if (i != -1) changeLevel(i + 1);
 	}
@@ -286,7 +286,7 @@ public class Board implements IRender {
 		if (!detectNoEnemies()) {
 		}
 		else {
-			_audio.playSound("res/sounds/mk.wav",0);
+			musicGame.playSound("res/sounds/mk.wav",0);
 			checkLose = true;
 		}
 
@@ -296,7 +296,7 @@ public class Board implements IRender {
 		if (!detectFirstBlood()) {
 		}
 		else {
-			_audio.playSound("res/sounds/firstblood.wav",0);
+			musicGame.playSound("res/sounds/firstblood.wav",0);
 			checkFirstBlood = true;
 		}
 

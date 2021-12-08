@@ -32,7 +32,7 @@ public abstract class ModeGame implements ILevel {
 	| Mode Game
 	|--------------------------------------------------------------------------
 	 */
-	public int validCode(String str) {
+	public int trueMode(String str) {
 		for (int i = 0; i < Mode.length; i++) {
 			if (Mode[i].equals(str)) {
 				return i;

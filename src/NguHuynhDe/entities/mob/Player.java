@@ -23,7 +23,7 @@ public class Player extends MobileEnti {
 
 	private List<Bomb> bombsList;
 	protected Keyboard InputFromKeyboard;
-	protected Audio _audio = new Audio();
+	protected Audio musicGame = new Audio();
 	protected int DelaySetBomb = 0;
 	public static boolean undead=false;
 	public static List<Powerup> PowerUpList = new ArrayList<Powerup>();
@@ -136,7 +136,7 @@ public class Player extends MobileEnti {
 	}
 
 	protected void placeBomb(int x, int y) {
-		_audio.playSound("res/sounds/place_bomb.wav",0);
+		musicGame.playSound("res/sounds/place_bomb.wav",0);
 		Bomb bo = new Bomb(x, y, GameBoard);
 		GameBoard.addBomb(bo);
 	}
@@ -168,7 +168,7 @@ public class Player extends MobileEnti {
 			CheckAlive = false;
 
 			GameBoard.addLives(-1);
-			_audio.playSound("res/sounds/dead.wav",0);
+			musicGame.playSound("res/sounds/dead.wav",0);
 			Notification noti = new Notification("-1 LIVE", getMessX(), getMessY(), 2, Color.white, 14);
 			GameBoard.addMessage(noti);
 		}
@@ -275,7 +275,7 @@ public class Player extends MobileEnti {
 	 */
 	public void addPowerup(Powerup p) {
 		if(p.checkBeRemoved()) return;
-		_audio.playSound("res/sounds/power_up.wav",0);
+		musicGame.playSound("res/sounds/power_up.wav",0);
 		PowerUpList.add(p);
 
 		p.setValues();
