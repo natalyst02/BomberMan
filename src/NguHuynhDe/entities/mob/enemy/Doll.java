@@ -14,8 +14,8 @@ public class Doll extends Enemy {
 		
 		GameSprite = SpriteInGame.dollMoveRight1;
 		
-		_ai = new AILow();
-		DirectionBomb = _ai.calculateDirection();
+		gameAI = new AILow();
+		DirectionBomb = gameAI.calculateDirection();
 	}
 	
 	/*

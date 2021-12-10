@@ -19,7 +19,7 @@ public abstract class Enemy extends MobileEnti {
 	protected int ScoresGame;
 	
 	protected double EnemySpeed;
-	protected AI _ai;
+	protected AI gameAI;
 
 	protected final double StepsMax;
 	protected final double TheRest;
@@ -87,7 +87,7 @@ public abstract class Enemy extends MobileEnti {
 	public void calculateMove() {
 		int xP = 0, yP = 0;
 		if(GameSteps <= 0){
-			DirectionBomb = _ai.calculateDirection();
+			DirectionBomb = gameAI.calculateDirection();
 			GameSteps = StepsMax;
 		}
 			

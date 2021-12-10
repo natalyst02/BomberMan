@@ -14,8 +14,8 @@ public class Kondoria extends Enemy {
 		
 		GameSprite = SpriteInGame.kondoriaMoveRight1;
 		
-		_ai = new AIMedium(GameBoard.getPlayer(), this);
-		DirectionBomb  = _ai.calculateDirection();
+		gameAI = new AIMedium(GameBoard.getPlayer(), this);
+		DirectionBomb  = gameAI.calculateDirection();
 	}
 	/*
 	|--------------------------------------------------------------------------

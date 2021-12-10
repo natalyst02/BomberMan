@@ -193,7 +193,7 @@ public class SpriteInGame {
 
 
 	/**
-	 * Animate boom nổ sang các hướng khác
+	 * Animation boom nổ sang các hướng khác
 	 */
 	public static SpriteInGame bombbeExploded = new SpriteInGame(16, 0, 4, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame bombbeExploded1 = new SpriteInGame(16, 0, 5, SpritePicture.tiles, 16, 16);

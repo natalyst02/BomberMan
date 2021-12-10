@@ -14,8 +14,8 @@ public class Balloom extends Enemy {
 		
 		GameSprite = SpriteInGame.balloomMoveLeft1;
 		
-		_ai = new AILow();
-		DirectionBomb = _ai.calculateDirection();
+		gameAI = new AILow();
+		DirectionBomb = gameAI.calculateDirection();
 	}
 	
 	/*

@@ -13,8 +13,8 @@ public class Oneal extends Enemy {
 		
 		GameSprite = SpriteInGame.oneal_MoveLeft1;
 		
-		_ai = new AIMedium(GameBoard.getPlayer(), this);
-		DirectionBomb  = _ai.calculateDirection();
+		gameAI = new AIMedium(GameBoard.getPlayer(), this);
+		DirectionBomb  = gameAI.calculateDirection();
 	}
 	
 	/*
