@@ -91,7 +91,7 @@ public class ScreenInGame {
 
 		GameScene.setColor(Color.black);
 		GameScene.fillRect(0, 0, getGameWidth(), getGameHeight());
-		mshi = new ImageIcon("src/NguHuynhDe/display/backgr.png").getImage();
+		mshi = new ImageIcon("res/textures/backgr.png").getImage();
 		GameScene.drawImage(mshi,0, 0,getGameWidth(), getGameHeight(),
 				null);
 		Font GameText = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
@@ -114,7 +114,7 @@ public class ScreenInGame {
 	public void setLevelScene(Graphics GameScene, int mode) {
 		GameScene.setColor(Color.black);
 		GameScene.fillRect(0, 0, getGameWidth(), getGameHeight());
-		mshi = new ImageIcon("src/NguHuynhDe/display/backgr.png").getImage();
+		mshi = new ImageIcon("res/textures/backgr.png").getImage();
 		GameScene.drawImage(mshi,0, 0,getGameWidth(), getGameHeight(),
 				null);
 		Font GameText = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
