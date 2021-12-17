@@ -1,6 +1,6 @@
 package NguHuynhDe.Performance;
 
-import NguHuynhDe.exceptions.BombermanException;
+import NguHuynhDe.Except.GameExcept;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +38,7 @@ public class Mainmenu extends JFrame  {
     }
 
 
-    public static void main(String[] args) throws BombermanException {
+    public static void main(String[] args) throws GameExcept {
         Mainmenu mainwindow = new Mainmenu();
         mainwindow.setVisible(true);
 

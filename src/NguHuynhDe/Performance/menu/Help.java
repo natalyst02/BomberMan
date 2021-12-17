@@ -18,7 +18,7 @@ public class Help extends JMenu {
 		super("Help");
 		
 		/*
-		 * How to play
+		 * cach choi
 		 */
 		JMenuItem instructions = new JMenuItem("How to play");
 		instructions.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
@@ -38,7 +38,7 @@ public class Help extends JMenu {
 		public void actionPerformed(ActionEvent e) {
 			  
 			  if(e.getActionCommand().equals("How to play")) {
-				  new InfoBar(GameFrame, "How to Play", "Movement: W,A,S,D or UP,DOWN, RIGHT, LEFT\nPut Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
+				  new InfoBar(GameFrame, "How to Play", "USE W,A,S,D or UP,DOWN, RIGHT, LEFT\n Place Bombs: SPACE, X", JOptionPane.QUESTION_MESSAGE);
 			  }
 
 			  

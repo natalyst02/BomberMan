@@ -1,9 +1,9 @@
 package NguHuynhDe.entities.tile.powerup;
 
-import NguHuynhDe.entities.tile.Tile;
+import NguHuynhDe.entities.tile.TileObj;
 import NguHuynhDe.display.SpriteInGame;
 
-public abstract class Powerup extends Tile {
+public abstract class Powerup extends TileObj {
 
 	protected int PUduration = -1; // -1 la vo han
 	protected boolean beActive = false;

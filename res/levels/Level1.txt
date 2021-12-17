@@ -23,7 +23,7 @@ x - Portal
 
 Mobs:
 p - Player
-1 - Balloom
+1 - bot1
 2 - Oneal
 
 Powerups:

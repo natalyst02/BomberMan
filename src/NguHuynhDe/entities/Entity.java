@@ -1,11 +1,11 @@
 package NguHuynhDe.entities;
 
-import NguHuynhDe.MapLv.Coordinates;
-import NguHuynhDe.display.IRender;
+import NguHuynhDe.MapLv.LoadGameMap;
+import NguHuynhDe.display.GeneralRender;
 import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.display.SpriteInGame;
 
-public abstract class Entity implements IRender {
+public abstract class Entity implements GeneralRender {
 
 	protected double _x, _y;
 	protected boolean _removed = false;
@@ -40,10 +40,10 @@ public abstract class Entity implements IRender {
 	}
 	
 	public int getTileX() {
-		return Coordinates.pixelToTile(_x + GameSprite.SIZE / 2); // tinh toan va cham
+		return LoadGameMap.changePixelToTile(_x + GameSprite.SIZE / 2); // tinh toan va cham
 	}
 	
 	public int getTileY() {
-		return Coordinates.pixelToTile(_y - GameSprite.SIZE / 2); //tinh toan va cham
+		return LoadGameMap.changePixelToTile(_y - GameSprite.SIZE / 2); //tinh toan va cham
 	}
 }

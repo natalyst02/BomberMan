@@ -1,9 +1,9 @@
 package NguHuynhDe.MapLv;
 
 import NguHuynhDe.Board;
-import NguHuynhDe.exceptions.LoadLevelException;
+import NguHuynhDe.Except.LevelExcep;
 
-public abstract class ModeGame implements ILevel {
+public abstract class ModeGame implements GeneralLoadLv {
 
 	protected int ScreenWidth, ScreenHeight, modeG;
 	protected String[] FileGameTiles;
@@ -17,15 +17,15 @@ public abstract class ModeGame implements ILevel {
 		"L5",
 		};
 
-	public ModeGame(String path, Board board) throws LoadLevelException {
+	public ModeGame(String path, Board board) throws LevelExcep {
 		loadLevel(path);
 		GameBoard = board;
 	}
 
 	@Override
-	public abstract void loadLevel(String path) throws LoadLevelException;
+	public abstract void loadLevel(String path) throws LevelExcep;
 	
-	public abstract void createEntities();
+	public abstract void creatNewEnti();
 
 	/*
 	|--------------------------------------------------------------------------

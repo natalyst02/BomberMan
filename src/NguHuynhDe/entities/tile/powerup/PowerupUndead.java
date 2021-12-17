@@ -1,7 +1,7 @@
 package NguHuynhDe.entities.tile.powerup;
 
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Player;
+import NguHuynhDe.entities.mobileGameEnti.Player;
 import NguHuynhDe.display.SpriteInGame;
 import java.util.Timer;
 import java.util.TimerTask;

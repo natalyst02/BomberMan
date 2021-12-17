@@ -6,22 +6,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import NguHuynhDe.entities.mob.MobileEnti;
-import NguHuynhDe.entities.mob.Player;
+import NguHuynhDe.entities.mobileGameEnti.MobileEnti;
+import NguHuynhDe.entities.mobileGameEnti.Player;
 import NguHuynhDe.entities.Entity;
 import NguHuynhDe.entities.Notification;
-import NguHuynhDe.entities.bomb.Bomb;
-import NguHuynhDe.entities.bomb.Explosion;
+import NguHuynhDe.entities.bomb.GenaralBombExplo;
+import NguHuynhDe.entities.bomb.HandleTypeExplode;
 import NguHuynhDe.entities.tile.powerup.Powerup;
-import NguHuynhDe.exceptions.LoadLevelException;
-import NguHuynhDe.display.IRender;
+import NguHuynhDe.Except.LevelExcep;
+import NguHuynhDe.display.GeneralRender;
 import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.KeyBoard.Keyboard;
 import NguHuynhDe.MapLv.SetupLevel;
 import NguHuynhDe.MapLv.ModeGame;
 import NguHuynhDe.music.Audio;
 
-public class Board implements IRender {
+public class Board implements GeneralRender {
 
 	private final List<Notification> NotiList = new ArrayList<>();
 	public int ScreenWidth, ScreenHeight;
@@ -48,8 +48,8 @@ public class Board implements IRender {
 	/**
 	 * Bomb
 	 */
-	protected List<Bomb> bombsList = new ArrayList<>();
-	private int ScreenGameToShow = -1; //1:endgame, 2:changelevel, 3:paused
+	protected List<GenaralBombExplo> bombsList = new ArrayList<>();
+	private int ScreenGameToShow = -1; //3 options
 	public int getScreen(){
 		return ScreenGameToShow;
 	}
@@ -77,7 +77,7 @@ public class Board implements IRender {
 		InputFromKeyboard = input;
 		ScreenGame = screen;
 
-		changeLevel(1); //start in level 1
+		changeLevel(1); //bat dau o lv 1
 	}
 
 
@@ -145,7 +145,6 @@ public class Board implements IRender {
 		changeLevel(1);
 	}
 
-	@SuppressWarnings("static-access")
 	private void resetProperties() {
 		ScoresGame = Game.POINTS;
 		GameLives = Game.LIVES;
@@ -158,7 +157,6 @@ public class Board implements IRender {
 
 	}
 
-	@SuppressWarnings("static-access")
 	private void resetPoint() {
 		ScoresGame = Game.POINTS;
 		Player.PowerUpList.clear();
@@ -211,7 +209,7 @@ public class Board implements IRender {
 	public void changeLevel(int level) {
 		GameTime = Game.TIME;
 		ScreenGameToShow = 2;
-		GamePlay.resetScreenDelay();
+		GamePlay.resetDelayScene();
 		GamePlay.pause();
 		MobList.clear();
 		bombsList.clear();
@@ -223,13 +221,13 @@ public class Board implements IRender {
 			modeG = new SetupLevel("levels/Level" + level + ".txt", this);
 			EntiGameList = new Entity[modeG.getHeight() * modeG.getWidth()];
 
-			modeG.createEntities();
-		} catch (LoadLevelException e) {
+			modeG.creatNewEnti();
+		} catch (LevelExcep e) {
 			endGame(); 
 		}
 	}
 
-	// Thay đổi level bằng code cheat
+	// Thay đổi level bằng mode
 	public void changeLevelByCode(String str) {
 		int i = modeG.trueMode(str);
 
@@ -266,7 +264,7 @@ public class Board implements IRender {
 	 */
 	public void endGame() {
 		ScreenGameToShow = 1;
-		GamePlay.resetScreenDelay();
+		GamePlay.resetDelayScene();
 		GamePlay.pause();
 	}
 
@@ -320,14 +318,14 @@ public class Board implements IRender {
 	 */
 	public void gamePause() {
 
-		GamePlay.resetScreenDelay();
+		GamePlay.resetDelayScene();
 		if(ScreenGameToShow <= 0)
 			ScreenGameToShow = 3;
 		GamePlay.pause();
 	}
 
 	public void gameResume() {
-		GamePlay.resetScreenDelay();
+		GamePlay.resetDelayScene();
 		ScreenGameToShow = -1;
 		GamePlay.run();
 	}
@@ -376,13 +374,13 @@ public class Board implements IRender {
 		return tmp;
 	}
 
-	public List<Bomb> getBoList() {
+	public List<GenaralBombExplo> getBoList() {
 		return bombsList;
 	}
 
-	public Bomb getBombPos(double x, double y) {
-		Iterator<Bomb> bombInList = bombsList.iterator();
-		Bomb b;
+	public GenaralBombExplo getBombPos(double x, double y) {
+		Iterator<GenaralBombExplo> bombInList = bombsList.iterator();
+		GenaralBombExplo b;
 		while(bombInList.hasNext()) {
 			b = bombInList.next();
 			if(b.getX() == (int)x && b.getY() == (int)y)
@@ -439,13 +437,13 @@ public class Board implements IRender {
 		return null;
 	}
 
-	public Explosion getExplosionPoint(int x, int y) {
-		Iterator<Bomb> bombInList = bombsList.iterator();
-		Bomb bo;
+	public HandleTypeExplode getExplosionPoint(int x, int y) {
+		Iterator<GenaralBombExplo> bombInList = bombsList.iterator();
+		GenaralBombExplo bo;
 		while(bombInList.hasNext()) {
 			bo = bombInList.next();
 
-			Explosion e = bo.ExplosionPoint(x, y);
+			HandleTypeExplode e = bo.ExplosionPoint(x, y);
 			if(e != null) {
 				return e;
 			}
@@ -473,7 +471,7 @@ public class Board implements IRender {
 		MobList.add(e);
 	}
 
-	public void addBomb(Bomb e) {
+	public void addBomb(GenaralBombExplo e) {
 		bombsList.add(e);
 	}
 
@@ -499,7 +497,7 @@ public class Board implements IRender {
 
 	protected void renderBombs(ScreenInGame screen) {
 
-		for (Bomb bomb : bombsList) bomb.render(screen);
+		for (GenaralBombExplo bomb : bombsList) bomb.render(screen);
 	}
 
 	public void renderMessages(Graphics g) {
@@ -533,15 +531,10 @@ public class Board implements IRender {
 			itr.next().update();
 	}
 
-	//	protected void updateShield() {
-//		if (GamePlay.isPaused()) return;
-//		Iterator<Shield> itr = PlayerShield.iterator();
-//
-//	}
 	protected void updateBombs() {
 		if (GamePlay.isPaused()) return;
 
-		for (Bomb bomb : bombsList) bomb.update();
+		for (GenaralBombExplo bomb : bombsList) bomb.update();
 	}
 
 	protected void updateMessages() {

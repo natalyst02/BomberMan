@@ -2,7 +2,7 @@ package NguHuynhDe.entities;
 
 import java.util.LinkedList;
 
-import NguHuynhDe.entities.tile.destroyable.DestroyableTile;
+import NguHuynhDe.entities.tile.Demolished.otherObj;
 import NguHuynhDe.display.ScreenInGame;
 
 public class RenderOverlap extends Entity {
@@ -17,8 +17,8 @@ public class RenderOverlap extends Entity {
 			EntiGameList.add(entities[i]); 
 			
 			if(i > 1) { //load hoat anh chong len
-				if(entities[i] instanceof DestroyableTile)
-					((DestroyableTile)entities[i]).addBelowSprite(entities[i-1].getSprite());
+				if(entities[i] instanceof otherObj)
+					((otherObj)entities[i]).addBelowSprite(entities[i-1].getSprite());
 			}
 		}
 	}
@@ -26,34 +26,34 @@ public class RenderOverlap extends Entity {
 	@Override
 	public void update() {
 		clearRemoved();
-		getTopEntity().update();
+		getPriorEntity().update();
 	}
 	
 	@Override
 	public void render(ScreenInGame screen) {
-		getTopEntity().render(screen);
+		getPriorEntity().render(screen);
 	}
 	
-	public Entity getTopEntity() {
+	public Entity getPriorEntity() {
 		
 		return EntiGameList.getLast();
 	}
 	
 	private void clearRemoved() {
-		Entity top  = getTopEntity();
+		Entity top  = getPriorEntity();
 		
 		if(top.checkBeRemoved())  {
 			EntiGameList.removeLast();
 		}
 	}
 	
-	public void addBeforeTop(Entity e) {
+	public void addBeforePrior(Entity e) {
 		EntiGameList.add(EntiGameList.size() - 1, e);
 	}
 	
 	@Override
 	public boolean checkCollide(Entity e) {
-		return getTopEntity().checkCollide(e);
+		return getPriorEntity().checkCollide(e);
 	}
 
 }

@@ -8,7 +8,7 @@ public class Notification extends Entity {
 
 	protected String Notice;
 	protected int PUduration;
-	protected Color _color;
+	protected Color Gcolor;
 	protected int _size;
 	
 	public Notification(String noti, double x, double y, int duration, Color color, int size) {
@@ -16,7 +16,7 @@ public class Notification extends Entity {
 		_y = y;
 		Notice = noti;
 		PUduration = duration * 60;
-		_color = color;
+		Gcolor = color;
 		_size = size;
 	}
 
@@ -33,7 +33,7 @@ public class Notification extends Entity {
 	}
 
 	public Color getColor() {
-		return _color;
+		return Gcolor;
 	}
 
 	public int getSize() {

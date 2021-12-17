@@ -9,7 +9,7 @@ public class SpriteInGame {
 	public int[] pixelInGame;
 	protected int ScreenGameWidth;
 	protected int ScreenGameHeight;
-	private SpritePicture _sheet;
+	private SpritePicture picSheet;
 
 	/**
 	 * Kích thước texture là 256*256
@@ -21,7 +21,7 @@ public class SpriteInGame {
 		pixelInGame = new int[SIZE * SIZE];
 		XPoint = x * SIZE;
 		YPoint = y * SIZE;
-		_sheet = sheet;
+		picSheet = sheet;
 		ScreenGameWidth = SW;
 		ScreenGameHeight = SH;
 		load();
@@ -34,7 +34,6 @@ public class SpriteInGame {
 		setColor(color);
 	}
 
-	public static SpriteInGame voidSprite = new SpriteInGame(16, 0xffffff); //set mau den
 
 	/**
 	 * Lấy các hình ảnh thực thể tĩnh từ classic.png
@@ -82,7 +81,6 @@ public class SpriteInGame {
 	 */
 	public static SpriteInGame DeadPlayer1 = new SpriteInGame(16, 4, 2, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame DeadPlayer2 = new SpriteInGame(16, 5, 2, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame DeadPlayer3 = new SpriteInGame(16, 6, 2, SpritePicture.tiles, 16, 16);
 	
 
 
@@ -106,81 +104,73 @@ public class SpriteInGame {
 	public static SpriteInGame playerMoveLeft_11 = new SpriteInGame(16, 3, 1, SpritePicture.tiles1, 11, 16);
 	public static SpriteInGame playerMoveLeft_21 = new SpriteInGame(16, 3, 2, SpritePicture.tiles1, 12 ,16);
 	/**
-	 * Animate rẽ pahir của người chơi
+	 * Animate rẽ phải của người chơi
 	 */
 	public static SpriteInGame playerMoveRight_11 = new SpriteInGame(16, 1, 1, SpritePicture.tiles1, 11, 16);
 	public static SpriteInGame playerMoveRight_21 = new SpriteInGame(16, 1, 2, SpritePicture.tiles1, 12, 16);
-	/**
-	 * Animate người chơi bị tiêu diệt
-	 */
-	public static SpriteInGame DeadPlayer11 = new SpriteInGame(16, 4, 2, SpritePicture.tiles1, 16, 16);
-	public static SpriteInGame DeadPlayer21 = new SpriteInGame(16, 5, 2, SpritePicture.tiles1, 16, 16);
-	public static SpriteInGame DeadPlayer31 = new SpriteInGame(16, 6, 2, SpritePicture.tiles1, 16, 16);
-	
-
 
 	/**
 	 | Mobiles Ent
 	 */
-	//BALLOM
-	public static SpriteInGame balloomMoveLeft1 = new SpriteInGame(16, 9, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame balloomMoveLeft2 = new SpriteInGame(16, 9, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame balloomMoveLeft3 = new SpriteInGame(16, 9, 2, SpritePicture.tiles, 16, 16);
+	//bot1
+	public static SpriteInGame bot1MoveLeft1 = new SpriteInGame(16, 9, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot1MoveLeft2 = new SpriteInGame(16, 9, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot1MoveLeft3 = new SpriteInGame(16, 9, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame balloomMoveRight1 = new SpriteInGame(16, 10, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame balloomMoveRight2 = new SpriteInGame(16, 10, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame balloomMoveRight3 = new SpriteInGame(16, 10, 2, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot1MoveRight1 = new SpriteInGame(16, 10, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot1MoveRight2 = new SpriteInGame(16, 10, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot1MoveRight3 = new SpriteInGame(16, 10, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame deadBalloom = new SpriteInGame(16, 9, 3, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame deadbot1 = new SpriteInGame(16, 9, 3, SpritePicture.tiles, 16, 16);
 
-	//ONEAL
-	public static SpriteInGame oneal_MoveLeft1 = new SpriteInGame(16, 11, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame oneal_MoveLeft2 = new SpriteInGame(16, 11, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame oneal_MoveLeft3 = new SpriteInGame(16, 11, 2, SpritePicture.tiles, 16, 16);
+	//bot5
+	public static SpriteInGame bot5MoveLeft1 = new SpriteInGame(16, 11, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5MoveLeft2 = new SpriteInGame(16, 11, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5MoveLeft3 = new SpriteInGame(16, 11, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame oneal_MoveRight1 = new SpriteInGame(16, 12, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame oneal_MoveRight2 = new SpriteInGame(16, 12, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame oneal_MoveRight3 = new SpriteInGame(16, 12, 2, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5MoveRight1 = new SpriteInGame(16, 12, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5MoveRight2 = new SpriteInGame(16, 12, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5MoveRight3 = new SpriteInGame(16, 12, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame oneal_dead = new SpriteInGame(16, 11, 3, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot5dead = new SpriteInGame(16, 11, 3, SpritePicture.tiles, 16, 16);
 
-	//Doll
-	public static SpriteInGame dollMoveLeft1 = new SpriteInGame(16, 13, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame dollMoveLeft2 = new SpriteInGame(16, 13, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame dollMoveLeft3 = new SpriteInGame(16, 13, 2, SpritePicture.tiles, 16, 16);
+	//bot2
+	public static SpriteInGame bot2MoveLeft1 = new SpriteInGame(16, 13, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2MoveLeft2 = new SpriteInGame(16, 13, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2MoveLeft3 = new SpriteInGame(16, 13, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame dollMoveRight1 = new SpriteInGame(16, 14, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame dollMoveRight2 = new SpriteInGame(16, 14, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame dollMoveRight3 = new SpriteInGame(16, 14, 2, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2MoveRight1 = new SpriteInGame(16, 14, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2MoveRight2 = new SpriteInGame(16, 14, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2MoveRight3 = new SpriteInGame(16, 14, 2, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame doll_dead = new SpriteInGame(16, 13, 3, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot2_dead = new SpriteInGame(16, 13, 3, SpritePicture.tiles, 16, 16);
 
-	//Minvo
-	public static SpriteInGame minvoMoveLeft1 = new SpriteInGame(16, 8, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame minvoMoveLeft2 = new SpriteInGame(16, 8, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame minvoMoveLeft3 = new SpriteInGame(16, 8, 7, SpritePicture.tiles, 16, 16);
+	//bot4
+	public static SpriteInGame bot4MoveLeft1 = new SpriteInGame(16, 8, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4MoveLeft2 = new SpriteInGame(16, 8, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4MoveLeft3 = new SpriteInGame(16, 8, 7, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame minvoMoveRight1 = new SpriteInGame(16, 9, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame minvoMoveRight2 = new SpriteInGame(16, 9, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame minvoMoveRight3 = new SpriteInGame(16, 9, 7, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4MoveRight1 = new SpriteInGame(16, 9, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4MoveRight2 = new SpriteInGame(16, 9, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4MoveRight3 = new SpriteInGame(16, 9, 7, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame minvo_dead = new SpriteInGame(16, 8, 8, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot4_dead = new SpriteInGame(16, 8, 8, SpritePicture.tiles, 16, 16);
 
-	//Kondoria
-	public static SpriteInGame kondoriaMoveLeft1 = new SpriteInGame(16, 10, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame kondoriaMoveLeft2 = new SpriteInGame(16, 10, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame kondoriaMoveLeft3 = new SpriteInGame(16, 10, 7, SpritePicture.tiles, 16, 16);
+	//bot3
+	public static SpriteInGame bot3MoveLeft1 = new SpriteInGame(16, 10, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3MoveLeft2 = new SpriteInGame(16, 10, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3MoveLeft3 = new SpriteInGame(16, 10, 7, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame kondoriaMoveRight1 = new SpriteInGame(16, 11, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame kondoriaMoveRight2 = new SpriteInGame(16, 11, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame kondoriaMoveRight3 = new SpriteInGame(16, 11, 7, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3MoveRight1 = new SpriteInGame(16, 11, 5, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3MoveRight2 = new SpriteInGame(16, 11, 6, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3MoveRight3 = new SpriteInGame(16, 11, 7, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame kondoria_dead = new SpriteInGame(16, 10, 8, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame bot3_dead = new SpriteInGame(16, 10, 8, SpritePicture.tiles, 16, 16);
 
 	//ALL
-	public static SpriteInGame mob_dead1 = new SpriteInGame(16, 15, 0, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame mob_dead2 = new SpriteInGame(16, 15, 1, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame mob_dead3 = new SpriteInGame(16, 15, 2, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame deadBot1 = new SpriteInGame(16, 15, 0, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame deadBot2 = new SpriteInGame(16, 15, 1, SpritePicture.tiles, 16, 16);
+	public static SpriteInGame deadBot3 = new SpriteInGame(16, 15, 2, SpritePicture.tiles, 16, 16);
 
 	/*
 	|--------------------------------------------------------------------------
@@ -188,44 +178,30 @@ public class SpriteInGame {
 	|--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame bomb = new SpriteInGame(16, 0, 3, SpritePicture.tiles, 15, 15);
-	public static SpriteInGame bomb_1 = new SpriteInGame(16, 1, 3, SpritePicture.tiles, 13, 15);
-	public static SpriteInGame bomb_2 = new SpriteInGame(16, 2, 3, SpritePicture.tiles, 12, 14);
+	public static SpriteInGame bomb1 = new SpriteInGame(16, 1, 3, SpritePicture.tiles, 13, 15);
+	public static SpriteInGame bomb2 = new SpriteInGame(16, 2, 3, SpritePicture.tiles, 12, 14);
 
 
 	/**
 	 * Animation boom nổ sang các hướng khác
 	 */
-	public static SpriteInGame bombbeExploded = new SpriteInGame(16, 0, 4, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame bombbeExploded1 = new SpriteInGame(16, 0, 5, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame bombbeExploded2 = new SpriteInGame(16, 0, 6, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame verticalExplo = new SpriteInGame(16, 1, 5, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame verticalExplo1 = new SpriteInGame(16, 2, 5, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame verticalExplo2 = new SpriteInGame(16, 3, 5, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame HorizonalExplo = new SpriteInGame(16, 1, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame HorizonalExplo1 = new SpriteInGame(16, 1, 8, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame HorizonalExplo2 = new SpriteInGame(16, 1, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame HorizonalExplo_leftlastCheck = new SpriteInGame(16, 0, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame HorizonalExplo_leftlastCheck1 = new SpriteInGame(16, 0, 8, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame HorizonalExplo_leftlastCheck2 = new SpriteInGame(16, 0, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame HorizonalExplo_rightlastCheck = new SpriteInGame(16, 2, 7, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame HorizonalExplo_rightlastCheck1 = new SpriteInGame(16, 2, 8, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame HorizonalExplo_rightlastCheck2 = new SpriteInGame(16, 2, 9, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame verticalExplo_toplastCheck = new SpriteInGame(16, 1, 4, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame verticalExplo_toplastCheck1 = new SpriteInGame(16, 2, 4, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame verticalExplo_toplastCheck2 = new SpriteInGame(16, 3, 4, SpritePicture.tiles, 16, 16);
 
-	public static SpriteInGame verticalExplo_downlastCheck = new SpriteInGame(16, 1, 6, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame verticalExplo_downlastCheck1 = new SpriteInGame(16, 2, 6, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame verticalExplo_downlastCheck2 = new SpriteInGame(16, 3, 6, SpritePicture.tiles, 16, 16);
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Explosion Brick
+	 | No gach
 	 |--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame BeExplodedBrick = new SpriteInGame(16, 7, 1, SpritePicture.tiles, 16, 16);
@@ -234,15 +210,12 @@ public class SpriteInGame {
 
 	/**
 	 |--------------------------------------------------------------------------
-	 | Item Power
+	 | PU cho nhan vat
 	 |--------------------------------------------------------------------------
 	 */
 	public static SpriteInGame powerupBombs = new SpriteInGame(16, 0, 10, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame powerupFlame = new SpriteInGame(16, 1, 10, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame powerupEnemySpeed = new SpriteInGame(16, 2, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerupWallPas = new SpriteInGame(16, 3, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerupDe = new SpriteInGame(16, 4, 10, SpritePicture.tiles, 16, 16);
-	public static SpriteInGame powerupBombPas = new SpriteInGame(16, 5, 10, SpritePicture.tiles, 16, 16);
 	public static SpriteInGame powerup_undead = new SpriteInGame(16, 6, 10, SpritePicture.tiles, 16, 16);
 
 
@@ -261,7 +234,7 @@ public class SpriteInGame {
 	private void load() {
 		for (int y = 0; y < SIZE; y++)
 			for (int x = 0; x < SIZE; x++) {
-				pixelInGame[x + y * SIZE] = _sheet.pixelInGame[(x + XPoint) + (y + YPoint) * _sheet.SIZE];
+				pixelInGame[x + y * SIZE] = picSheet.pixelInGame[(x + XPoint) + (y + YPoint) * picSheet.SIZE];
 			}
 	}
 

@@ -8,15 +8,15 @@ import javax.imageio.ImageIO;
 
 public class SpritePicture {
 
-	private String _path;
+	private String strPath;
 	public final int SIZE;
 	public int[] pixelInGame;
 	
 	public static SpritePicture tiles = new SpritePicture("/textures/classics.png", 256);
-	public static SpritePicture tiles1 = new SpritePicture("/textures/New folder/classics1.png", 256);
+	public static SpritePicture tiles1 = new SpritePicture("/res/textures/PictureDemo/classics1.png", 256);
 
 	public SpritePicture(String path, int size) {
-		_path = path;
+		strPath = path;
 		SIZE = size;
 		pixelInGame = new int[SIZE * SIZE];
 		load();
@@ -24,7 +24,7 @@ public class SpritePicture {
 	
 	private void load() {
 		try {
-			URL urlLink = SpritePicture.class.getResource(_path);
+			URL urlLink = SpritePicture.class.getResource(strPath);
 			BufferedImage image = ImageIO.read(urlLink);
 			int wG = image.getWidth();
 			int hG = image.getHeight();

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Player;
+import NguHuynhDe.entities.mobileGameEnti.Player;
 
 public class ScreenInGame {
 	protected int ScreenWidth, ScreenHeight;
@@ -26,12 +26,6 @@ public class ScreenInGame {
 		
 		pixelInGame = new int[width * height];
 		
-	}
-	
-	public void clear() {
-		for (int i = 0; i < pixelInGame.length; i++) {
-			pixelInGame[i] = 0;
-		}
 	}
 
 	public void RenderEntitiesWithSpriteBelow(int PointX, int PointY, Entity GameEntity, SpriteInGame BelowPoint) {
@@ -74,10 +68,10 @@ public class ScreenInGame {
 
 		double playerPointX = player.getX() / 16;
 		double addOn = 0.5;
-		int firstBreakpoint = gameboard.getWidth() / 4;
-		int lastBreakpoint = gameboard.getWidth() - firstBreakpoint;
+		int pointBreakFi = gameboard.getWidth() / 4;
+		int pointBreakLas = gameboard.getWidth() - pointBreakFi;
 
-		if( playerPointX > firstBreakpoint + addOn && playerPointX < lastBreakpoint - addOn) {
+		if( playerPointX > pointBreakFi + addOn && playerPointX < pointBreakLas - addOn) {
 			OffsetTemp = (int)player.getX()  - (Game.WIDTH / 2);
 		}
 
@@ -137,13 +131,17 @@ public class ScreenInGame {
 		setTextInScreen("PAUSED", getGameWidth(), getGameHeight(), GameScene);
 		
 	}
-	
+	public void clear() {
+		for (int i = 0; i < pixelInGame.length; i++) {
+			pixelInGame[i] = 0;
+		}
+	}
 	
 	
 	public void setTextInScreen(String s, int w, int h, Graphics g) {
-	    FontMetrics fm = g.getFontMetrics();
-	    int x = (w - fm.stringWidth(s)) / 2;
-	    int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) / 2);
+	    FontMetrics fome = g.getFontMetrics();
+	    int x = (w - fome.stringWidth(s)) / 2;
+	    int y = (fome.getAscent() + (h - (fome.getAscent() + fome.getDescent())) / 2);
 	    g.drawString(s, x, y);
 	 }
 	public int getGameWidth() {

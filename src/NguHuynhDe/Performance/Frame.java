@@ -16,7 +16,7 @@ public class Frame extends JFrame {
 	public GameDisplay GamePlaypane;
 	private JPanel TaskBarPane;
 	private TaskBar panelTaskBar;
-	private MainDisplay _MainPane;
+	private MainDisplay mainGPane;
 	private final Audio musicGame = new Audio();
 	
 	private Game GamePlay;
@@ -27,7 +27,7 @@ public class Frame extends JFrame {
 		TaskBarPane = new JPanel(new BorderLayout());
 		GamePlaypane = new GameDisplay(this);
 		panelTaskBar = new TaskBar(GamePlaypane.getGame());
-		_MainPane = new MainDisplay(GamePlaypane.getGame());
+		mainGPane = new MainDisplay(GamePlaypane.getGame());
 		ImageIcon icon=  new ImageIcon("res/textures/background11.png");
 		ImagePanel buttonPanel = new ImagePanel(icon.getImage());
 
@@ -89,19 +89,19 @@ public class Frame extends JFrame {
 	|--------------------------------------------------------------------------
 	 */
 	public void newGame() {
-		GamePlay.getBoard().newGame();
+		GamePlay.getGBoard().newGame();
 	}
 	
 	public void changeLevel(int i) {
-		GamePlay.getBoard().changeLevel(i);
+		GamePlay.getGBoard().changeLevel(i);
 	}
 
 	public void pauseGame() {
-		GamePlay.getBoard().gamePause();
+		GamePlay.getGBoard().gamePause();
 	}
 
 	public void resumeGame() {
-		GamePlay.getBoard().gameResume();
+		GamePlay.getGBoard().gameResume();
 	}
 	
 	public boolean isRunning() {
@@ -121,11 +121,11 @@ public class Frame extends JFrame {
 	}
 	
 	public boolean trueMode(String str) {
-		return GamePlay.getBoard().getLevel().trueMode(str) != -1;
+		return GamePlay.getGBoard().getLevel().trueMode(str) != -1;
 	}
 	
 	public void changeLevelByCode(String str) {
-		GamePlay.getBoard().changeLevelByCode(str);
+		GamePlay.getGBoard().changeLevelByCode(str);
 	}
 
 }

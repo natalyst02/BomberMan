@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 
-import NguHuynhDe.exceptions.BombermanException;
+import NguHuynhDe.Except.GameExcept;
 import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.Performance.Frame;
 import NguHuynhDe.KeyBoard.Keyboard;
@@ -61,7 +61,7 @@ public class Game extends Canvas {
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
-	public Game(Frame frame) throws BombermanException {
+	public Game(Frame frame) throws GameExcept {
 		GameFrame = frame;
 		GameFrame.setTitle(TITLE);
 		
@@ -157,9 +157,7 @@ public class Game extends Canvas {
 				GameFrame.setPoints(GameBoard.getPoints());
 				GameFrame.setLives(GameBoard.getLives());
 				timer += 1000;
-				GameFrame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
-				updates = 0;
-				frames = 0;
+				GameFrame.setTitle(TITLE);
 				
 				if(GameBoard.getShow() == 2)
 					--ScreenGameDelay;
@@ -206,7 +204,7 @@ public class Game extends Canvas {
 		ScreenGameDelay--;
 	}
 	
-	public void resetScreenDelay() {
+	public void resetDelayScene() {
 		ScreenGameDelay = SCREENDELAY;
 	}
 
@@ -214,7 +212,7 @@ public class Game extends Canvas {
 		return InputFromKeyboard;
 	}
 	
-	public Board getBoard() {
+	public Board getGBoard() {
 		return GameBoard;
 	}
 	

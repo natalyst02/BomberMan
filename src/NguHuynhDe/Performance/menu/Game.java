@@ -60,7 +60,7 @@ public class Game extends JMenu {
 			  }
 			  
 			  if(e.getActionCommand().equals("High Scores")) {
-				  new InfoBar(GameFrame, "High Scores", "YOU SHOULD TRY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
+				  new InfoBar(GameFrame, "High Scores", "YOU SHOULD PLAY ONE MORE", JOptionPane.INFORMATION_MESSAGE);
 			  }
 			  
 			  if(e.getActionCommand().equals("Mode")) {

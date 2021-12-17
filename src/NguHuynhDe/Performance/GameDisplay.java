@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import NguHuynhDe.Game;
-import NguHuynhDe.exceptions.BombermanException;
+import NguHuynhDe.Except.GameExcept;
 
 public class GameDisplay extends JPanel {
 
@@ -23,7 +23,7 @@ public class GameDisplay extends JPanel {
 			
 			GamePlay.setVisible(true);
 			
-		} catch (BombermanException e) {
+		} catch (GameExcept e) {
 			e.printStackTrace();
 			System.exit(0);
 		}

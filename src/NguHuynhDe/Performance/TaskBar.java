@@ -11,28 +11,28 @@ import NguHuynhDe.Game;
 
 public class TaskBar extends JPanel {
 	
-	private JLabel timeLabel;
-	private JLabel pointsLabel;
-	private JLabel livesLabel;
+	private JLabel timeShow;
+	private JLabel pointShow;
+	private JLabel livesShow;
 
 	public TaskBar(Game game) {
 		setLayout(new GridLayout());
 		
-		timeLabel = new JLabel("Time: " + game.getBoard().getTime());
-		timeLabel.setForeground(Color.white);
-		timeLabel.setHorizontalAlignment(JLabel.CENTER);
+		timeShow = new JLabel("Time: " + game.getGBoard().getTime());
+		timeShow.setForeground(Color.white);
+		timeShow.setHorizontalAlignment(JLabel.CENTER);
 		
-		pointsLabel = new JLabel("Points: " + game.getBoard().getPoints());
-		pointsLabel.setForeground(Color.white);
-		pointsLabel.setHorizontalAlignment(JLabel.CENTER);
+		pointShow = new JLabel("Points: " + game.getGBoard().getPoints());
+		pointShow.setForeground(Color.white);
+		pointShow.setHorizontalAlignment(JLabel.CENTER);
 		
-		livesLabel = new JLabel("Lives: " + game.getBoard().getLives());
-		livesLabel.setForeground(Color.white);
-		livesLabel.setHorizontalAlignment(JLabel.CENTER);
+		livesShow = new JLabel("Lives: " + game.getGBoard().getLives());
+		livesShow.setForeground(Color.white);
+		livesShow.setHorizontalAlignment(JLabel.CENTER);
 		
-		add(timeLabel);
-		add(pointsLabel);
-		add(livesLabel);
+		add(timeShow);
+		add(pointShow);
+		add(livesShow);
 		
 		
 		setBackground(Color.black);
@@ -41,16 +41,16 @@ public class TaskBar extends JPanel {
 	}
 	
 	public void setTime(int t) {
-		timeLabel.setText("Time: " + t);
+		timeShow.setText("Time: " + t);
 	}
 
 	public void setLives(int t) {
-		livesLabel.setText("Lives: " + t);
+		livesShow.setText("Lives: " + t);
 		
 	}
 
 	public void setPoints(int t) {
-		pointsLabel.setText("Points: " + t);		
+		pointShow.setText("Points: " + t);		
 	}
 	
 }

@@ -9,33 +9,33 @@ import java.util.StringTokenizer;
 
 import NguHuynhDe.Board;
 import NguHuynhDe.Game;
-import NguHuynhDe.entities.mob.Player;
+import NguHuynhDe.entities.mobileGameEnti.Player;
 import NguHuynhDe.entities.RenderOverlap;
-import NguHuynhDe.entities.mob.enemy.Balloom;
-import NguHuynhDe.entities.mob.enemy.Doll;
-import NguHuynhDe.entities.mob.enemy.Kondoria;
-import NguHuynhDe.entities.mob.enemy.Minvo;
-import NguHuynhDe.entities.mob.enemy.Oneal;
-import NguHuynhDe.entities.tile.GrassTile;
-import NguHuynhDe.entities.tile.PortalTile;
-import NguHuynhDe.entities.tile.WallTile;
-import NguHuynhDe.entities.tile.destroyable.BrickTile;
+import NguHuynhDe.entities.mobileGameEnti.enemy.Bot1;
+import NguHuynhDe.entities.mobileGameEnti.enemy.Bot2;
+import NguHuynhDe.entities.mobileGameEnti.enemy.Bot3;
+import NguHuynhDe.entities.mobileGameEnti.enemy.Bot4;
+import NguHuynhDe.entities.mobileGameEnti.enemy.Bot5;
+import NguHuynhDe.entities.tile.grassObj;
+import NguHuynhDe.entities.tile.portalObj;
+import NguHuynhDe.entities.tile.wallObj;
+import NguHuynhDe.entities.tile.Demolished.brickObj;
 import NguHuynhDe.entities.tile.powerup.PowerupBombs;
 import NguHuynhDe.entities.tile.powerup.PowerupFlames;
 import NguHuynhDe.entities.tile.powerup.PowerupSpeed;
 import NguHuynhDe.entities.tile.powerup.PowerupUndead;
-import NguHuynhDe.exceptions.LoadLevelException;
+import NguHuynhDe.Except.LevelExcep;
 import NguHuynhDe.display.ScreenInGame;
 import NguHuynhDe.display.SpriteInGame;
 
 public class SetupLevel extends ModeGame {
 	
-	public SetupLevel(String path, Board boardgame) throws LoadLevelException {
+	public SetupLevel(String path, Board boardgame) throws LevelExcep {
 		super(path, boardgame);
 	}
 	
 	@Override
-	public void loadLevel(String path) throws LoadLevelException {
+	public void loadLevel(String path) throws LevelExcep {
 		try {
 			URL absPath = SetupLevel.class.getResource("/" + path);
 			
@@ -57,113 +57,113 @@ public class SetupLevel extends ModeGame {
 			
 			in.close();
 		} catch (IOException e) {
-			throw new LoadLevelException("cant load level " + path, e);
+			throw new LevelExcep("cant load level " + path, e);
 		}
 	}
 	
 	@Override
-	public void createEntities() {
+	public void creatNewEnti() {
 		for (int y = 0; y < getHeight(); y++) {
 			for (int x = 0; x < getWidth(); x++) {
-				addLevelEntity( FileGameTiles[y].charAt(x), x, y );
+				addQueueEnti( FileGameTiles[y].charAt(x), x, y );
 			}
 		}
 	}
 	
-	public void addLevelEntity(char c, int x, int y) {
+	public void addQueueEnti(char c, int x, int y) {
 		int pos = x + y * getWidth();
 		
 		switch(c) {
 			case '#': 
-				GameBoard.addEntitie(pos, new WallTile(x, y, SpriteInGame.wall));
+				GameBoard.addEntitie(pos, new wallObj(x, y, SpriteInGame.wall));
 				break;
 			case 'b': 
 				RenderOverlap layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new BrickTile(x ,y, SpriteInGame.brick));
+						new grassObj(x ,y, SpriteInGame.grass),
+						new brickObj(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupBombs(x, y, modeG, SpriteInGame.powerupBombs));
+					layer.addBeforePrior(new PowerupBombs(x, y, modeG, SpriteInGame.powerupBombs));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'u':
 				 layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new BrickTile(x ,y, SpriteInGame.brick));
+						new grassObj(x ,y, SpriteInGame.grass),
+						new brickObj(x ,y, SpriteInGame.brick));
 
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupUndead(x, y, modeG, SpriteInGame.powerup_undead));
+					layer.addBeforePrior(new PowerupUndead(x, y, modeG, SpriteInGame.powerup_undead));
 				}
 
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 's':
 				layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new BrickTile(x ,y, SpriteInGame.brick));
+						new grassObj(x ,y, SpriteInGame.grass),
+						new brickObj(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupSpeed(x, y, modeG, SpriteInGame.powerupEnemySpeed));
+					layer.addBeforePrior(new PowerupSpeed(x, y, modeG, SpriteInGame.powerupEnemySpeed));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case 'f': 
 				layer = new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new BrickTile(x ,y, SpriteInGame.brick));
+						new grassObj(x ,y, SpriteInGame.grass),
+						new brickObj(x ,y, SpriteInGame.brick));
 				
 				if(GameBoard.isPowerupUsed(x, y, modeG) == false) {
-					layer.addBeforeTop(new PowerupFlames(x, y, modeG, SpriteInGame.powerupFlame));
+					layer.addBeforePrior(new PowerupFlames(x, y, modeG, SpriteInGame.powerupFlame));
 				}
 				
 				GameBoard.addEntitie(pos, layer);
 				break;
 			case '*': 
 				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new BrickTile(x ,y, SpriteInGame.brick)) );
+						new grassObj(x ,y, SpriteInGame.grass),
+						new brickObj(x ,y, SpriteInGame.brick)) );
 				break;
 			case 'x': 
 				GameBoard.addEntitie(pos, new RenderOverlap(x, y,
-						new GrassTile(x ,y, SpriteInGame.grass),
-						new PortalTile(x ,y, GameBoard, SpriteInGame.portal),
-						new BrickTile(x ,y, SpriteInGame.brick)) );
+						new grassObj(x ,y, SpriteInGame.grass),
+						new portalObj(x ,y, GameBoard, SpriteInGame.portal),
+						new brickObj(x ,y, SpriteInGame.brick)) );
 				break;
 			case ' ': 
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			case 'p': 
-				GameBoard.addMob( new Player(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard) );
+				GameBoard.addMob( new Player(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard) );
 				ScreenInGame.setPointOffset(0, 0);
 				
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			// quai
 			case '1':
-				GameBoard.addMob( new Balloom(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addMob( new Bot1(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard));
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			case '2':
-				GameBoard.addMob( new Oneal(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addMob( new Bot5(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard));
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			case '3':
-				GameBoard.addMob( new Doll(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addMob( new Bot2(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard));
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			case '4':
-				GameBoard.addMob( new Minvo(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addMob( new Bot4(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard));
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			case '5':
-				GameBoard.addMob( new Kondoria(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, GameBoard));
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addMob( new Bot3(LoadGameMap.changeTileToPixel(x), LoadGameMap.changeTileToPixel(y) + Game.TILES_SIZE, GameBoard));
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			default: 
-				GameBoard.addEntitie(pos, new GrassTile(x, y, SpriteInGame.grass) );
+				GameBoard.addEntitie(pos, new grassObj(x, y, SpriteInGame.grass) );
 				break;
 			}
 	}

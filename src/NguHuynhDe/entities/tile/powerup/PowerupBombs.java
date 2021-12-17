@@ -2,7 +2,7 @@ package NguHuynhDe.entities.tile.powerup;
 
 import NguHuynhDe.Game;
 import NguHuynhDe.entities.Entity;
-import NguHuynhDe.entities.mob.Player;
+import NguHuynhDe.entities.mobileGameEnti.Player;
 import NguHuynhDe.display.SpriteInGame;
 
 public class PowerupBombs extends Powerup {
